@@ -1,7 +1,7 @@
 {
   "name": "uni-app",
   "version": "1.0.0",
-  "main": "node_modules/expo/AppEntry.js",
+  "main": "./src/main.ts",
   "scripts": {
     "start": "expo start",
     "android": "expo start --android",
@@ -13,11 +13,13 @@
     "expo": "~48.0.6",
     "expo-status-bar": "~1.4.4",
     "react": "18.2.0",
-    "react-native": "0.71.3"
+    "react-native": "0.71.3",
+    "styled-components": "^5.3.9"
   },
   "devDependencies": {
     "@babel/core": "^7.20.0",
     "@types/react": "~18.0.14",
+    "@types/styled-components": "^5.1.26",
     "eslint": "^8.36.0",
     "eslint-config-universe": "^11.2.0",
     "husky": "^8.0.3",
