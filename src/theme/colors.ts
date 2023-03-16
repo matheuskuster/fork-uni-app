@@ -3,9 +3,11 @@ const colors = {
   white: '#FFFFFF',
 
   gray: {
+    50: '#F0F0F0',
     100: '#E1E1E1',
     150: '#D9D9D9',
     200: '#C4C4C4',
+    250: '#BBBBBB',
     300: '#AFAFAF',
     400: '#8A8A8A',
     500: '#6D6D6D',
@@ -14,6 +16,7 @@ const colors = {
     700: '#333333',
     750: '#262626',
     800: '#181818',
+    850: '#0F0F0F',
     900: '#000000',
   },
 
@@ -54,6 +57,7 @@ const colors = {
   primary: '',
   input: '',
   'input.disabled': '',
+  'input.icon': '',
   success: '',
   placeholder: '',
 };
@@ -62,6 +66,7 @@ colors.background = colors.black;
 colors.primary = colors.green[500];
 colors.input = colors.gray[750];
 colors['input.disabled'] = colors.gray[650];
+colors['input.icon'] = colors.gray[250];
 colors.success = colors.green[650];
 colors.placeholder = colors.gray[300];
 

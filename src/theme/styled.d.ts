@@ -9,7 +9,6 @@ declare module 'styled-components' {
     spacing: typeof theme.spacing;
     fonts: typeof theme.fonts;
     fontSizes: typeof theme.fontSizes;
-    fontWeights: typeof theme.fontWeights;
     sizes: typeof theme.sizes;
     radii: typeof theme.radii;
   }
