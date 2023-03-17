@@ -1,10 +1,13 @@
+import { useNavigation } from '@react-navigation/native';
 import { useRef, useState } from 'react';
 import { Animated, FlatList, ViewToken } from 'react-native';
 
 import { Onboarding } from '@/components/Onboarding';
+import { AuthNavigatorRoutesProps } from '@/routes/auth.routes';
 import { onboardingSlides } from '@/utils/constants/onboardingSlides';
 
 export function OnboardingScreen() {
+  const navigation = useNavigation<AuthNavigatorRoutesProps>();
   const [currentIndex, setCurrentIndex] = useState(0);
 
   const slidesRef = useRef<FlatList>(null);
@@ -19,6 +22,10 @@ export function OnboardingScreen() {
   const viewConfig = useRef({ viewAreaCoveragePercentThreshold: 50 }).current;
 
   const handleNext = () => {
+    if (currentIndex === onboardingSlides.length - 1) {
+      navigation.replace('signIn');
+    }
+
     if (slidesRef.current && currentIndex < onboardingSlides.length - 1) {
       slidesRef.current.scrollToIndex({ index: currentIndex + 1 });
     }
