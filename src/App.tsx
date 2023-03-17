@@ -3,7 +3,6 @@ import { ThemeProvider } from 'styled-components';
 
 import { FontLoaderProvider } from './providers/FontLoaderProvider';
 import { OnboardingScreen } from './screens/Onboarding';
-
 import { theme } from './theme';
 
 export default function App() {
