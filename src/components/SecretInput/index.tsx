@@ -1,12 +1,13 @@
 import { Feather } from '@expo/vector-icons';
-import { useState } from 'react';
+import { forwardRef, useState } from 'react';
+import { TextInput } from 'react-native';
 import { useTheme } from 'styled-components/native';
 
 import { Input, InputProps } from '@/components/Input';
 
 interface SecretInputProps extends Omit<InputProps, 'rightIcon'> {}
 
-export function SecretInput(props: SecretInputProps) {
+export const SecretInput = forwardRef<TextInput, SecretInputProps>((props, ref) => {
   const [showSecret, setShowSecret] = useState(false);
   const theme = useTheme();
 
@@ -22,5 +23,5 @@ export function SecretInput(props: SecretInputProps) {
     );
   };
 
-  return <Input secureTextEntry={!showSecret} rightIcon={<EyeIcon />} {...props} />;
-}
+  return <Input secureTextEntry={!showSecret} rightIcon={<EyeIcon />} ref={ref} {...props} />;
+});

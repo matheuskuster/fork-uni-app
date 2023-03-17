@@ -1,4 +1,5 @@
-import { TextInputProps, ViewStyle } from 'react-native';
+import { forwardRef } from 'react';
+import { TextInput, TextInputProps, ViewStyle } from 'react-native';
 
 import * as S from './styles';
 
@@ -8,11 +9,12 @@ export interface InputProps extends TextInputProps {
   containerStyle?: ViewStyle;
 }
 
-export function Input({ disabled = false, rightIcon, containerStyle, ...props }: InputProps) {
+export const Input = forwardRef<TextInput, InputProps>((props, ref) => {
+  const { disabled = false, rightIcon, containerStyle } = props;
   return (
     <S.InputContainer disabled={disabled} style={containerStyle}>
-      <S.Input editable={!disabled} hasRightIcon={!!rightIcon} {...props} />
+      <S.Input editable={!disabled} hasRightIcon={!!rightIcon} ref={ref} {...props} />
       {rightIcon}
     </S.InputContainer>
   );
-}
+});
