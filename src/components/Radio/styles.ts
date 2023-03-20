@@ -11,6 +11,7 @@ export const PressableContainer = styled(Animated.View)`
   background: ${(props) => props.theme.colors.input};
   border-radius: ${(props) => props.theme.radii.lg};
   height: 60px;
+  margin-bottom: 16px;
 `;
 
 export const RadioContainer = styled.Pressable`

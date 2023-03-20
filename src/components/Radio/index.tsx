@@ -19,7 +19,7 @@ export function Radio({ items, value, onChange }: RadioProps) {
   const safeOnChange = onChange ?? (() => {});
 
   return (
-    <S.Container spacing={4}>
+    <S.Container>
       {items.map((item) => (
         <RadioButton
           item={item}

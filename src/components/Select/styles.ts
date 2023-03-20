@@ -9,6 +9,7 @@ export const styles = StyleSheet.create({
     width: '100%',
     backgroundColor: theme.colors.gray[750],
     borderRadius: Number(theme.radii.lg.replace('px', '')),
+    zIndex: 9999,
   },
   placeholder: {
     color: '#AFAFAF',

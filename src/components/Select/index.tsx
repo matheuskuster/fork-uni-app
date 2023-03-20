@@ -65,6 +65,7 @@ export function Select({
       labelStyle={styles.label}
       itemSeparatorStyle={styles.itemSeparator}
       textStyle={styles.text}
+      zIndex={1000}
       itemProps={{
         style: styles.item,
       }}

@@ -5,8 +5,10 @@ import { VStack, Spacer } from 'react-native-stacks';
 import * as S from './styles';
 
 import { Input, Button, SecretInput, GoogleButton } from '@/components';
+import { useAuth } from '@/contexts/AuthContext';
 
-export function LoginScreen() {
+export function SignIn() {
+  const { signIn } = useAuth();
   const passwordRef = useRef<TextInput>(null);
 
   return (
@@ -36,7 +38,7 @@ export function LoginScreen() {
 
         <VStack spacing={4}>
           <Spacer />
-          <Button>Entrar</Button>
+          <Button onPress={signIn}>Entrar</Button>
           <Spacer />
           <S.TextCotinueWithGoogle>continuar com:</S.TextCotinueWithGoogle>
           <Spacer />
