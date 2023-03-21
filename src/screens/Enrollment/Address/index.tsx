@@ -3,12 +3,13 @@ import { useNavigation } from '@react-navigation/native';
 
 import * as S from './styles';
 
+import { useDispatch } from '@/app/hooks';
 import { BackButton, Input, NextButton, Title } from '@/components';
-import { useAuth } from '@/contexts/AuthContext';
+import { enroll } from '@/features/auth/authSlice';
 import { EnrollmentNavigatorRoutesProps } from '@/routes/enrollment.routes';
 
 export function Address() {
-  const { enroll } = useAuth();
+  const dispatch = useDispatch();
   const navigaton = useNavigation<EnrollmentNavigatorRoutesProps>();
 
   return (
@@ -41,7 +42,9 @@ export function Address() {
           Você já acessa o painel de controle! {'\n'} Ainda não faremos nenhuma
           cobrança
         </S.FooterMessage>
-        <NextButton onPress={enroll}>Quero embarcar</NextButton>
+        <NextButton onPress={() => dispatch(enroll())}>
+          Quero embarcar
+        </NextButton>
       </S.Footer>
     </S.Container>
   );

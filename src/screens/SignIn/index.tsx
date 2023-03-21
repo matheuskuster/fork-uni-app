@@ -4,11 +4,12 @@ import { VStack, Spacer } from 'react-native-stacks';
 
 import * as S from './styles';
 
+import { useDispatch } from '@/app/hooks';
 import { Input, Button, SecretInput, GoogleButton } from '@/components';
-import { useAuth } from '@/contexts/AuthContext';
+import { signIn } from '@/features/auth/authSlice';
 
 export function SignIn() {
-  const { signIn } = useAuth();
+  const dispatch = useDispatch();
   const passwordRef = useRef<TextInput>(null);
 
   return (
@@ -38,7 +39,23 @@ export function SignIn() {
 
         <VStack spacing={4}>
           <Spacer />
-          <Button onPress={signIn}>Entrar</Button>
+          <Button
+            onPress={() =>
+              dispatch(
+                signIn({
+                  token: '123456789',
+                  user: {
+                    id: '1',
+                    name: 'John Doe',
+                    roles: ['student'],
+                    email: 'john@doe.com',
+                  },
+                }),
+              )
+            }
+          >
+            Entrar
+          </Button>
           <Spacer />
           <S.TextCotinueWithGoogle>continuar com:</S.TextCotinueWithGoogle>
           <Spacer />

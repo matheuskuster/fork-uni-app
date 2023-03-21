@@ -3,6 +3,7 @@ import { useState } from 'react';
 
 import * as S from './styles';
 
+import { useDispatch } from '@/app/hooks';
 import {
   BackButton,
   Input,
@@ -11,12 +12,12 @@ import {
   Select,
   Title,
 } from '@/components';
-import { useAuth } from '@/contexts/AuthContext';
+import { signOut } from '@/features/auth/authSlice';
 import { PathIcon } from '@/icons/PathIcon';
 import { EnrollmentNavigatorRoutesProps } from '@/routes/enrollment.routes';
 
 export function Institution() {
-  const { signOut } = useAuth();
+  const dispatch = useDispatch();
   const navigaton = useNavigation<EnrollmentNavigatorRoutesProps>();
 
   const [shift, setShift] = useState('morning');
@@ -35,7 +36,7 @@ export function Institution() {
   return (
     <S.Container scrollEnabled={false}>
       <S.Header>
-        <BackButton onPress={signOut} />
+        <BackButton onPress={() => dispatch(signOut())} />
 
         <S.HeaderContent>
           <S.IconContainer>
