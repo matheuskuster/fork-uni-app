@@ -1,0 +1,66 @@
+import styled from 'styled-components/native';
+
+export const PaymentContainer = styled.View`
+  height: 103px;
+  width: 355px;
+
+  align-items: center;
+  flex-direction: row;
+
+  padding: ${(props) => props.theme.spacing['7']}px
+    ${(props) => props.theme.spacing['6']}px
+    ${(props) => props.theme.spacing['6']}px
+    ${(props) => props.theme.spacing['7']}px;
+
+  margin-bottom: ${(props) => props.theme.spacing[8]}px;
+  border-radius: ${(props) => props.theme.radii.lg};
+  background-color: ${(props) => props.theme.colors.gray['800']};
+`;
+
+export const StatusBox = styled.View`
+  margin-left: ${(props) => props.theme.spacing['4']}px;
+`;
+
+export const DescriptionBox = styled.View`
+  flex-direction: row;
+  margin-top: 3px;
+`;
+
+export const StatusText = styled.Text`
+  color: ${(props) => props.theme.colors.gray['50']};
+  font-family: ${(props) => props.theme.fonts.light};
+  font-size: ${(props) => props.theme.fontSizes.sm};
+`;
+export const StatusTag = styled.Text`
+  width: 45px;
+
+  padding-top: ${(props) => props.theme.spacing['1']}px;
+  padding-bottom: ${(props) => props.theme.spacing['1']}px;
+
+  text-align: center;
+  border-radius: ${(props) => props.theme.radii.sm};
+  background-color: ${(props) => props.theme.colors.green['650']};
+
+  font-size: ${(props) => props.theme.fontSizes['2xs']};
+  font-family: ${(props) => props.theme.fonts.bold};
+  color: ${(props) => props.theme.colors.gray['800']};
+`;
+
+export const StatusDate = styled.Text`
+  margin-left: ${(props) => props.theme.spacing['2']}px;
+
+  color: ${(props) => props.theme.colors.gray['50']};
+  font-family: ${(props) => props.theme.fonts.regular};
+  font-size: ${(props) => props.theme.fontSizes.lg};
+`;
+
+export const IconContainer = styled.View`
+  height: 48px;
+  width: 48px;
+
+  justify-content: center;
+  align-items: center;
+  border-radius: ${(props) => props.theme.radii.sm};
+
+  background-color: ${(props) => props.theme.colors.gray['750']};
+`;
