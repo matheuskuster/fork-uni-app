@@ -30,6 +30,7 @@ const colors = {
     600: '#7FDB00',
     650: '#12BD17',
     700: '#5CA700',
+    750: '#34A853',
     800: '#3A7300',
     900: '#193F00',
   },
@@ -41,6 +42,7 @@ const colors = {
     300: '#FF7070',
     400: '#FF3B3B',
     500: '#FF0000',
+    550: '#C20F00',
     600: '#DB0000',
     700: '#A70000',
     800: '#730000',
@@ -62,7 +64,7 @@ const colors = {
   placeholder: '',
 };
 
-colors.background = colors.black;
+colors.background = colors.gray[850];
 colors.primary = colors.green[500];
 colors.input = colors.gray[750];
 colors['input.disabled'] = colors.gray[650];

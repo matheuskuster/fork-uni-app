@@ -4,9 +4,13 @@ import { HStack } from 'react-native-stacks';
 
 import * as S from './styles';
 
-interface VerifyCodeInputProps extends ViewProps {}
+interface VerifyCodeInputProps extends ViewProps {
+  onChange?(code: string): void;
+}
 
 export function VerifyCodeInput(props: VerifyCodeInputProps) {
+  const { onChange } = props;
+
   const [code, setCode] = useState(['', '', '', '', '', '']);
   const [currentPosition, setCurrentPosition] = useState(0);
   const inputRefs = [
@@ -71,6 +75,13 @@ export function VerifyCodeInput(props: VerifyCodeInputProps) {
   };
 
   useEffect(() => {
+    const stringfiedCode = code.join('');
+    if (typeof onChange === 'function') {
+      onChange(stringfiedCode);
+    }
+  }, [code]);
+
+  useEffect(() => {
     const inputRef = inputRefs[currentPosition];
 
     if (inputRef?.current?.focus) {
@@ -84,6 +95,7 @@ export function VerifyCodeInput(props: VerifyCodeInputProps) {
         <HStack spacing={2}>
           {[...Array(3)].map((_, index) => (
             <S.Input
+              key={index}
               value={code[index]}
               onFocus={() => onInputFocus(index)}
               onChangeText={(value) => onCharacterInput(index, value)}
@@ -95,6 +107,7 @@ export function VerifyCodeInput(props: VerifyCodeInputProps) {
         <HStack spacing={2}>
           {[...Array(3)].map((_, index) => (
             <S.Input
+              key={index}
               value={code[index + 3]}
               onFocus={() => onInputFocus(index + 3)}
               onChangeText={(value) => onCharacterInput(index + 3, value)}
