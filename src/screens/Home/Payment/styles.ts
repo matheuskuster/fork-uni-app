@@ -32,18 +32,26 @@ export const StatusText = styled.Text`
   font-size: ${(props) => props.theme.fontSizes.sm};
 `;
 export const StatusTag = styled.Text`
-  width: 45px;
-
-  padding-top: ${(props) => props.theme.spacing['1']}px;
-  padding-bottom: ${(props) => props.theme.spacing['1']}px;
+  padding: ${(props) => props.theme.spacing['1']}px
+    ${(props) => props.theme.spacing['2']}px
+    ${(props) => props.theme.spacing['1']}px
+    ${(props) => props.theme.spacing['2']}px;
 
   text-align: center;
+  justify-content: center;
   border-radius: ${(props) => props.theme.radii.sm};
-  background-color: ${(props) => props.theme.colors.green['650']};
 
   font-size: ${(props) => props.theme.fontSizes['2xs']};
   font-family: ${(props) => props.theme.fonts.bold};
   color: ${(props) => props.theme.colors.gray['800']};
+`;
+
+export const PaidStatusTag = styled(StatusTag)`
+  background-color: ${(props) => props.theme.colors.green['650']};
+`;
+
+export const PendingStatusTag = styled(StatusTag)`
+  background-color: ${(props) => props.theme.colors.yellow['600']};
 `;
 
 export const StatusDate = styled.Text`

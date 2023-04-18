@@ -20,18 +20,27 @@ export const ConfirmationStateBackground = styled.View`
 `;
 
 export const ConfirmationState = styled.Text`
-  width: 119px;
+  padding: ${(props) => props.theme.spacing['1']}px
+    ${(props) => props.theme.spacing['3']}px
+    ${(props) => props.theme.spacing['1']}px
+    ${(props) => props.theme.spacing['3']}px;
 
-  padding-top: 3px;
-  padding-bottom: 3px;
-
+  margin-right: auto;
   text-align: center;
-  border-radius: ${(props) => props.theme.radii.sm};
-  background-color: ${(props) => props.theme.colors.green['250']};
 
+  border-radius: ${(props) => props.theme.radii.sm};
   font-size: ${(props) => props.theme.fontSizes.sm};
   font-family: ${(props) => props.theme.fonts.bold};
+`;
+
+export const Confirmed = styled(ConfirmationState)`
   color: ${(props) => props.theme.colors.black};
+  background-color: ${(props) => props.theme.colors.green['250']};
+`;
+
+export const Unconfirmed = styled(ConfirmationState)`
+  color: ${(props) => props.theme.colors.red['500']};
+  background-color: ${(props) => props.theme.colors.red['900']};
 `;
 
 export const DateContainer = styled.View`
@@ -50,19 +59,33 @@ export const DateText = styled.Text`
   font-size: ${(props) => props.theme.fontSizes['3.5xl']};
 `;
 
-export const ButtonBox = styled.TouchableOpacity`
-  width: 317px;
-  height: 50px;
+interface ButtonConfimationProps {
+  isConfirmed: boolean;
+}
+
+export const ButtonBox = styled.TouchableOpacity.attrs({
+  activeOpacity: 0.5,
+})<ButtonConfimationProps>`
+  padding: ${(props) => props.theme.spacing['4']}px
+    ${(props) => props.theme.spacing['0']}px
+    ${(props) => props.theme.spacing['4']}px
+    ${(props) => props.theme.spacing['0']}px;
 
   justify-content: center;
   align-items: center;
 
   border-radius: ${(props) => props.theme.radii.sm};
-  background-color: ${(props) => props.theme.colors.red['900']};
+  background-color: ${(props) =>
+    props.isConfirmed
+      ? props.theme.colors.red['900']
+      : props.theme.colors.green['950']};
 `;
 
-export const ButtonText = styled.Text`
-  color: ${(props) => props.theme.colors.red['500']};
+export const ButtonText = styled.Text<ButtonConfimationProps>`
+  color: ${(props) =>
+    props.isConfirmed
+      ? props.theme.colors.red['500']
+      : props.theme.colors.green['500']};
   font-family: ${(props) => props.theme.fonts.bold};
   font-size: ${(props) => props.theme.fontSizes.sm};
 `;
