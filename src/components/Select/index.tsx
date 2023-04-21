@@ -66,6 +66,9 @@ export function Select({
       itemSeparatorStyle={styles.itemSeparator}
       textStyle={styles.text}
       zIndex={1000}
+      dropDownDirection="BOTTOM"
+      maxHeight={1000}
+      listMode="SCROLLVIEW"
       itemProps={{
         style: styles.item,
       }}

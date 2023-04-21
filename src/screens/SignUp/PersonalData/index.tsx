@@ -26,7 +26,7 @@ export function PersonalData() {
   const [genders, setGenders] = useState(gendersList);
 
   return (
-    <S.Container scrollEnabled={false} keyboardDismissMode="interactive">
+    <S.Container>
       <S.Header>
         <BackButton />
 
@@ -42,7 +42,7 @@ export function PersonalData() {
         </S.HeaderContent>
       </S.Header>
 
-      <S.Body>
+      <S.ScrollContainer>
         <S.Content>
           <Input
             placeholder="Nome completo"
@@ -59,13 +59,17 @@ export function PersonalData() {
             autoCapitalize="none"
             ref={emailRef}
           />
-          <Select
-            value={gender}
-            items={genders}
-            setValue={setGender}
-            setItems={setGenders}
-            placeholder="Gênero"
-          />
+
+          <S.PickerContainer>
+            <Select
+              value={gender}
+              items={genders}
+              setValue={setGender}
+              setItems={setGenders}
+              placeholder="Gênero"
+            />
+          </S.PickerContainer>
+
           {gender === 'another' ? (
             <Input
               placeholder="Qual?"
@@ -86,7 +90,7 @@ export function PersonalData() {
           />
           <Input placeholder="CPF" inputMode="numeric" ref={cpfRef} />
         </S.Content>
-      </S.Body>
+      </S.ScrollContainer>
 
       <S.Footer>
         <NextButton>Avançar</NextButton>

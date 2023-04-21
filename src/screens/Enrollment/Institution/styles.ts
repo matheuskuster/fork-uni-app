@@ -51,24 +51,29 @@ export const IconContainer = styled.View`
   background-color: ${(props) => props.theme.colors.green[500]};
 `;
 
-export const Body = styled.View`
-  flex: 1;
+export const Content = styled.View`
+  gap: ${(props) => props.theme.spacing[4]}px;
 
   margin-top: ${(props) => props.theme.spacing[6]}px;
-  margin-bottom: ${(props) => props.theme.spacing[12]}px;
 
   padding-left: ${(props) => props.theme.spacing[4]}px;
   padding-right: ${(props) => props.theme.spacing[4]}px;
 `;
 
-export const Content = styled.View`
-  gap: ${(props) => props.theme.spacing[4]}px;
+export const PickerContainer = styled.View`
+  z-index: 5;
 `;
 
 export const Footer = styled.View`
-  gap: ${(props) => props.theme.spacing[4]}px;
+  margin-top: auto;
 
-  padding-left: ${(props) => props.theme.spacing[4]}px;
-  padding-right: ${(props) => props.theme.spacing[4]}px;
-  padding-bottom: ${(props) => props.theme.spacing[12]}px;
+  padding: ${(props) => props.theme.spacing[4]}px
+    ${(props) => props.theme.spacing[4]}px
+    ${(props) => props.theme.spacing[12]}px
+    ${(props) => props.theme.spacing[4]}px;
+
+  border-top-left-radius: ${(props) => props.theme.radii['2xl']};
+  border-top-right-radius: ${(props) => props.theme.radii['2xl']};
+
+  background-color: ${(props) => props.theme.colors.background};
 `;

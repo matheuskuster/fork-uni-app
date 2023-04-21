@@ -31,10 +31,18 @@ export function Institution() {
       label: 'Universidade Federal do Espírito Santo - UFES',
       value: 'ufes',
     },
+    {
+      label: 'Instituto Federal do Espírito Santo - IFES',
+      value: 'ifes',
+    },
+    {
+      label: 'FAESA - Centro Educacional',
+      value: 'faesa',
+    },
   ]);
 
   return (
-    <S.Container scrollEnabled={false}>
+    <S.Container>
       <S.Header>
         <BackButton onPress={() => dispatch(signOut())} />
 
@@ -46,8 +54,8 @@ export function Institution() {
         </S.HeaderContent>
       </S.Header>
 
-      <S.Body>
-        <S.Content>
+      <S.Content>
+        <S.PickerContainer>
           <Select
             value={institution}
             items={institutions}
@@ -55,21 +63,22 @@ export function Institution() {
             setItems={setInstitutions}
             placeholder="Instituição"
           />
-          <Input
-            placeholder="Seu CEP"
-            inputMode="numeric"
-            autoComplete="postal-code"
-          />
-          <Radio
-            items={[
-              { label: 'Matutino', value: 'morning' },
-              { label: 'Noturno', value: 'night' },
-            ]}
-            onChange={(value) => setShift(value as string)}
-            value={shift}
-          />
-        </S.Content>
-      </S.Body>
+        </S.PickerContainer>
+
+        <Input
+          placeholder="Seu CEP"
+          inputMode="numeric"
+          autoComplete="postal-code"
+        />
+        <Radio
+          items={[
+            { label: 'Matutino', value: 'morning' },
+            { label: 'Noturno', value: 'night' },
+          ]}
+          onChange={(value) => setShift(value as string)}
+          value={shift}
+        />
+      </S.Content>
 
       <S.Footer>
         <NextButton onPress={() => navigaton.push('price')}>

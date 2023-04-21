@@ -6,7 +6,6 @@ export const Container = styled(KeyboardAwareScrollView).attrs({
     flex: 1,
   },
 })`
-  flex: 1;
   background-color: ${(props) => props.theme.colors.background};
 `;
 
@@ -34,16 +33,21 @@ export const HeaderContent = styled.View`
   gap: ${(props) => props.theme.spacing[2]}px;
 `;
 
-export const Body = styled.ScrollView`
+export const ScrollContainer = styled.ScrollView`
   padding-top: ${(props) => props.theme.spacing[6]}px;
-
   padding-left: ${(props) => props.theme.spacing[4]}px;
   padding-right: ${(props) => props.theme.spacing[4]}px;
+  padding-bottom: ${(props) => props.theme.spacing[32]}px;
 `;
 
 export const Content = styled.View`
   gap: ${(props) => props.theme.spacing[4]}px;
-  padding-bottom: ${(props) => props.theme.spacing[32]}px;
+
+  margin-bottom: ${(props) => props.theme.spacing[32]}px;
+`;
+
+export const PickerContainer = styled.View`
+  z-index: 5;
 `;
 
 export const Footer = styled.View`
