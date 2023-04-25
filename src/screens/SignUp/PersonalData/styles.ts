@@ -25,6 +25,8 @@ export const Header = styled.View`
     ${(props) => props.theme.spacing['6']}px
     ${(props) => props.theme.spacing['4']}px;
 
+  margin-bottom: ${(props) => props.theme.spacing['4']}px;
+
   background-color: ${(props) => props.theme.colors.gray[750]};
 `;
 
@@ -34,7 +36,7 @@ export const HeaderContent = styled.View`
 `;
 
 export const ScrollContainer = styled.ScrollView`
-  padding-top: ${(props) => props.theme.spacing[6]}px;
+  padding-top: ${(props) => props.theme.spacing[0]}px;
   padding-left: ${(props) => props.theme.spacing[4]}px;
   padding-right: ${(props) => props.theme.spacing[4]}px;
   padding-bottom: ${(props) => props.theme.spacing[32]}px;
@@ -51,8 +53,8 @@ export const PickerContainer = styled.View`
 `;
 
 export const Footer = styled.View`
-  padding-top: ${(props) => props.theme.spacing[10]}px;
-  padding-bottom: ${(props) => props.theme.spacing[12]}px;
-  padding-left: ${(props) => props.theme.spacing[4]}px;
-  padding-right: ${(props) => props.theme.spacing[4]}px;
+  padding: ${(props) => props.theme.spacing[10]}px
+    ${(props) => props.theme.spacing[4]}px
+    ${(props) => props.theme.spacing[12]}px
+    ${(props) => props.theme.spacing[4]}px;
 `;

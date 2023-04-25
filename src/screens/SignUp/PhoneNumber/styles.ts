@@ -59,7 +59,6 @@ export const DivisionLine = styled.View`
 export const DivisionTextContainer = styled.Text`
   height: 24px;
 
-  // 58px = 20 + 20 (sides) + 18px (font size)
   width: 58px;
 
   text-align: center;
