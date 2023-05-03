@@ -1,7 +1,9 @@
 import axios, { AxiosError } from 'axios';
 
+import { getDevelopmentURL } from './url';
+
 export const institutionService = axios.create({
-  baseURL: 'http://10.0.2.2:8000/institutions',
+  baseURL: `${getDevelopmentURL()}/institutions`,
 });
 
 export type InstitutionsServiceError = AxiosError<{

@@ -4,11 +4,12 @@ import { useTheme } from 'styled-components';
 
 import * as S from './styles';
 
-import { useDispatch } from '@/app/hooks';
+import { useDispatch, useSelector } from '@/app/hooks';
 import { BackButton, Input, NextButton, Title } from '@/components';
 import { EnrollmentNavigatorRoutesProps } from '@/routes/enrollment.routes';
 
 export function Address() {
+  const { quotation, zipcodeAddress } = useSelector((state) => state.quotation);
   const theme = useTheme();
 
   const dispatch = useDispatch();
@@ -33,13 +34,13 @@ export function Address() {
 
       <S.Body>
         <S.Content>
-          <Input placeholder="29090-540" disabled />
-          <Input placeholder="Endereço" autoComplete="street-address" />
+          <Input placeholder={zipcodeAddress?.zipcode} disabled />
+          <Input autoComplete="street-address" value={zipcodeAddress?.street} />
           <Input placeholder="Número" inputMode="numeric" />
           <Input placeholder="Complemento" />
-          <Input placeholder="Estado" />
-          <Input placeholder="Cidade" />
-          <Input placeholder="Bairro" />
+          <Input placeholder={zipcodeAddress?.state} disabled />
+          <Input placeholder={zipcodeAddress?.city} disabled />
+          <Input placeholder={quotation?.neighborhood.name} disabled />
         </S.Content>
       </S.Body>
 

@@ -20,6 +20,17 @@ interface Quotation {
 interface QuotationState {
   quotation: Quotation | null;
   choosenShift: string | null;
+  zipcodeAddress: {
+    zipcode: string;
+    state: string;
+    city: string;
+    neighborhood: string;
+    street: string;
+    coords: {
+      latitude: string;
+      longitude: string;
+    };
+  } | null;
   foundQuotation: boolean;
   error: string | null;
   isFetching: boolean;
@@ -27,6 +38,7 @@ interface QuotationState {
 
 const initialState: QuotationState = {
   quotation: null,
+  zipcodeAddress: null,
   choosenShift: null,
   foundQuotation: false,
   error: null,
@@ -46,11 +58,22 @@ export const quotationSlice = createSlice({
       state.isFetching = true;
     });
     builder.addCase(getQuotation.fulfilled, (state, action) => {
-      const { quotations } = action.payload;
+      const { quotations, zipcode } = action.payload;
 
-      const foundQuotation = quotations.find(
+      const foundQuotation = quotations?.find(
         (quotation) => quotation.shift === state.choosenShift,
       );
+
+      if (zipcode) {
+        state.zipcodeAddress = {
+          zipcode: zipcode.cep,
+          state: zipcode.state,
+          city: zipcode.city,
+          neighborhood: zipcode.neighborhood,
+          street: zipcode.street,
+          coords: zipcode.coords,
+        };
+      }
 
       if (foundQuotation) {
         state.quotation = {
@@ -77,6 +100,7 @@ export const quotationSlice = createSlice({
     });
     builder.addCase(getQuotation.rejected, (state, action) => {
       state.error = action.error.message as string;
+      console.log(action.error);
       state.isFetching = false;
     });
   },

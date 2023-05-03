@@ -1,7 +1,9 @@
 import axios, { AxiosError } from 'axios';
 
+import { getDevelopmentURL } from './url';
+
 export const authService = axios.create({
-  baseURL: 'http://10.0.2.2:8000/auth',
+  baseURL: `${getDevelopmentURL()}/auth`,
 });
 
 export type AuthServiceError = AxiosError<{

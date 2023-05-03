@@ -64,6 +64,7 @@ export function Institution() {
   };
 
   useEffect(() => {
+    console.log(foundQuotation);
     if (foundQuotation && submitted && !isFetching) {
       navigaton.navigate('price');
     } else if (!foundQuotation && submitted && !isFetching) {
