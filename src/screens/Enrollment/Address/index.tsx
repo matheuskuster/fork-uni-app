@@ -1,14 +1,16 @@
 import { Feather } from '@expo/vector-icons';
 import { useNavigation } from '@react-navigation/native';
+import { useTheme } from 'styled-components';
 
 import * as S from './styles';
 
 import { useDispatch } from '@/app/hooks';
 import { BackButton, Input, NextButton, Title } from '@/components';
-import { enroll } from '@/features/auth/authSlice';
 import { EnrollmentNavigatorRoutesProps } from '@/routes/enrollment.routes';
 
 export function Address() {
+  const theme = useTheme();
+
   const dispatch = useDispatch();
   const navigaton = useNavigation<EnrollmentNavigatorRoutesProps>();
 
@@ -19,9 +21,13 @@ export function Address() {
 
         <S.HeaderContent>
           <S.IconContainer>
-            <Feather name="map-pin" size={32} color="#0F0F0F" />
+            <Feather
+              name="map-pin"
+              size={theme.sizes[8]}
+              color={theme.colors.gray[850]}
+            />
           </S.IconContainer>
-          <Title color="#F0F0F0">Endereço</Title>
+          <Title color={theme.colors.gray[50]}>Endereço</Title>
         </S.HeaderContent>
       </S.Header>
 
@@ -42,7 +48,7 @@ export function Address() {
           Você já acessa o painel de controle! {'\n'} Ainda não faremos nenhuma
           cobrança
         </S.FooterMessage>
-        <NextButton onPress={() => dispatch(enroll())}>
+        <NextButton onPress={() => console.log('NextButton Pressed')}>
           Quero embarcar
         </NextButton>
       </S.Footer>

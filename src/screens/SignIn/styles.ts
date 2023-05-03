@@ -75,3 +75,12 @@ export const HighLight = styled.Text`
   font-size: ${(props) => props.theme.fontSizes.md};
   font-family: ${(props) => props.theme.fonts.medium};
 `;
+
+export const FormErrorMessage = styled.Text`
+  align-self: flex-start;
+  margin-top: -4px;
+
+  font-size: ${(props) => props.theme.fontSizes.xs};
+  font-family: ${(props) => props.theme.fonts.regular};
+  color: ${(props) => props.theme.colors.red[500]};
+`;

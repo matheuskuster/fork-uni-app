@@ -1,8 +1,7 @@
 import axios, { AxiosError } from 'axios';
 
-// TODO: Really use this service
 export const authService = axios.create({
-  baseURL: 'http://localhost:3000/auth',
+  baseURL: 'http://10.0.2.2:8000/auth',
 });
 
 export type AuthServiceError = AxiosError<{

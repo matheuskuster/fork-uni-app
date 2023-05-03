@@ -1,14 +1,22 @@
 import { useNavigation } from '@react-navigation/native';
 import { VStack, Spacer } from 'react-native-stacks';
+import { useTheme } from 'styled-components';
 
 import * as S from './styles';
 
+import { useSelector } from '@/app/hooks';
 import { BackButton, NextButton, Title } from '@/components';
 import { Receipt } from '@/icons/Receipt';
 import { EnrollmentNavigatorRoutesProps } from '@/routes/enrollment.routes';
+import { shiftTranslation } from '@/utils/constants/shiftTranslation';
+import { formatPrice } from '@/utils/formatPrice';
 
 export function Price() {
+  const theme = useTheme();
+
   const navigaton = useNavigation<EnrollmentNavigatorRoutesProps>();
+
+  const { quotation } = useSelector((state) => state.quotation);
 
   return (
     <S.Container>
@@ -19,7 +27,7 @@ export function Price() {
           <S.IconContainer>
             <Receipt />
           </S.IconContainer>
-          <Title color="#F0F0F0">Cotação</Title>
+          <Title color={theme.colors.gray[50]}>Cotação</Title>
         </S.HeaderContent>
       </S.Header>
 
@@ -27,14 +35,25 @@ export function Price() {
         <S.Content>
           <VStack alignment="leading" spacing={4}>
             <S.ClassText>ROTA:</S.ClassText>
-            <S.ClassValueText>Jardim Camburi x UVV</S.ClassValueText>
+            <S.ClassValueText>
+              {quotation?.neighborhood.name} x {quotation?.institution.acronym}
+            </S.ClassValueText>
             <Spacer />
             <S.ClassText>TURNO:</S.ClassText>
-            <S.ClassValueText>Matutino</S.ClassValueText>
+            <S.ClassValueText>
+              {
+                shiftTranslation[
+                  quotation?.shift as keyof typeof shiftTranslation
+                ]
+              }
+            </S.ClassValueText>
             <Spacer />
             <S.ClassText>VALOR:</S.ClassText>
             <S.ClassValueText>
-              <S.HighLight>140,00</S.HighLight>/mês
+              <S.HighLight>
+                {formatPrice(quotation!.cost, { showCurrency: false })}
+              </S.HighLight>
+              /mês
             </S.ClassValueText>
             <Spacer />
             <S.ClassText>Formas de pagamento:</S.ClassText>

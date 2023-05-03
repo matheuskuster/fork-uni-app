@@ -7,7 +7,7 @@ import { styles } from './styles';
 
 DropdownPicker.setLanguage('PT');
 
-type Item = {
+export type SelectItem = {
   label: string;
   value: string;
   icon?: () => JSX.Element;
@@ -15,9 +15,9 @@ type Item = {
 
 interface SelectProps {
   value: string | null;
-  items: Item[];
+  items: SelectItem[];
   setValue: React.Dispatch<React.SetStateAction<string | null>>;
-  setItems: React.Dispatch<React.SetStateAction<Item[]>>;
+  setItems: React.Dispatch<React.SetStateAction<SelectItem[]>>;
   placeholder?: string;
 }
 

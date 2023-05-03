@@ -58,9 +58,6 @@ export const Body = styled.View`
 
 export const Content = styled.View`
   gap: ${(props) => props.theme.spacing[1]}px;
-
-  padding-left: ${(props) => props.theme.spacing[5]}px;
-  padding-right: ${(props) => props.theme.spacing[5]}px;
 `;
 
 export const ClassText = styled.Text`
