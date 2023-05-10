@@ -4,8 +4,8 @@ export const BoardingContainer = styled.View`
   height: 224px;
   justify-content: space-between;
   border-radius: ${(props) => props.theme.radii.lg};
-  margin-top: ${(props) => props.theme.spacing[4]}px;
-  margin-bottom: ${(props) => props.theme.spacing[4]}px;
+  margin-left: ${(props) => props.theme.spacing[4]}px;
+  margin-right: ${(props) => props.theme.spacing[4]}px;
 
   padding: ${(props) => props.theme.spacing['5']}px
     ${(props) => props.theme.spacing['6']}px

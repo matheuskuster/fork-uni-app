@@ -17,6 +17,7 @@ export const DriverContainer = styled.TouchableOpacity.attrs({
   margin-top: ${(props) => props.theme.spacing[4]}px;
 
   background-color: ${(props) => props.theme.colors.green['500']};
+  margin: ${(props) => props.theme.spacing[4]}px;
 `;
 
 export const DriverTextContainer = styled.View`

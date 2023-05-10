@@ -25,11 +25,8 @@ export function Home() {
 
       <S.ScrollContainer>
         <Basemap />
-
-        <Driver status="confirmed" />
-
+        <Driver status="searching" />
         <Boarding />
-
         <Payment />
       </S.ScrollContainer>
 

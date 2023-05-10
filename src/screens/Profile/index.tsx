@@ -1,15 +1,22 @@
+import { useNavigation } from '@react-navigation/native';
+
 import { MenuOption } from './MenuOption';
 import * as S from './styles';
 
+import { useSelector } from '@/app/hooks';
 import { BackButton } from '@/components';
 import { ChatIcon } from '@/icons/ChatIcon';
 import { GearIcon } from '@/icons/GearIcon';
 import { NotePencilIcon } from '@/icons/NotePencilIcon';
 import { QuestionIcon } from '@/icons/QuestionIcon';
 import { WhatsAppIcon } from '@/icons/WhatsAppIcon';
+import { AppNavigatorRoutesProps } from '@/routes/app.routes';
 import { theme } from '@/theme';
 
 export function Profile() {
+  const navigation = useNavigation<AppNavigatorRoutesProps>();
+  const { user } = useSelector((state) => state.auth);
+
   return (
     <S.Container>
       <S.HeaderContainer>
@@ -20,6 +27,7 @@ export function Profile() {
             left: theme.spacing[4],
             bottom: theme.spacing[4] + 2,
           }}
+          onPress={() => navigation.goBack()}
         />
         <S.HeaderTitle>Perfil</S.HeaderTitle>
       </S.HeaderContainer>
@@ -27,9 +35,11 @@ export function Profile() {
       <S.ContentContainer>
         <S.UserContainer>
           <S.UserPhotoContainer>
-            <S.UserPhoto>G</S.UserPhoto>
+            <S.UserPhoto>
+              {user?.name.split(' ').map((name) => name[0])}
+            </S.UserPhoto>
           </S.UserPhotoContainer>
-          <S.UserName>Gabriel Rodrigues Silva</S.UserName>
+          <S.UserName>{user?.name}</S.UserName>
         </S.UserContainer>
         <MenuOption
           icon={<WhatsAppIcon size={28} />}

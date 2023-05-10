@@ -10,6 +10,7 @@ interface Quotation {
   institution: {
     name: string;
     acronym: string;
+    id: string;
   };
   neighborhood: {
     id: string;
@@ -52,6 +53,14 @@ export const quotationSlice = createSlice({
     setShift: (state, action: PayloadAction<string>) => {
       state.choosenShift = action.payload;
     },
+    resetQuotation: (state) => {
+      state.quotation = null;
+      state.choosenShift = null;
+      state.zipcodeAddress = null;
+      state.foundQuotation = false;
+      state.error = null;
+      state.isFetching = false;
+    },
   },
   extraReducers: (builder) => {
     builder.addCase(getQuotation.pending, (state) => {
@@ -84,6 +93,7 @@ export const quotationSlice = createSlice({
           institution: {
             name: foundQuotation.institution.name,
             acronym: foundQuotation.institution.acronym,
+            id: foundQuotation.institution.id,
           },
           neighborhood: {
             id: foundQuotation.neighborhood.id,
@@ -100,7 +110,6 @@ export const quotationSlice = createSlice({
     });
     builder.addCase(getQuotation.rejected, (state, action) => {
       state.error = action.error.message as string;
-      console.log(action.error);
       state.isFetching = false;
     });
   },

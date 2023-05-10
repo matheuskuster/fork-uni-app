@@ -22,17 +22,20 @@ export const GradientContainer = styled(LinearGradient).attrs({
 
 export const RouteTitle = styled.Text`
   color: ${(props) => props.theme.colors.green['500']};
-
   font-family: ${(props) => props.theme.fonts.light};
   font-size: ${(props) => props.theme.fontSizes.md};
+  margin-left: ${(props) => props.theme.spacing[2]}px;
 `;
 export const RouteText = styled.Text`
   color: ${(props) => props.theme.colors.gray['50']};
   font-family: ${(props) => props.theme.fonts.bold};
   font-size: ${(props) => props.theme.fontSizes['2xl']};
+  margin-left: ${(props) => props.theme.spacing[2]}px;
 `;
 export const ShiftText = styled.Text`
   color: ${(props) => props.theme.colors.gray['50']};
   font-family: ${(props) => props.theme.fonts.light};
   font-size: ${(props) => props.theme.fontSizes.md};
+  margin-left: ${(props) => props.theme.spacing[2]}px;
+  margin-bottom: ${(props) => props.theme.spacing[2]}px;
 `;

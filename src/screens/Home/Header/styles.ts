@@ -6,8 +6,9 @@ export const HeaderContainer = styled.View`
   align-items: center;
 
   height: 58px;
-  margin-top: 64px;
   margin-bottom: ${(props) => props.theme.spacing[2]}px;
+  padding-left: ${(props) => props.theme.spacing[4]}px;
+  padding-right: ${(props) => props.theme.spacing[4]}px;
 `;
 
 export const HeaderText = styled.Text`

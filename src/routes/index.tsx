@@ -1,5 +1,6 @@
 import { NavigationContainer } from '@react-navigation/native';
 
+import { AppRoutes } from './app.routes';
 import { AuthRoutes } from './auth.routes';
 import { EnrollmentRoutes } from './enrollment.routes';
 
@@ -25,7 +26,11 @@ export function Routes() {
   }
 
   if (isAuthenticated && isEnrolled) {
-    return <NavigationContainer>{/* APP ROUTES */}</NavigationContainer>;
+    return (
+      <NavigationContainer>
+        <AppRoutes />
+      </NavigationContainer>
+    );
   }
 
   return null;

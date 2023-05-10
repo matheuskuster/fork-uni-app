@@ -1,19 +1,53 @@
 import { Feather } from '@expo/vector-icons';
 import { useNavigation } from '@react-navigation/native';
+import { useEffect, useState } from 'react';
 import { useTheme } from 'styled-components';
 
 import * as S from './styles';
 
 import { useDispatch, useSelector } from '@/app/hooks';
 import { BackButton, Input, NextButton, Title } from '@/components';
+import { enroll } from '@/features/auth/authSlice';
+import { createStudent } from '@/features/student/studentActions';
 import { EnrollmentNavigatorRoutesProps } from '@/routes/enrollment.routes';
 
 export function Address() {
-  const { quotation, zipcodeAddress } = useSelector((state) => state.quotation);
+  const { user } = useSelector((state) => state.auth);
+  const { quotation, zipcodeAddress, choosenShift } = useSelector(
+    (state) => state.quotation,
+  );
+  const { isCreating, error } = useSelector((state) => state.student);
   const theme = useTheme();
 
   const dispatch = useDispatch();
   const navigaton = useNavigation<EnrollmentNavigatorRoutesProps>();
+  const [submitted, setSubmitted] = useState(false);
+
+  function onSubmit() {
+    setSubmitted(true);
+    dispatch(
+      createStudent({
+        institutionId: quotation!.institution.id,
+        name: user!.name,
+        shift: choosenShift!,
+        home: {
+          city: zipcodeAddress!.city,
+          neighborhood: quotation!.neighborhood.name,
+          number: '222',
+          state: zipcodeAddress!.state,
+          street: zipcodeAddress!.street,
+          zipcode: zipcodeAddress!.zipcode,
+          complement: 'Apt. 1002',
+        },
+      }),
+    );
+  }
+
+  useEffect(() => {
+    if (!isCreating && submitted && !error) {
+      dispatch(enroll());
+    }
+  }, [isCreating]);
 
   return (
     <S.Container scrollEnabled={false}>
@@ -49,7 +83,7 @@ export function Address() {
           Você já acessa o painel de controle! {'\n'} Ainda não faremos nenhuma
           cobrança
         </S.FooterMessage>
-        <NextButton onPress={() => console.log('NextButton Pressed')}>
+        <NextButton onPress={onSubmit} isLoading={isCreating}>
           Quero embarcar
         </NextButton>
       </S.Footer>

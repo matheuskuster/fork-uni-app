@@ -1,3 +1,4 @@
+import { useNavigation } from '@react-navigation/native';
 import { useState, useMemo } from 'react';
 import { FlatList } from 'react-native';
 import { useTheme } from 'styled-components';
@@ -6,6 +7,7 @@ import { Notification } from './Notification';
 import * as S from './styles';
 
 import { BackButton } from '@/components';
+import { AppNavigatorRoutesProps } from '@/routes/app.routes';
 
 const notificationsTest = [
   {
@@ -67,6 +69,7 @@ const notificationsTest = [
 ];
 
 export function Notifications() {
+  const navigation = useNavigation<AppNavigatorRoutesProps>();
   const theme = useTheme();
   const [notifications, setNotifications] = useState(notificationsTest);
 
@@ -90,6 +93,7 @@ export function Notifications() {
     <S.Container>
       <S.HeaderContainer>
         <BackButton
+          onPress={() => navigation.goBack()}
           containerStyle={{
             backgroundColor: `${theme.colors.gray[750]}`,
             position: 'absolute',

@@ -16,6 +16,7 @@ interface Quotation {
   recurrence: string;
   shift: string;
   institution: {
+    id: string;
     name: string;
     acronym: string;
     type: 'school' | 'university' | 'business';
