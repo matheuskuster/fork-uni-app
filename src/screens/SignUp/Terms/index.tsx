@@ -1,5 +1,8 @@
+import { useNavigation } from '@react-navigation/native';
+
 import * as S from './styles';
 
+import { useDispatch, useSelector } from '@/app/hooks';
 import {
   BackButton,
   Description,
@@ -7,12 +10,38 @@ import {
   Subtitle,
   Title,
 } from '@/components';
+import { signUpUser } from '@/features/signup/signupActions';
 
 export function Terms() {
+  const navigation = useNavigation();
+  const dispatch = useDispatch();
+  const { isLoading, isCreating, signUp } = useSelector((state) => {
+    return {
+      signUp: state.signup,
+      isLoading: state.auth.isLoading,
+      isCreating: state.signup.isCreating,
+    };
+  });
+
+  function onSubmit() {
+    dispatch(
+      signUpUser({
+        cpf: signUp.cpf!,
+        name: signUp.name!,
+        email: signUp.email!,
+        birthDate: signUp.birthDate ?? undefined,
+        gender: signUp.gender ?? undefined,
+        password: signUp.password ?? undefined,
+        phone: signUp.phone!,
+        googleId: signUp.googleId ?? undefined,
+      }),
+    );
+  }
+
   return (
     <S.Container scrollEnabled={false} keyboardDismissMode="interactive">
       <S.Header>
-        <BackButton />
+        <BackButton onPress={navigation.goBack} />
 
         <S.HeaderContent>
           <Subtitle>CADASTRO</Subtitle>
@@ -66,7 +95,9 @@ export function Terms() {
       </S.Body>
 
       <S.Footer>
-        <NextButton>Li e concordo com os termos</NextButton>
+        <NextButton isLoading={isLoading || isCreating} onPress={onSubmit}>
+          Li e concordo com os termos
+        </NextButton>
       </S.Footer>
     </S.Container>
   );

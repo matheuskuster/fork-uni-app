@@ -3,11 +3,11 @@ import { useRef, useState } from 'react';
 import { Animated, FlatList, ViewToken } from 'react-native';
 
 import { Onboarding } from '@/components/Onboarding';
-import { AuthNavigatorRoutesProps } from '@/routes/auth.routes';
+import { SignInNavigatorRoutesProps } from '@/routes/auth.routes';
 import { onboardingSlides } from '@/utils/constants/onboardingSlides';
 
 export function OnboardingScreen() {
-  const navigation = useNavigation<AuthNavigatorRoutesProps>();
+  const navigation = useNavigation<SignInNavigatorRoutesProps>();
   const [currentIndex, setCurrentIndex] = useState(0);
 
   const slidesRef = useRef<FlatList>(null);

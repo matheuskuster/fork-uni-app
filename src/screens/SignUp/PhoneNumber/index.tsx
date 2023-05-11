@@ -1,8 +1,11 @@
+import { useNavigation } from '@react-navigation/native';
+import { Controller, useForm } from 'react-hook-form';
 import { ZStack, VStack, Spacer } from 'react-native-stacks';
 import { useTheme } from 'styled-components';
 
 import * as S from './styles';
 
+import { useDispatch } from '@/app/hooks';
 import {
   BackButton,
   Description,
@@ -12,14 +15,39 @@ import {
   Subtitle,
   Title,
 } from '@/components';
+import { addPhoneNumber } from '@/features/signup/signupSlice';
+import { SignUpNavigatorRoutesProps } from '@/routes/auth.routes';
+
+interface PhoneDataForm {
+  phone: string;
+}
 
 export function PhoneNumber() {
   const theme = useTheme();
+  const navigation = useNavigation<SignUpNavigatorRoutesProps>();
+
+  const dispatch = useDispatch();
+
+  const {
+    handleSubmit,
+    control,
+    formState: { errors },
+  } = useForm<PhoneDataForm>({ defaultValues: { phone: '' } });
+
+  const onSubmit = (data: PhoneDataForm) => {
+    const { phone } = data;
+
+    console.log('phone: ' + phone);
+    dispatch(addPhoneNumber({ phone }));
+    navigation.navigate('personalData');
+  };
+
+  // TODO: make mask for phone number, cpf and birth
 
   return (
     <S.Container scrollEnabled={false} keyboardDismissMode="interactive">
       <S.Header>
-        <BackButton />
+        <BackButton onPress={navigation.goBack} />
 
         <S.HeaderContent>
           <Subtitle>CADASTRO</Subtitle>
@@ -35,10 +63,28 @@ export function PhoneNumber() {
 
       <S.Content>
         <S.Body>
-          <Input
-            placeholder="27 98765 4321"
-            inputMode="tel"
-            autoComplete="tel-national"
+          <Controller
+            name="phone"
+            control={control}
+            rules={{
+              required: 'Insira seu número de celular',
+              pattern: {
+                value:
+                  /^\+55\s?\(?([1-9]{2})\)?\s?(?:9[1-9]|[2-9][0-9])\d{3}\-?\d{4}$/i,
+                message: 'Insira um número de celular válido',
+              },
+            }}
+            render={({ field: { onChange, value } }) => (
+              <Input
+                onChangeText={onChange}
+                value={value}
+                placeholder="27 98765 4321"
+                inputMode="tel"
+                autoComplete="tel-national"
+                hasError={!!errors.phone}
+                errorMessage={errors.phone?.message}
+              />
+            )}
           />
           <ZStack style={{ width: '100%' }}>
             <S.DivisionLine />
@@ -53,7 +99,7 @@ export function PhoneNumber() {
         </S.Body>
 
         <S.Footer>
-          <NextButton>Avançar</NextButton>
+          <NextButton onPress={handleSubmit(onSubmit)}>Avançar</NextButton>
         </S.Footer>
       </S.Content>
     </S.Container>

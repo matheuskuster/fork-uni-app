@@ -1,8 +1,9 @@
 import { ColorValue } from 'react-native';
-import styled from 'styled-components/native';
+import styled, { css } from 'styled-components/native';
 
 interface InputContainerProps {
   disabled?: boolean;
+  hasError?: boolean;
 }
 
 export const InputContainer = styled.View<InputContainerProps>`
@@ -16,6 +17,14 @@ export const InputContainer = styled.View<InputContainerProps>`
   display: flex;
   flex-direction: row;
   align-items: center;
+
+  ${(props) =>
+    props.hasError &&
+    css`
+      border-color: ${props.theme.colors.red['500']};
+      border-width: ${props.theme.spacing.px};
+      border-radius: ${props.theme.radii.lg};
+    `}
 `;
 
 interface InputProps {
@@ -30,4 +39,13 @@ export const Input = styled.TextInput.attrs((props) => ({
   font-size: ${(props) => props.theme.fontSizes.md};
   font-family: ${(props) => props.theme.fonts.regular};
   margin-right: ${(props) => (props.hasRightIcon ? 8 : 0)}px;
+`;
+
+export const ErrorMessage = styled.Text`
+  align-self: flex-start;
+  margin-top: -4px;
+
+  font-size: ${(props) => props.theme.fontSizes.xs};
+  font-family: ${(props) => props.theme.fonts.regular};
+  color: ${(props) => props.theme.colors.red[500]};
 `;

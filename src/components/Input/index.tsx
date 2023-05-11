@@ -7,14 +7,34 @@ export interface InputProps extends TextInputProps {
   disabled?: boolean;
   rightIcon?: React.ReactNode;
   containerStyle?: ViewStyle;
+  hasError?: boolean;
+  errorMessage?: string;
 }
 
 export const Input = forwardRef<TextInput, InputProps>((props, ref) => {
-  const { disabled = false, rightIcon, containerStyle } = props;
+  const {
+    disabled = false,
+    rightIcon,
+    containerStyle,
+    hasError,
+    errorMessage,
+  } = props;
   return (
-    <S.InputContainer disabled={disabled} style={containerStyle}>
-      <S.Input editable={!disabled} hasRightIcon={!!rightIcon} ref={ref} {...props} />
-      {rightIcon}
-    </S.InputContainer>
+    <>
+      <S.InputContainer
+        hasError={hasError}
+        disabled={disabled}
+        style={containerStyle}
+      >
+        <S.Input
+          editable={!disabled}
+          hasRightIcon={!!rightIcon}
+          ref={ref}
+          {...props}
+        />
+        {rightIcon}
+      </S.InputContainer>
+      {hasError && <S.ErrorMessage>{errorMessage}</S.ErrorMessage>}
+    </>
   );
 });

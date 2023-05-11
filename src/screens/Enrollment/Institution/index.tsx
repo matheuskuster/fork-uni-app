@@ -126,23 +126,11 @@ export function Institution() {
               placeholder="Seu CEP"
               inputMode="numeric"
               autoComplete="postal-code"
-              containerStyle={
-                errors.cep
-                  ? {
-                      borderColor: theme.colors.red['500'],
-                      borderWidth: parseFloat(theme.spacing.px),
-                      borderRadius: parseFloat(theme.radii.lg),
-                    }
-                  : {}
-              }
+              hasError={!!errors.cep}
+              errorMessage={errors.cep?.message}
             />
           )}
         />
-        <>
-          {errors.cep && (
-            <S.FormErrorMessage>{errors.cep.message}</S.FormErrorMessage>
-          )}
-        </>
 
         <Controller
           control={control}

@@ -1,14 +1,15 @@
+import { useNavigation } from '@react-navigation/native';
 import { useRef } from 'react';
 import { useForm, Controller } from 'react-hook-form';
 import { TextInput } from 'react-native';
 import { VStack, Spacer } from 'react-native-stacks';
-import { useTheme } from 'styled-components';
 
 import * as S from './styles';
 
 import { useDispatch, useSelector } from '@/app/hooks';
 import { Input, Button, SecretInput, GoogleButton } from '@/components';
 import { signInUser } from '@/features/auth/authActions';
+import { AuthNavigatorRoutesProps } from '@/routes/auth.routes';
 
 interface SignInFormData {
   email: string;
@@ -16,10 +17,11 @@ interface SignInFormData {
 }
 
 export function SignIn() {
-  const theme = useTheme();
+  const navigation = useNavigation<AuthNavigatorRoutesProps>();
 
   const dispatch = useDispatch();
   const { isLoading } = useSelector((state) => state.auth);
+
   const {
     handleSubmit,
     control,
@@ -63,23 +65,11 @@ export function SignIn() {
                 returnKeyType="next"
                 onSubmitEditing={() => passwordRef.current?.focus()}
                 enablesReturnKeyAutomatically
-                containerStyle={
-                  errors.email
-                    ? {
-                        borderColor: theme.colors.red['500'],
-                        borderWidth: parseFloat(theme.spacing.px),
-                        borderRadius: parseFloat(theme.radii.lg),
-                      }
-                    : {}
-                }
+                hasError={!!errors.email}
+                errorMessage={errors.email?.message}
               />
             )}
           />
-          <>
-            {errors.email && (
-              <S.FormErrorMessage>{errors.email.message}</S.FormErrorMessage>
-            )}
-          </>
 
           <Spacer />
           <Controller
@@ -94,23 +84,11 @@ export function SignIn() {
                 ref={passwordRef}
                 enablesReturnKeyAutomatically
                 onSubmitEditing={handleSubmit(onSubmit)}
-                containerStyle={
-                  errors.password
-                    ? {
-                        borderColor: theme.colors.red['500'],
-                        borderWidth: parseFloat(theme.spacing.px),
-                        borderRadius: parseFloat(theme.radii.lg),
-                      }
-                    : {}
-                }
+                hasError={!!errors.password}
+                errorMessage={errors.password?.message}
               />
             )}
           />
-          <>
-            {errors.password && (
-              <S.FormErrorMessage>{errors.password.message}</S.FormErrorMessage>
-            )}
-          </>
         </VStack>
 
         <S.RegisterButton>
@@ -130,7 +108,7 @@ export function SignIn() {
 
       <S.RegisterContainer>
         <S.RegisterText>Saiba agora o valor da sua van!</S.RegisterText>
-        <S.RegisterButton>
+        <S.RegisterButton onPress={() => navigation.push('signUpRoute')}>
           <S.HighLight>Cadastre-se</S.HighLight>
         </S.RegisterButton>
       </S.RegisterContainer>
