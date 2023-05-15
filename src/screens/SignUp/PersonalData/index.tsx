@@ -20,6 +20,7 @@ import {
 import { addPersonalData } from '@/features/signup/signupSlice';
 import { SignUpNavigatorRoutesProps } from '@/routes/auth.routes';
 import { gendersList } from '@/utils/constants/gendersList';
+import { mask } from '@/utils/constants/masks';
 
 interface PersonalDataForm {
   name: string;
@@ -184,6 +185,7 @@ export function PersonalData() {
                 value={value}
                 onChangeText={onChange}
                 placeholder="Data de nascimento"
+                mask={mask.date}
                 inputMode="numeric"
                 autoComplete="birthdate-full"
                 returnKeyType="next"
@@ -202,7 +204,7 @@ export function PersonalData() {
             rules={{
               required: 'Insira o seu CPF',
               pattern: {
-                value: /^\d{3}\d{3}\d{3}\d{2}$/,
+                value: /^\d{3}\.\d{3}\.\d{3}-\d{2}$/,
                 message: 'Insira uma CPF válido',
               },
             }}
@@ -211,6 +213,7 @@ export function PersonalData() {
                 value={value}
                 onChangeText={onChange}
                 placeholder="CPF"
+                mask={mask.cpf}
                 inputMode="numeric"
                 ref={cpfRef}
                 hasError={!!errors.cpf}

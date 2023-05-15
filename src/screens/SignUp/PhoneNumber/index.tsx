@@ -17,6 +17,7 @@ import {
 } from '@/components';
 import { addPhoneNumber } from '@/features/signup/signupSlice';
 import { SignUpNavigatorRoutesProps } from '@/routes/auth.routes';
+import { mask } from '@/utils/constants/masks';
 
 interface PhoneDataForm {
   phone: string;
@@ -69,7 +70,7 @@ export function PhoneNumber() {
               required: 'Insira seu número de celular',
               pattern: {
                 value:
-                  /^\+55\s?\(?([1-9]{2})\)?\s?(?:9[1-9]|[2-9][0-9])\d{3}\-?\d{4}$/i,
+                  /^\+55\s?\(?([1-9]{2})\)?\s?(?:9[1-9]|[2-9][0-9])\d{3}-?\d{4}$/i,
                 message: 'Insira um número de celular válido',
               },
             }}
@@ -78,6 +79,7 @@ export function PhoneNumber() {
                 onChangeText={onChange}
                 value={value}
                 placeholder="27 98765 4321"
+                mask={mask.phone}
                 inputMode="tel"
                 autoComplete="tel-national"
                 hasError={!!errors.phone}

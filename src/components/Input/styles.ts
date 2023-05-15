@@ -1,4 +1,5 @@
 import { ColorValue } from 'react-native';
+import MaskInput from 'react-native-mask-input';
 import styled, { css } from 'styled-components/native';
 
 interface InputContainerProps {
@@ -30,6 +31,16 @@ export const InputContainer = styled.View<InputContainerProps>`
 interface InputProps {
   hasRightIcon?: boolean;
 }
+
+export const MaskedInput = styled(MaskInput).attrs((props) => ({
+  placeholderTextColor: props.theme.colors.placeholder as ColorValue,
+}))<InputProps>`
+  flex: 1;
+  color: ${(props) => props.theme.colors.white};
+  font-size: ${(props) => props.theme.fontSizes.md};
+  font-family: ${(props) => props.theme.fonts.regular};
+  margin-right: ${(props) => (props.hasRightIcon ? 8 : 0)}px;
+`;
 
 export const Input = styled.TextInput.attrs((props) => ({
   placeholderTextColor: props.theme.colors.placeholder as ColorValue,

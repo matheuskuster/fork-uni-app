@@ -21,6 +21,7 @@ import { setShift } from '@/features/quotation/quotationSlice';
 import { useInstitutions } from '@/hooks/useInstitutions';
 import { PathIcon } from '@/icons/PathIcon';
 import { EnrollmentNavigatorRoutesProps } from '@/routes/enrollment.routes';
+import { mask } from '@/utils/constants/masks';
 
 interface GetQuotationFormData {
   institutionId: string;
@@ -123,6 +124,7 @@ export function Institution() {
               onChangeText={onChange}
               value={value}
               placeholder="Seu CEP"
+              mask={mask.zipCode}
               inputMode="numeric"
               autoComplete="postal-code"
               hasError={!!errors.cep}
