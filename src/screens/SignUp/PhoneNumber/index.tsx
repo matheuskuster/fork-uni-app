@@ -37,7 +37,6 @@ export function PhoneNumber() {
   const onSubmit = (data: PhoneDataForm) => {
     const { phone } = data;
 
-    console.log('phone: ' + phone);
     dispatch(addPhoneNumber({ phone }));
     navigation.navigate('personalData');
   };

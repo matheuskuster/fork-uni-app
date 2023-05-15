@@ -1,9 +1,10 @@
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { StatusBar } from 'expo-status-bar';
 import { Provider } from 'react-redux';
+import { PersistGate } from 'redux-persist/integration/react';
 import { ThemeProvider } from 'styled-components';
 
-import { store } from './app/store';
+import { store, persistor } from './app/store';
 import { FontLoaderProvider } from './providers/FontLoaderProvider';
 import { Routes } from './routes';
 import { theme } from './theme';
@@ -16,8 +17,10 @@ export default function App() {
       <ThemeProvider theme={theme}>
         <FontLoaderProvider>
           <Provider store={store}>
-            <Routes />
-            <StatusBar style="light" />
+            <PersistGate loading={null} persistor={persistor}>
+              <Routes />
+              <StatusBar style="light" />
+            </PersistGate>
           </Provider>
         </FontLoaderProvider>
       </ThemeProvider>

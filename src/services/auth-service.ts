@@ -9,3 +9,7 @@ export const authService = axios.create({
 export type AuthServiceError = AxiosError<{
   message: string;
 }>;
+
+export function applyAuthServiceToken(token: string) {
+  authService.defaults.headers.common['Authorization'] = `Bearer ${token}`;
+}
