@@ -10,9 +10,10 @@ import { getUserByToken } from '@/features/auth/authActions';
 
 export function Routes() {
   const dispatch = useDispatch();
-  const { isAuthenticated, isEnrolled, token, isLoading } = useSelector(
+  const { isAuthenticated, token, isLoading, user } = useSelector(
     (state) => state.auth,
   );
+  const { isCreating } = useSelector((state) => state.student);
 
   useEffect(() => {
     if (token) {
@@ -28,18 +29,20 @@ export function Routes() {
     );
   }
 
-  if (!isEnrolled) {
+  if (isAuthenticated && !isCreating) {
+    const isStudent = user!.roles.includes('student');
+
+    if (isStudent) {
+      return (
+        <NavigationContainer>
+          <AppRoutes />
+        </NavigationContainer>
+      );
+    }
+
     return (
       <NavigationContainer>
         <EnrollmentRoutes />
-      </NavigationContainer>
-    );
-  }
-
-  if (isAuthenticated && isEnrolled) {
-    return (
-      <NavigationContainer>
-        <AppRoutes />
       </NavigationContainer>
     );
   }

@@ -22,7 +22,6 @@ interface AuthState {
   error: string | null;
   isLoading: boolean;
   isAuthenticated: boolean;
-  isEnrolled: boolean;
 }
 
 const initialState: AuthState = {
@@ -31,16 +30,12 @@ const initialState: AuthState = {
   error: null,
   isLoading: false,
   isAuthenticated: false,
-  isEnrolled: false,
 };
 
 export const authSlice = createSlice({
   name: 'auth',
   initialState,
   reducers: {
-    enroll: (state) => {
-      state.isEnrolled = true;
-    },
     signOut: (state) => {
       state.user = null;
       state.token = null;
@@ -84,4 +79,4 @@ export const authSlice = createSlice({
   },
 });
 
-export const { signOut, enroll } = authSlice.actions;
+export const { signOut } = authSlice.actions;

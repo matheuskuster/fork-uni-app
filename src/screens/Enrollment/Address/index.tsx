@@ -1,13 +1,11 @@
 import { Feather } from '@expo/vector-icons';
 import { useNavigation } from '@react-navigation/native';
-import { useEffect, useState } from 'react';
 import { useTheme } from 'styled-components';
 
 import * as S from './styles';
 
 import { useDispatch, useSelector } from '@/app/hooks';
 import { BackButton, Input, NextButton, Title } from '@/components';
-import { enroll } from '@/features/auth/authSlice';
 import { createStudent } from '@/features/student/studentActions';
 import { EnrollmentNavigatorRoutesProps } from '@/routes/enrollment.routes';
 
@@ -16,15 +14,13 @@ export function Address() {
   const { quotation, zipcodeAddress, choosenShift } = useSelector(
     (state) => state.quotation,
   );
-  const { isCreating, error } = useSelector((state) => state.student);
+  const { isCreating } = useSelector((state) => state.student);
   const theme = useTheme();
 
   const dispatch = useDispatch();
   const navigaton = useNavigation<EnrollmentNavigatorRoutesProps>();
-  const [submitted, setSubmitted] = useState(false);
 
   function onSubmit() {
-    setSubmitted(true);
     dispatch(
       createStudent({
         institutionId: quotation!.institution.id,
@@ -42,12 +38,6 @@ export function Address() {
       }),
     );
   }
-
-  useEffect(() => {
-    if (!isCreating && submitted && !error) {
-      dispatch(enroll());
-    }
-  }, [isCreating]);
 
   return (
     <S.Container scrollEnabled={false}>

@@ -1,14 +1,21 @@
+import { TouchableOpacityProps } from 'react-native';
+
 import * as S from './styles';
 
-interface MenuOptionProps {
+interface MenuOptionProps extends TouchableOpacityProps {
   title: string;
   description: string;
   icon: React.ReactNode;
 }
 
-export function MenuOption({ title, description, icon }: MenuOptionProps) {
+export function MenuOption({
+  title,
+  description,
+  icon,
+  onPress,
+}: MenuOptionProps) {
   return (
-    <S.OptionContainer>
+    <S.OptionContainer onPress={onPress}>
       {icon}
       <S.OptionTextContainer>
         <S.OptionTitle>{title}</S.OptionTitle>

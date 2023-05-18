@@ -60,8 +60,11 @@ export function Institution() {
 
     setSubmitted(true);
 
+    // TODO: remove the replace from CEP in the future
     dispatch(setShift(shift));
-    dispatch(getQuotation({ cep, institutionId: institution }));
+    dispatch(
+      getQuotation({ cep: cep.replace('-', ''), institutionId: institution }),
+    );
   };
 
   useEffect(() => {

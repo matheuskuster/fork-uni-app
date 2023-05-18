@@ -1,10 +1,12 @@
+import { Feather } from '@expo/vector-icons';
 import { useNavigation } from '@react-navigation/native';
 
 import { MenuOption } from './MenuOption';
 import * as S from './styles';
 
-import { useSelector } from '@/app/hooks';
+import { useDispatch, useSelector } from '@/app/hooks';
 import { BackButton } from '@/components';
+import { signOut } from '@/features/auth/authSlice';
 import { ChatIcon } from '@/icons/ChatIcon';
 import { GearIcon } from '@/icons/GearIcon';
 import { NotePencilIcon } from '@/icons/NotePencilIcon';
@@ -14,6 +16,8 @@ import { AppNavigatorRoutesProps } from '@/routes/app.routes';
 import { theme } from '@/theme';
 
 export function Profile() {
+  const dispatch = useDispatch();
+
   const navigation = useNavigation<AppNavigatorRoutesProps>();
   const { user } = useSelector((state) => state.auth);
 
@@ -69,6 +73,17 @@ export function Profile() {
           icon={<GearIcon />}
           title="Configurações"
           description="Definições do aplicativo"
+        />
+        <S.Separator />
+        <MenuOption
+          icon={
+            <Feather name="log-out" size={28} color={theme.colors.green[500]} />
+          }
+          title="Sair"
+          description="Voltar para a tela de entrada"
+          onPress={() => {
+            dispatch(signOut());
+          }}
         />
       </S.ContentContainer>
     </S.Container>
