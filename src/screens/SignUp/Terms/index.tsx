@@ -1,4 +1,6 @@
 import { useNavigation } from '@react-navigation/native';
+import { Alert } from 'react-native';
+import { useTheme } from 'styled-components';
 
 import * as S from './styles';
 
@@ -13,29 +15,36 @@ import {
 import { signUpUser } from '@/features/signup/signupActions';
 
 export function Terms() {
+  const theme = useTheme();
+
   const navigation = useNavigation();
   const dispatch = useDispatch();
   const { isLoading, isCreating, signUp } = useSelector((state) => {
     return {
       signUp: state.signup,
+      error: state.signup.error,
       isLoading: state.auth.isLoading,
       isCreating: state.signup.isCreating,
     };
   });
 
-  function onSubmit() {
-    dispatch(
-      signUpUser({
-        cpf: signUp.cpf!,
-        name: signUp.name!,
-        email: signUp.email!,
-        birthDate: signUp.birthDate ?? undefined,
-        gender: signUp.gender ?? undefined,
-        password: signUp.password ?? undefined,
-        phone: signUp.phone!,
-        googleId: signUp.googleId ?? undefined,
-      }),
-    );
+  async function onSubmit() {
+    try {
+      await dispatch(
+        signUpUser({
+          cpf: signUp.cpf!,
+          name: signUp.name!,
+          email: signUp.email!,
+          birthDate: signUp.birthDate ?? undefined,
+          gender: signUp.gender ?? undefined,
+          password: signUp.password ?? undefined,
+          phone: signUp.phone!,
+          googleId: signUp.googleId ?? undefined,
+        }),
+      ).unwrap();
+    } catch (error) {
+      Alert.alert('Erro ao finalizar cadastro', `${error}`);
+    }
   }
 
   return (
@@ -45,7 +54,9 @@ export function Terms() {
 
         <S.HeaderContent>
           <Subtitle>CADASTRO</Subtitle>
-          <Title color="#F0F0F0">Leia os termos e condições de uso</Title>
+          <Title color={theme.colors.gray['50']}>
+            Leia os termos e condições de uso
+          </Title>
           <Description>
             Para utilizar o Vou de Van Universitário e leia os termos e
             condições de uso.

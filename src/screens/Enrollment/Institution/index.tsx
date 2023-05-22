@@ -1,6 +1,7 @@
 import { useNavigation } from '@react-navigation/native';
 import { useEffect, useState } from 'react';
 import { useForm, Controller } from 'react-hook-form';
+import { Alert } from 'react-native';
 import { useTheme } from 'styled-components';
 
 import * as S from './styles';
@@ -20,6 +21,7 @@ import { getQuotation } from '@/features/quotation/quotationActions';
 import { setShift } from '@/features/quotation/quotationSlice';
 import { useInstitutions } from '@/hooks/useInstitutions';
 import { PathIcon } from '@/icons/PathIcon';
+import { WarningCircleIcon } from '@/icons/WarningCircleIcon';
 import { EnrollmentNavigatorRoutesProps } from '@/routes/enrollment.routes';
 import { mask } from '@/utils/constants/masks';
 
@@ -38,7 +40,7 @@ export function Institution() {
 
   const [institution, setInstitution] = useState<string | null>(null);
   const [institutions, setInstitutions] = useState<SelectItem[]>([]);
-  const [submitted, setSubmitted] = useState(false);
+  const [isModalVisible, setIsModalVisible] = useState(false);
 
   const {
     handleSubmit,
@@ -48,32 +50,34 @@ export function Institution() {
     defaultValues: { shift: 'morning' },
   });
 
-  const { foundQuotation, isFetching } = useSelector(
-    (state) => state.quotation,
-  );
+  const { isFetching } = useSelector((state) => state.quotation);
 
-  const onSubmit = (data: GetQuotationFormData) => {
+  async function onSubmit(data: GetQuotationFormData) {
     const { cep, shift } = data;
 
-    // TODO: create a popup to warn user to choose an institution
-    if (!institution) return;
-
-    setSubmitted(true);
-
-    // TODO: remove the replace from CEP in the future
-    dispatch(setShift(shift));
-    dispatch(
-      getQuotation({ cep: cep.replace('-', ''), institutionId: institution }),
-    );
-  };
-
-  useEffect(() => {
-    if (foundQuotation && submitted && !isFetching) {
-      navigaton.navigate('price');
-    } else if (!foundQuotation && submitted && !isFetching) {
-      // TODO: create a popup to show the user that there is no quotation
+    if (!institution) {
+      Alert.alert('Erro ao buscar cotação', 'Escolha uma instituição');
+      return;
     }
-  }, [isFetching]);
+
+    dispatch(setShift(shift));
+    try {
+      await dispatch(
+        // TODO: remove the replace from CEP in the future
+        getQuotation({ cep: cep.replace('-', ''), institutionId: institution }),
+      ).unwrap();
+
+      navigaton.navigate('price');
+    } catch (error) {
+      const message = error as string;
+
+      if (message.includes('Cep')) {
+        Alert.alert('Erro ao buscar cotação', `${error}`);
+      } else {
+        setIsModalVisible(true);
+      }
+    }
+  }
 
   useEffect(() => {
     if (data) {
@@ -90,6 +94,22 @@ export function Institution() {
 
   return (
     <S.Container>
+      <S.ModalContainer visible={isModalVisible}>
+        <S.ContentContainer>
+          <WarningCircleIcon />
+          <S.Title>Ainda não chegamos ai...</S.Title>
+          <S.Description>
+            Sinto muito, mas nós ainda não temos nenhuma cotação disponível da
+            sua região para essa instituição.
+          </S.Description>
+          <S.ButtonContainer>
+            <S.ButtonText onPress={() => setIsModalVisible(false)}>
+              Ok, tudo bem
+            </S.ButtonText>
+          </S.ButtonContainer>
+        </S.ContentContainer>
+      </S.ModalContainer>
+
       <S.Header>
         <BackButton onPress={() => dispatch(signOut())} />
 

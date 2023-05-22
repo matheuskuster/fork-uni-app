@@ -1,5 +1,6 @@
 import { Feather } from '@expo/vector-icons';
 import { useNavigation } from '@react-navigation/native';
+import { Alert } from 'react-native';
 import { useTheme } from 'styled-components';
 
 import * as S from './styles';
@@ -20,23 +21,27 @@ export function Address() {
   const dispatch = useDispatch();
   const navigaton = useNavigation<EnrollmentNavigatorRoutesProps>();
 
-  function onSubmit() {
-    dispatch(
-      createStudent({
-        institutionId: quotation!.institution.id,
-        name: user!.name,
-        shift: choosenShift!,
-        home: {
-          city: zipcodeAddress!.city,
-          neighborhood: quotation!.neighborhood.name,
-          number: '222',
-          state: zipcodeAddress!.state,
-          street: zipcodeAddress!.street,
-          zipcode: zipcodeAddress!.zipcode,
-          complement: 'Apt. 1002',
-        },
-      }),
-    );
+  async function onSubmit() {
+    try {
+      await dispatch(
+        createStudent({
+          institutionId: quotation!.institution.id,
+          name: user!.name,
+          shift: choosenShift!,
+          home: {
+            city: zipcodeAddress!.city,
+            neighborhood: quotation!.neighborhood.name,
+            number: '222',
+            state: zipcodeAddress!.state,
+            street: zipcodeAddress!.street,
+            zipcode: zipcodeAddress!.zipcode,
+            complement: 'Apt. 1002',
+          },
+        }),
+      ).unwrap();
+    } catch (error) {
+      Alert.alert('Erro ao finalizar inscrição', `${error}`);
+    }
   }
 
   return (

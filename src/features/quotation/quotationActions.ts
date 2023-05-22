@@ -62,7 +62,6 @@ export const getQuotation = createAsyncThunk(
 
       return response.data as QuotationResponse;
     } catch (error) {
-      console.error(error);
       const typedError = error as InstitutionsServiceError;
 
       if (typedError?.response?.data?.message) {

@@ -1,7 +1,6 @@
 import { PayloadAction, createSlice } from '@reduxjs/toolkit';
 
 import { signUpUser } from './signupActions';
-import { signInUser } from '../auth/authActions';
 
 interface SignupState {
   cpf: string | null;

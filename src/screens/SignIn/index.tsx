@@ -1,7 +1,7 @@
 import { useNavigation } from '@react-navigation/native';
 import { useRef } from 'react';
 import { useForm, Controller } from 'react-hook-form';
-import { TextInput } from 'react-native';
+import { TextInput, Alert } from 'react-native';
 import { VStack, Spacer } from 'react-native-stacks';
 
 import * as S from './styles';
@@ -20,6 +20,7 @@ export function SignIn() {
   const navigation = useNavigation<AuthNavigatorRoutesProps>();
 
   const dispatch = useDispatch();
+  const passwordRef = useRef<TextInput>(null);
   const { isLoading } = useSelector((state) => state.auth);
 
   const {
@@ -28,13 +29,15 @@ export function SignIn() {
     formState: { errors },
   } = useForm<SignInFormData>({ defaultValues: { email: '', password: '' } });
 
-  const passwordRef = useRef<TextInput>(null);
-
-  const onSubmit = (data: SignInFormData) => {
+  async function onSubmit(data: SignInFormData) {
     const { email, password } = data;
 
-    dispatch(signInUser({ email, password }));
-  };
+    try {
+      await dispatch(signInUser({ email, password })).unwrap();
+    } catch (error) {
+      Alert.alert('Erro ao fazer login', `${error}`);
+    }
+  }
 
   return (
     <S.Container scrollEnabled={false}>
