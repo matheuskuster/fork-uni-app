@@ -50,7 +50,9 @@ export function Institution() {
     defaultValues: { shift: 'morning' },
   });
 
-  const { isFetching } = useSelector((state) => state.quotation);
+  const { isFetching, foundQuotation, zipcodeAddress } = useSelector(
+    (state) => state.quotation,
+  );
 
   async function onSubmit(data: GetQuotationFormData) {
     const { cep, shift } = data;
@@ -61,13 +63,12 @@ export function Institution() {
     }
 
     dispatch(setShift(shift));
+
     try {
       await dispatch(
         // TODO: remove the replace from CEP in the future
         getQuotation({ cep: cep.replace('-', ''), institutionId: institution }),
       ).unwrap();
-
-      navigaton.navigate('price');
     } catch (error) {
       const message = error as string;
 
@@ -78,6 +79,14 @@ export function Institution() {
       }
     }
   }
+
+  useEffect(() => {
+    if (foundQuotation) {
+      navigaton.navigate('price');
+    } else if (zipcodeAddress) {
+      setIsModalVisible(true);
+    }
+  }, [zipcodeAddress, foundQuotation]);
 
   useEffect(() => {
     if (data) {

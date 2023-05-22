@@ -51,7 +51,7 @@ export function Price() {
             <S.ClassText>VALOR:</S.ClassText>
             <S.ClassValueText>
               <S.HighLight>
-                {formatPrice(quotation!.cost, { showCurrency: false })}
+                {formatPrice(quotation?.cost ?? 0, { showCurrency: false })}
               </S.HighLight>
               /mês
             </S.ClassValueText>

@@ -22,7 +22,7 @@ interface SignInResponse {
   token: string;
 }
 
-interface getUserByTokenResponse {
+interface GetMeResponse {
   user: SignInResponse['user'];
 }
 
@@ -45,13 +45,13 @@ export const signInUser = createAsyncThunk(
   },
 );
 
-export const getUserByToken = createAsyncThunk(
-  'auth/getUserByToken',
+export const getMe = createAsyncThunk(
+  'auth/getMe',
   async (_, { rejectWithValue }) => {
     try {
       const response = await authService.get('/v1/users/me');
 
-      return response.data as getUserByTokenResponse;
+      return response.data as GetMeResponse;
     } catch (error) {
       const typedError = error as AuthServiceError;
 

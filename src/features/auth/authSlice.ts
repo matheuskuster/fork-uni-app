@@ -1,6 +1,6 @@
 import { createSlice } from '@reduxjs/toolkit';
 
-import { getUserByToken, signInUser } from './authActions';
+import { getMe, signInUser } from './authActions';
 
 import { applyBearerToken } from '@/services/middlewares';
 
@@ -61,18 +61,17 @@ export const authSlice = createSlice({
       state.error = action.error.message as string;
       state.isLoading = false;
     });
-    builder.addCase(getUserByToken.pending, (state) => {
+    builder.addCase(getMe.pending, (state) => {
       state.isLoading = true;
-
       applyBearerToken(state.token as string);
     });
-    builder.addCase(getUserByToken.fulfilled, (state, action) => {
+    builder.addCase(getMe.fulfilled, (state, action) => {
       const { user } = action.payload;
       state.user = user;
       state.isLoading = false;
       state.isAuthenticated = true;
     });
-    builder.addCase(getUserByToken.rejected, (state, action) => {
+    builder.addCase(getMe.rejected, (state, action) => {
       state.error = action.error.message as string;
       state.isLoading = false;
     });

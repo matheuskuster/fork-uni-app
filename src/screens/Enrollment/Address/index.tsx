@@ -1,5 +1,6 @@
 import { Feather } from '@expo/vector-icons';
 import { useNavigation } from '@react-navigation/native';
+import { Controller, useForm } from 'react-hook-form';
 import { Alert } from 'react-native';
 import { useTheme } from 'styled-components';
 
@@ -7,8 +8,15 @@ import * as S from './styles';
 
 import { useDispatch, useSelector } from '@/app/hooks';
 import { BackButton, Input, NextButton, Title } from '@/components';
+import { getMe } from '@/features/auth/authActions';
 import { createStudent } from '@/features/student/studentActions';
 import { EnrollmentNavigatorRoutesProps } from '@/routes/enrollment.routes';
+
+interface AddressFormData {
+  streetName: string;
+  number: string;
+  complement: string;
+}
 
 export function Address() {
   const { user } = useSelector((state) => state.auth);
@@ -21,7 +29,13 @@ export function Address() {
   const dispatch = useDispatch();
   const navigaton = useNavigation<EnrollmentNavigatorRoutesProps>();
 
-  async function onSubmit() {
+  const { handleSubmit, control } = useForm<AddressFormData>({
+    defaultValues: {
+      streetName: zipcodeAddress?.street,
+    },
+  });
+
+  async function onSubmit(data: AddressFormData) {
     try {
       await dispatch(
         createStudent({
@@ -31,15 +45,18 @@ export function Address() {
           home: {
             city: zipcodeAddress!.city,
             neighborhood: quotation!.neighborhood.name,
-            number: '222',
+            number: data.number,
             state: zipcodeAddress!.state,
-            street: zipcodeAddress!.street,
+            street: data.streetName,
             zipcode: zipcodeAddress!.zipcode,
-            complement: 'Apt. 1002',
+            complement: data.complement,
           },
         }),
       ).unwrap();
+
+      dispatch(getMe());
     } catch (error) {
+      console.log(error);
       Alert.alert('Erro ao finalizar inscrição', `${error}`);
     }
   }
@@ -64,9 +81,43 @@ export function Address() {
       <S.Body>
         <S.Content>
           <Input placeholder={zipcodeAddress?.zipcode} disabled />
-          <Input autoComplete="street-address" value={zipcodeAddress?.street} />
-          <Input placeholder="Número" inputMode="numeric" />
-          <Input placeholder="Complemento" />
+          <Controller
+            control={control}
+            name="streetName"
+            render={({ field: { value, onChange } }) => (
+              <Input
+                autoComplete="street-address"
+                value={value}
+                onChangeText={onChange}
+              />
+            )}
+          />
+
+          <Controller
+            control={control}
+            name="number"
+            render={({ field: { value, onChange } }) => (
+              <Input
+                placeholder="Número"
+                inputMode="numeric"
+                value={value}
+                onChangeText={onChange}
+              />
+            )}
+          />
+
+          <Controller
+            control={control}
+            name="complement"
+            render={({ field: { value, onChange } }) => (
+              <Input
+                placeholder="Complemento"
+                value={value}
+                onChangeText={onChange}
+              />
+            )}
+          />
+
           <Input placeholder={zipcodeAddress?.state} disabled />
           <Input placeholder={zipcodeAddress?.city} disabled />
           <Input placeholder={quotation?.neighborhood.name} disabled />
@@ -78,7 +129,7 @@ export function Address() {
           Você já acessa o painel de controle! {'\n'} Ainda não faremos nenhuma
           cobrança
         </S.FooterMessage>
-        <NextButton onPress={onSubmit} isLoading={isCreating}>
+        <NextButton onPress={handleSubmit(onSubmit)} isLoading={isCreating}>
           Quero embarcar
         </NextButton>
       </S.Footer>

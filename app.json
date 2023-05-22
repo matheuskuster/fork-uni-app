@@ -1,11 +1,12 @@
 {
   "expo": {
     "name": "uni-app",
-    "slug": "uni-app",
+    "slug": "vou-de-van-uni",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
     "userInterfaceStyle": "light",
+    "owner": "voudevan",
     "splash": {
       "image": "./assets/splash.png",
       "resizeMode": "contain",
@@ -15,8 +16,23 @@
       "**/*"
     ],
     "ios": {
-      "supportsTablet": false
+      "supportsTablet": false,
+      "bundleIdentifier": "com.voudevan.voudevanuni"
     },
-    "android":{"softwareKeyboardLayoutMode": "pan"}
+    "android": {
+      "softwareKeyboardLayoutMode": "pan",
+      "package": "com.voudevan.voudevanuni"
+    },
+    "extra": {
+      "eas": {
+        "projectId": "00afb4d0-2c9a-4573-878d-29c86db1ee13"
+      }
+    },
+    "runtimeVersion": {
+      "policy": "sdkVersion"
+    },
+    "updates": {
+      "url": "https://u.expo.dev/00afb4d0-2c9a-4573-878d-29c86db1ee13"
+    }
   }
 }

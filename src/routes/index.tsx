@@ -6,7 +6,7 @@ import { AuthRoutes } from './auth.routes';
 import { EnrollmentRoutes } from './enrollment.routes';
 
 import { useDispatch, useSelector } from '@/app/hooks';
-import { getUserByToken } from '@/features/auth/authActions';
+import { getMe } from '@/features/auth/authActions';
 
 export function Routes() {
   const dispatch = useDispatch();
@@ -17,7 +17,7 @@ export function Routes() {
 
   useEffect(() => {
     if (token) {
-      dispatch(getUserByToken());
+      dispatch(getMe());
     }
   }, []);
 
@@ -30,7 +30,7 @@ export function Routes() {
   }
 
   if (isAuthenticated && !isCreating) {
-    const isStudent = user!.roles.includes('student');
+    const isStudent = user?.roles.includes('student');
 
     if (isStudent) {
       return (
