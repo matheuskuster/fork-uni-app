@@ -1,11 +1,13 @@
 import { NavigationContainer } from '@react-navigation/native';
 import { useEffect } from 'react';
+import { SafeAreaProvider } from 'react-native-safe-area-context';
 
 import { AppRoutes } from './app.routes';
 import { AuthRoutes } from './auth.routes';
 import { EnrollmentRoutes } from './enrollment.routes';
 
 import { useDispatch, useSelector } from '@/app/hooks';
+import { theme } from '@/theme';
 import { getMe } from '@/features/auth/authActions';
 
 export function Routes() {
@@ -15,6 +17,11 @@ export function Routes() {
   );
   const { isCreating } = useSelector((state) => state.student);
 
+  const styles = {
+    flex: 1,
+    backgroundColor: theme.colors.background,
+  };
+
   useEffect(() => {
     if (token) {
       dispatch(getMe());
@@ -23,9 +30,11 @@ export function Routes() {
 
   if (!isAuthenticated && !isLoading) {
     return (
-      <NavigationContainer>
-        <AuthRoutes />
-      </NavigationContainer>
+      <SafeAreaProvider style={styles}>
+        <NavigationContainer>
+          <AuthRoutes />
+        </NavigationContainer>
+      </SafeAreaProvider>
     );
   }
 
@@ -34,16 +43,20 @@ export function Routes() {
 
     if (isStudent) {
       return (
-        <NavigationContainer>
-          <AppRoutes />
-        </NavigationContainer>
+        <SafeAreaProvider style={styles}>
+          <NavigationContainer>
+            <AppRoutes />
+          </NavigationContainer>
+        </SafeAreaProvider>
       );
     }
 
     return (
-      <NavigationContainer>
-        <EnrollmentRoutes />
-      </NavigationContainer>
+      <SafeAreaProvider style={styles}>
+        <NavigationContainer>
+          <EnrollmentRoutes />
+        </NavigationContainer>
+      </SafeAreaProvider>
     );
   }
 
