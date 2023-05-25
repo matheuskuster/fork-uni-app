@@ -1,3 +1,3 @@
 export function getDevelopmentURL() {
-  return `http://api-dev.voudevanes.com.br/`;
+  return `https://api-dev.voudevanes.com.br/`;
 }

@@ -14,6 +14,7 @@ import {
   NextButton,
   Select,
   SelectItem,
+  Space,
   Subtitle,
   Title,
 } from '@/components';
@@ -52,14 +53,14 @@ export function PersonalData() {
     defaultValues: { name: '', email: '', gender: '', birth: '', cpf: '' },
   });
 
-  const onSubmit = (data: PersonalDataForm) => {
+  function onSubmit(data: PersonalDataForm) {
     const { name, email, birth, cpf } = data;
 
     if (!gender) return;
 
     dispatch(addPersonalData({ name, email, gender, birth, cpf }));
     navigation.navigate('securityPassword');
-  };
+  }
 
   return (
     <S.Container>
@@ -106,6 +107,8 @@ export function PersonalData() {
             )}
           />
 
+          <Space size={theme.spacing[2]} />
+
           <Controller
             name="email"
             control={control}
@@ -131,6 +134,8 @@ export function PersonalData() {
             )}
           />
 
+          <Space size={theme.spacing[2]} />
+
           <S.PickerContainer>
             <Select
               value={gender}
@@ -140,6 +145,8 @@ export function PersonalData() {
               placeholder="Gênero"
             />
           </S.PickerContainer>
+
+          <Space size={theme.spacing[2]} />
 
           {gender === 'another' ? (
             <>
@@ -167,6 +174,7 @@ export function PersonalData() {
                   />
                 )}
               />
+              <Space size={theme.spacing[2]} />
             </>
           ) : null}
 
@@ -197,6 +205,8 @@ export function PersonalData() {
               />
             )}
           />
+
+          <Space size={theme.spacing[2]} />
 
           <Controller
             name="cpf"

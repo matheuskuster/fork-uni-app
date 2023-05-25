@@ -1,7 +1,6 @@
 import styled from 'styled-components/native';
 
 export const PaymentContainer = styled.View`
-  height: 103px;
   width: 355px;
 
   align-items: center;
@@ -12,6 +11,7 @@ export const PaymentContainer = styled.View`
     ${(props) => props.theme.spacing['6']}px
     ${(props) => props.theme.spacing['7']}px;
 
+  margin-top: ${(props) => props.theme.spacing[4]}px;
   margin-bottom: ${(props) => props.theme.spacing[8]}px;
   border-radius: ${(props) => props.theme.radii.lg};
   background-color: ${(props) => props.theme.colors.gray['800']};

@@ -14,6 +14,7 @@ import {
   Description,
   NextButton,
   SecretInput,
+  Space,
   Subtitle,
   Title,
 } from '@/components';
@@ -41,12 +42,12 @@ export function SecurityPassword() {
     defaultValues: { password: '', repassword: '' },
   });
 
-  const onSubmit = (data: PasswordDataForm) => {
+  function onSubmit(data: PasswordDataForm) {
     const { password } = data;
 
     dispatch(addPassword({ password }));
     navigation.navigate('terms');
-  };
+  }
 
   function validatePassword(password: string) {
     const validations = {
@@ -110,6 +111,8 @@ export function SecurityPassword() {
             )}
           />
 
+          <Space size={theme.spacing[2]} />
+
           <Controller
             name="repassword"
             control={control}
@@ -132,6 +135,8 @@ export function SecurityPassword() {
               />
             )}
           />
+
+          <Space size={theme.spacing[2]} />
 
           <VStack alignment="leading" spacing={1.5}>
             <S.VerificationContainer>

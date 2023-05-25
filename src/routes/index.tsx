@@ -7,8 +7,8 @@ import { AuthRoutes } from './auth.routes';
 import { EnrollmentRoutes } from './enrollment.routes';
 
 import { useDispatch, useSelector } from '@/app/hooks';
-import { theme } from '@/theme';
 import { getMe } from '@/features/auth/authActions';
+import { theme } from '@/theme';
 
 export function Routes() {
   const dispatch = useDispatch();

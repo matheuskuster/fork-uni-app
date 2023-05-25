@@ -13,3 +13,4 @@ export { ProfileButton } from './ProfileButton';
 export { NotificationsButton } from './NotificationsButton';
 export { Select, SelectItem } from './Select';
 export { Radio } from './Radio';
+export { Space } from './Space';

@@ -14,6 +14,7 @@ import {
   Radio,
   Select,
   SelectItem,
+  Space,
   Title,
 } from '@/components';
 import { signOut } from '@/features/auth/authSlice';
@@ -141,6 +142,8 @@ export function Institution() {
           />
         </S.PickerContainer>
 
+        <Space size={theme.spacing[2]} />
+
         <Controller
           control={control}
           name="cep"
@@ -164,6 +167,8 @@ export function Institution() {
             />
           )}
         />
+
+        <Space size={theme.spacing[2]} />
 
         <Controller
           control={control}

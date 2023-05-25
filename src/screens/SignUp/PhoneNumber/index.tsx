@@ -87,13 +87,13 @@ export function PhoneNumber() {
               />
             )}
           />
-          <ZStack style={{ width: '100%' }}>
+          <ZStack style={{ width: '100%', marginTop: theme.spacing[2] }}>
             <S.DivisionLine />
             <S.DivisionTextContainer>
               <S.DivisionText>ou</S.DivisionText>
             </S.DivisionTextContainer>
           </ZStack>
-          <VStack spacing={3.5}>
+          <VStack spacing={4}>
             <Spacer />
             <GoogleButton>Cadastre-se com o Google</GoogleButton>
           </VStack>

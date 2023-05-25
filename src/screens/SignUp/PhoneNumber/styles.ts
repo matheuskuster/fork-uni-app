@@ -42,9 +42,7 @@ export const Content = styled.View`
   padding-right: ${(props) => props.theme.spacing[4]}px;
 `;
 
-export const Body = styled.View`
-  gap: ${(props) => props.theme.spacing[2]}px;
-`;
+export const Body = styled.View``;
 
 export const DivisionLine = styled.View`
   width: 100%;

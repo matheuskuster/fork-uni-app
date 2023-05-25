@@ -54,7 +54,7 @@ export const Input = styled.TextInput.attrs((props) => ({
 
 export const ErrorMessage = styled.Text`
   align-self: flex-start;
-  margin-top: -4px;
+  margin-top: ${(props) => props.theme.spacing[1]}px;
 
   font-size: ${(props) => props.theme.fontSizes.xs};
   font-family: ${(props) => props.theme.fonts.regular};

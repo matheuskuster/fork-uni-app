@@ -52,8 +52,6 @@ export const IconContainer = styled.View`
 `;
 
 export const Content = styled.View`
-  gap: ${(props) => props.theme.spacing[4]}px;
-
   margin-top: ${(props) => props.theme.spacing[6]}px;
 
   padding-left: ${(props) => props.theme.spacing[4]}px;

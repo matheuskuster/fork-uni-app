@@ -35,9 +35,7 @@ export const Body = styled.View`
   padding-right: ${(props) => props.theme.spacing[4]}px;
 `;
 
-export const Content = styled.View`
-  gap: ${(props) => props.theme.spacing[4]}px;
-`;
+export const Content = styled.View``;
 
 export const VerificationContainer = styled.View`
   display: flex;

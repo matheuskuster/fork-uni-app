@@ -43,8 +43,6 @@ export const ScrollContainer = styled.ScrollView`
 `;
 
 export const Content = styled.View`
-  gap: ${(props) => props.theme.spacing[4]}px;
-
   margin-bottom: ${(props) => props.theme.spacing[32]}px;
 `;
 
