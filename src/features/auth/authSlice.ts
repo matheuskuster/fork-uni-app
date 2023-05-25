@@ -43,6 +43,11 @@ export const authSlice = createSlice({
       state.isLoading = false;
       state.isAuthenticated = false;
     },
+    verifyUser: (state) => {
+      if (state.user) {
+        state.user.verified = true;
+      }
+    },
   },
   extraReducers: (builder) => {
     builder.addCase(signInUser.pending, (state) => {
@@ -78,4 +83,4 @@ export const authSlice = createSlice({
   },
 });
 
-export const { signOut } = authSlice.actions;
+export const { signOut, verifyUser } = authSlice.actions;

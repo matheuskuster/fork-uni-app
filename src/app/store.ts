@@ -3,6 +3,7 @@ import { configureStore } from '@reduxjs/toolkit';
 import { persistStore, persistReducer } from 'redux-persist';
 
 import { authSlice } from '@/features/auth/authSlice';
+import { otpSlice } from '@/features/otp/otpSlice';
 import { quotationSlice } from '@/features/quotation/quotationSlice';
 import { signupSlice } from '@/features/signup/signupSlice';
 import { studentSlice } from '@/features/student/studentSlice';
@@ -24,6 +25,7 @@ export const store = configureStore({
     signup: signupSlice.reducer,
     quotation: quotationSlice.reducer,
     student: studentSlice.reducer,
+    otp: otpSlice.reducer,
   },
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware({ serializableCheck: false }),

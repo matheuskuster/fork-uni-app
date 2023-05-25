@@ -9,4 +9,7 @@ export const Container = styled(SafeAreaView)`
   background-color: ${(props) => props.theme.colors.background};
 `;
 
-export const ScrollContainer = styled.ScrollView``;
+export const ScrollContainer = styled.ScrollView.attrs({
+  showsHorizontalScrollIndicator: false,
+  showsVerticalScrollIndicator: false,
+})``;

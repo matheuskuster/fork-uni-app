@@ -8,6 +8,7 @@ import { EnrollmentRoutes } from './enrollment.routes';
 
 import { useDispatch, useSelector } from '@/app/hooks';
 import { getMe } from '@/features/auth/authActions';
+import { OtpValidation } from '@/screens/OtpValidation';
 import { theme } from '@/theme';
 
 export function Routes() {
@@ -34,6 +35,14 @@ export function Routes() {
         <NavigationContainer>
           <AuthRoutes />
         </NavigationContainer>
+      </SafeAreaProvider>
+    );
+  }
+
+  if (isAuthenticated && user?.verified === false) {
+    return (
+      <SafeAreaProvider style={styles}>
+        <OtpValidation />
       </SafeAreaProvider>
     );
   }

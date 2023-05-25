@@ -7,7 +7,7 @@ interface SignInCredentials {
   password: string;
 }
 
-interface SignInResponse {
+export interface SignInResponse {
   user: {
     id: string;
     cpf: string;
