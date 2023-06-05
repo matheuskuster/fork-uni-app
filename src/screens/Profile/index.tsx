@@ -1,5 +1,6 @@
 import { Feather } from '@expo/vector-icons';
 import { useNavigation } from '@react-navigation/native';
+import { Linking } from 'react-native';
 
 import { MenuOption } from './MenuOption';
 import * as S from './styles';
@@ -14,6 +15,7 @@ import { QuestionIcon } from '@/icons/QuestionIcon';
 import { WhatsAppIcon } from '@/icons/WhatsAppIcon';
 import { AppNavigatorRoutesProps } from '@/routes/app.routes';
 import { theme } from '@/theme';
+import { whatsAppLink } from '@/utils/constants/whatsAppLink';
 
 export function Profile() {
   const dispatch = useDispatch();
@@ -70,6 +72,9 @@ export function Profile() {
           icon={<ChatIcon size={28} color={theme.colors.green[500]} />}
           title="Fale conosco"
           description="Estamos aqui para te ajudar"
+          onPress={() => {
+            Linking.openURL(whatsAppLink.url);
+          }}
         />
         <S.Separator />
         <MenuOption
