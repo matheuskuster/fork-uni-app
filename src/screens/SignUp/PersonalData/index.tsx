@@ -58,6 +58,7 @@ export function PersonalData() {
 
     if (!gender) return;
 
+    name.trimEnd();
     dispatch(addPersonalData({ name, email, gender, birth, cpf }));
     navigation.navigate('securityPassword');
   }
@@ -87,14 +88,14 @@ export function PersonalData() {
             rules={{
               required: 'Insira seu nome completo',
               pattern: {
-                value: /^[A-Z][a-z]+(?: [A-Z][a-z]+)+$/i,
+                value: /^[A-Z][a-z]+(?: [A-Z][a-z]+)*\s*$/i,
                 message: 'Insira um nome válido',
               },
             }}
             render={({ field: { onChange, value } }) => (
               <Input
                 onChangeText={onChange}
-                value={value}
+                value={value.trimStart()}
                 placeholder="Nome completo"
                 autoCapitalize="words"
                 autoComplete="name"
