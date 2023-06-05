@@ -40,7 +40,10 @@ export function Profile() {
         <S.UserContainer>
           <S.UserPhotoContainer>
             <S.UserPhoto>
-              {user?.name.split(' ').map((name) => name[0])}
+              {user?.name
+                .split(' ')
+                .map((n, i, a) => (i === 0 || i + 1 === a.length ? n[0] : null))
+                .join('')}
             </S.UserPhoto>
           </S.UserPhotoContainer>
           <S.UserName>{user?.name}</S.UserName>
