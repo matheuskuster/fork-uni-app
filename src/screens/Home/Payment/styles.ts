@@ -1,8 +1,6 @@
 import styled from 'styled-components/native';
 
 export const PaymentContainer = styled.View`
-  width: 355px;
-
   align-items: center;
   flex-direction: row;
 
@@ -23,7 +21,7 @@ export const StatusBox = styled.View`
 
 export const DescriptionBox = styled.View`
   flex-direction: row;
-  margin-top: 3px;
+  margin-top: ${(props) => props.theme.spacing['1']}px;
 `;
 
 export const StatusText = styled.Text`

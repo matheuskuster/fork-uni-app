@@ -1,31 +1,42 @@
-import { useState } from 'react';
+import { useEffect } from 'react';
+import { Alert } from 'react-native';
 
 import { Basemap } from './Basemap';
 import { Boarding } from './Boarding';
-import { ConfirmationModal } from './ConfirmationModal';
 import { Driver } from './Driver';
 import { Header } from './Header';
 import { Payment } from './Payment';
 import * as S from './styles';
 
+import { useDispatch, useSelector } from '@/app/hooks';
 import { ChatButton } from '@/components';
+import { getStudent } from '@/features/student/studentActions';
 
 export function Home() {
-  const [isModalVisible, setIsModalVisible] = useState(false);
-  const [isConfirmBoarding, setIsConfirmBoarding] = useState(false);
+  const dispatch = useDispatch();
+  const { status } = useSelector((state) => state.student);
+
+  useEffect(() => {
+    if (!status) {
+      handleStudentState();
+    }
+  }, []);
+
+  async function handleStudentState() {
+    try {
+      await dispatch(getStudent());
+    } catch (error) {
+      Alert.alert('Não conseguimos confirmar', `${error}`);
+    }
+  }
 
   return (
     <S.Container>
-      <ConfirmationModal
-        isConfirmBoarding={isConfirmBoarding}
-        visible={isModalVisible}
-      />
-
       <Header />
 
       <S.ScrollContainer>
         <Basemap />
-        <Driver status="searching" />
+        <Driver />
         <Boarding />
         <Payment />
       </S.ScrollContainer>

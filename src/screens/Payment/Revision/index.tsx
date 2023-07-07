@@ -1,12 +1,20 @@
+import { useNavigation } from '@react-navigation/native';
 import { useTheme } from 'styled-components';
 
 import * as S from './styles';
 
+import { useSelector } from '@/app/hooks';
 import { BackButton, Input, NextButton } from '@/components';
 import { CardsIcon } from '@/icons/CardsIcon';
+import { PaymentNavigatorRoutesProps } from '@/routes/payment.routes';
+import { shiftTranslation } from '@/utils/constants/shiftTranslation';
 
 export function Revision() {
   const theme = useTheme();
+  const navigation = useNavigation<PaymentNavigatorRoutesProps>();
+  const { home, university, shift, name } = useSelector(
+    (state) => state.student,
+  );
 
   return (
     <S.Container>
@@ -18,6 +26,7 @@ export function Revision() {
             left: theme.spacing[4],
             bottom: theme.spacing[4],
           }}
+          onPress={() => navigation.goBack()}
         />
         <S.HeaderTitle>Revisão e Pagamento</S.HeaderTitle>
       </S.HeaderContainer>
@@ -26,13 +35,16 @@ export function Revision() {
         <S.SimpleText>Revisão:</S.SimpleText>
         <S.RevisionContainer>
           <S.RevisionTitle>PASSAGEIRO:</S.RevisionTitle>
-          <S.RevisionDescription>
-            Gabriel Rodrigues da Silva
-          </S.RevisionDescription>
+          <S.RevisionDescription>{name}</S.RevisionDescription>
           <S.RevisionTitle>ROTA:</S.RevisionTitle>
-          <S.RevisionDescription>Jardim Camburi x UVV</S.RevisionDescription>
+          <S.RevisionDescription>
+            {home?.neighborhood} X {university?.acronym}
+          </S.RevisionDescription>
           <S.RevisionTitle>TURNO:</S.RevisionTitle>
-          <S.RevisionDescription>Matutino</S.RevisionDescription>
+          <S.RevisionDescription>
+            {/* @ts-ignore */}
+            {shiftTranslation[shift]}
+          </S.RevisionDescription>
         </S.RevisionContainer>
 
         <S.SimpleText>Possui cupom ou vale?</S.SimpleText>
@@ -48,7 +60,7 @@ export function Revision() {
         />
 
         <S.SimpleText>Método de pagamento:</S.SimpleText>
-        <S.PaymentMethodButton>
+        <S.PaymentMethodButton onPress={() => navigation.navigate('method')}>
           <CardsIcon />
           <S.PaymentMethodText>
             Escolher método de pagamento

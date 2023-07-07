@@ -3,26 +3,45 @@ import {
   NativeStackNavigationProp,
 } from '@react-navigation/native-stack';
 
+import { PaymentStackRoute } from './payment.routes';
+
 import { Home } from '@/screens/Home';
 import { Notifications } from '@/screens/Notifications';
 import { Profile } from '@/screens/Profile';
 
-type AppRoutesProps = {
+type AppMainRoutesProps = {
   home: undefined;
   notifications: undefined;
   profile: undefined;
 };
 
-export type AppNavigatorRoutesProps = NativeStackNavigationProp<AppRoutesProps>;
+type AppRoutesProps = {
+  AppRoute: undefined;
+  PaymentRoute: undefined;
+};
 
-const { Navigator, Screen } = createNativeStackNavigator<AppRoutesProps>();
+export type AppNavigatorRoutesProps = NativeStackNavigationProp<AppRoutesProps>;
+export type AppMainNavigatorRoutesProps =
+  NativeStackNavigationProp<AppRoutesProps>;
+
+const AppMainStack = createNativeStackNavigator<AppMainRoutesProps>();
+const AppStack = createNativeStackNavigator<AppRoutesProps>();
+
+export function AppStackRoute() {
+  return (
+    <AppMainStack.Navigator screenOptions={{ headerShown: false }}>
+      <AppMainStack.Screen name="home" component={Home} />
+      <AppMainStack.Screen name="notifications" component={Notifications} />
+      <AppMainStack.Screen name="profile" component={Profile} />
+    </AppMainStack.Navigator>
+  );
+}
 
 export function AppRoutes() {
   return (
-    <Navigator screenOptions={{ headerShown: false }}>
-      <Screen name="home" component={Home} />
-      <Screen name="notifications" component={Notifications} />
-      <Screen name="profile" component={Profile} />
-    </Navigator>
+    <AppStack.Navigator screenOptions={{ headerShown: false }}>
+      <AppStack.Screen name="AppRoute" component={AppStackRoute} />
+      <AppStack.Screen name="PaymentRoute" component={PaymentStackRoute} />
+    </AppStack.Navigator>
   );
 }

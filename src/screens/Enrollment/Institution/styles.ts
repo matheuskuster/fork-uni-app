@@ -76,18 +76,13 @@ export const Footer = styled.View`
   background-color: ${(props) => props.theme.colors.background};
 `;
 
-export const ModalContainer = styled.Modal.attrs({
-  transparent: true,
-  animationType: 'fade',
-})`
-  background-color: #000000;
-`;
+export const Modal = styled.Modal.attrs({
+  animationType: 'slide',
+  transparent: false,
+})``;
 
-export const ContentContainer = styled.View`
-  height: 366px;
-
-  margin: auto;
-
+export const ModalContainer = styled.View`
+  flex:1
   align-items: center;
   justify-content: center;
 
@@ -96,13 +91,26 @@ export const ContentContainer = styled.View`
     ${(props) => props.theme.spacing['4']}px
     ${(props) => props.theme.spacing['4']}px;
 
-  border-radius: ${(props) => props.theme.radii['2xl']};
+  background-color: ${(props) => props.theme.colors.gray['800']};
+`;
+
+export const ContentContainer = styled.View`
+  flex:1
+  align-items: center;
+  justify-content: center;
+
+  padding: ${(props) => props.theme.spacing['4']}px
+    ${(props) => props.theme.spacing['4']}px
+    ${(props) => props.theme.spacing['4']}px
+    ${(props) => props.theme.spacing['4']}px;
 
   background-color: ${(props) => props.theme.colors.gray['800']};
 `;
 
 export const Title = styled.Text`
   margin-top: ${(props) => props.theme.spacing['5']}px;
+
+  text-align: center;
 
   color: ${(props) => props.theme.colors.white};
   font-size: ${(props) => props.theme.fontSizes['2xl']};
@@ -128,6 +136,9 @@ export const ButtonOptionsContainer = styled.View``;
 export const ButtonContainer = styled.TouchableOpacity.attrs({
   activeOpacity: 0.5,
 })`
+  width: 100%;
+  height: 60px;
+
   margin-top: ${(props) => props.theme.spacing['8']}px;
 
   justify-content: center;
@@ -137,6 +148,10 @@ export const ButtonContainer = styled.TouchableOpacity.attrs({
     ${(props) => props.theme.spacing['2']}px
     ${(props) => props.theme.spacing['4']}px
     ${(props) => props.theme.spacing['2']}px;
+
+  margin: auto ${(props) => props.theme.spacing['4']}px
+    ${(props) => props.theme.spacing['9']}px
+    ${(props) => props.theme.spacing['4']}px;
 
   border-radius: ${(props) => props.theme.radii.lg};
   background-color: ${(props) => props.theme.colors.green['500']};

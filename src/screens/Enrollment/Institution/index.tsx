@@ -22,7 +22,6 @@ import { getQuotation } from '@/features/quotation/quotationActions';
 import { setShift } from '@/features/quotation/quotationSlice';
 import { useInstitutions } from '@/hooks/useInstitutions';
 import { PathIcon } from '@/icons/PathIcon';
-import { WarningCircleIcon } from '@/icons/WarningCircleIcon';
 import { EnrollmentNavigatorRoutesProps } from '@/routes/enrollment.routes';
 import { mask } from '@/utils/constants/masks';
 
@@ -104,21 +103,25 @@ export function Institution() {
 
   return (
     <S.Container>
-      <S.ModalContainer visible={isModalVisible}>
-        <S.ContentContainer>
-          <WarningCircleIcon />
-          <S.Title>Ainda não chegamos ai...</S.Title>
-          <S.Description>
-            Sinto muito, mas nós ainda não temos nenhuma cotação disponível da
-            sua região para essa instituição.
-          </S.Description>
+      <S.Modal visible={isModalVisible}>
+        <S.ModalContainer>
+          <S.ContentContainer>
+            <PathIcon color={theme.colors.gray[400]} size={144} />
+            <S.Title>Ainda não chegamos ai</S.Title>
+            <S.Description>
+              Sinto muito, mas nós ainda não temos nenhuma cotação nesse turno
+              disponível da sua região para essa instituição. {'\n\n'} Mas não
+              se preocupe. Nós iremos avaliar a sua solicitação para podermos
+              disponibilizar esse serviço o mais breve possível!
+            </S.Description>
+          </S.ContentContainer>
           <S.ButtonContainer>
             <S.ButtonText onPress={() => setIsModalVisible(false)}>
               Ok, tudo bem
             </S.ButtonText>
           </S.ButtonContainer>
-        </S.ContentContainer>
-      </S.ModalContainer>
+        </S.ModalContainer>
+      </S.Modal>
 
       <S.Header>
         <BackButton onPress={() => dispatch(signOut())} />

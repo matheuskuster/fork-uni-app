@@ -3,8 +3,10 @@ import { configureStore } from '@reduxjs/toolkit';
 import { persistStore, persistReducer } from 'redux-persist';
 
 import { authSlice } from '@/features/auth/authSlice';
+import { driverSlice } from '@/features/driver/driverSlice';
 import { otpSlice } from '@/features/otp/otpSlice';
 import { quotationSlice } from '@/features/quotation/quotationSlice';
+import { routeSlice } from '@/features/route/routeSlice';
 import { signupSlice } from '@/features/signup/signupSlice';
 import { studentSlice } from '@/features/student/studentSlice';
 
@@ -26,6 +28,8 @@ export const store = configureStore({
     quotation: quotationSlice.reducer,
     student: studentSlice.reducer,
     otp: otpSlice.reducer,
+    driver: driverSlice.reducer,
+    route: routeSlice.reducer,
   },
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware({ serializableCheck: false }),

@@ -1,16 +1,64 @@
+import { useNavigation } from '@react-navigation/native';
+import { useEffect, useState } from 'react';
+import { useTheme } from 'styled-components';
+
 import * as S from './styles';
 
+import { useDispatch, useSelector } from '@/app/hooks';
+import { getDriverById } from '@/features/driver/driverActions';
+import { getRouteById } from '@/features/route/routeActions';
+import { StudentStatusProps } from '@/features/student/studentSlice';
 import { DollarSign } from '@/icons/DollarSign';
 import { VanIcon } from '@/icons/VanIcon';
+import { AppNavigatorRoutesProps } from '@/routes/app.routes';
 
-interface DriverProps {
-  status: 'searching' | 'confirmed' | 'found';
-}
-export function Driver({ status }: DriverProps) {
+export function Driver() {
+  const theme = useTheme();
+  const dispatch = useDispatch();
+  const navigation = useNavigation<AppNavigatorRoutesProps>();
+
+  const { status, routeId } = useSelector((state) => state.student);
+  const { driverId } = useSelector((state) => state.route);
+  const { name } = useSelector((state) => state.driver);
+
+  const [isModalVisible, setIsModalVisible] = useState(false);
+
+  useEffect(() => {
+    if (routeId) {
+      dispatch(getRouteById({ id: routeId }));
+    }
+  }, [routeId]);
+
+  useEffect(() => {
+    if (driverId) {
+      dispatch(getDriverById({ id: driverId }));
+    }
+  }, [driverId]);
+
   switch (status) {
-    case 'searching':
+    case StudentStatusProps.PENDING_ROUTE_ASSIGNMENT:
       return (
-        <S.DriverContainer>
+        <S.DriverContainer onPress={() => setIsModalVisible(true)}>
+          <S.Modal visible={isModalVisible}>
+            <S.ModalContainer>
+              <S.ContentContainer>
+                <VanIcon color={theme.colors.gray[400]} size={144} />
+                <S.Title>Estamos procurando a sua van</S.Title>
+                <S.Description>
+                  Estamos em busca de uma van para fazer o seu transporte. Assim
+                  que conseguirmos, você será notificado e poderá prosseguir com
+                  o pagamento. {'\n\n'} Se tiver qualquer dúvida, entre em
+                  contato conosco pelo suporte.
+                </S.Description>
+              </S.ContentContainer>
+              <S.ButtonContainer>
+                <S.ButtonText onPress={() => setIsModalVisible(false)}>
+                  Entendi
+                </S.ButtonText>
+              </S.ButtonContainer>
+            </S.ModalContainer>
+          </S.Modal>
+
           <S.ImageContainer>
             <VanIcon />
           </S.ImageContainer>
@@ -22,9 +70,9 @@ export function Driver({ status }: DriverProps) {
           </S.DriverTextContainer>
         </S.DriverContainer>
       );
-    case 'found':
+    case StudentStatusProps.PENDING_ROUTE_ACCEPTANCE:
       return (
-        <S.DriverContainer>
+        <S.DriverContainer onPress={() => navigation.navigate('PaymentRoute')}>
           <S.ImageContainer>
             <DollarSign />
           </S.ImageContainer>
@@ -36,12 +84,12 @@ export function Driver({ status }: DriverProps) {
           </S.DriverTextContainer>
         </S.DriverContainer>
       );
-    case 'confirmed':
+    default:
       return (
         <S.DriverContainer>
           <S.ImageContainer />
           <S.DriverTextContainer>
-            <S.DriverNameText>Carlos da Silva</S.DriverNameText>
+            <S.DriverNameText>{name}</S.DriverNameText>
             <S.DriverDescriptionText>
               MOTORISTA E PARCEIRO
             </S.DriverDescriptionText>

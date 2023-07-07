@@ -1,3 +1,4 @@
+import { useNavigation } from '@react-navigation/native';
 import { VStack } from 'react-native-stacks';
 import { useTheme } from 'styled-components';
 
@@ -9,9 +10,11 @@ import { BackButton, Button } from '@/components';
 import { BarcodeIcon } from '@/icons/BarcodeIcon';
 import { CardAddIcon } from '@/icons/CardAddIcon';
 import { PixIcon } from '@/icons/PixIcon';
+import { PaymentNavigatorRoutesProps } from '@/routes/payment.routes';
 
 export function Method() {
   const theme = useTheme();
+  const navigation = useNavigation<PaymentNavigatorRoutesProps>();
 
   return (
     <S.Container>
@@ -22,6 +25,9 @@ export function Method() {
             position: 'absolute',
             left: theme.spacing[0],
             bottom: theme.spacing[4],
+          }}
+          onPress={() => {
+            navigation.goBack();
           }}
         />
         <S.HeaderTitle>Método de Pagamento</S.HeaderTitle>

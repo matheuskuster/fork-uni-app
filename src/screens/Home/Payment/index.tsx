@@ -1,33 +1,31 @@
 import { LinearGradient } from 'expo-linear-gradient';
-import { useState } from 'react';
+import { useMemo } from 'react';
 import { createShimmerPlaceholder } from 'react-native-shimmer-placeholder';
-import { useTheme } from 'styled-components';
 
 import * as S from './styles';
 
+import { useSelector } from '@/app/hooks';
+import {
+  StudentPaymentStatusProps,
+  StudentStatusProps,
+} from '@/features/student/studentSlice';
 import { DollarSign } from '@/icons/DollarSign';
-
+import { capitalizeFirstLetter } from '@/utils/capitalizeFirstLetter';
+import { getFormattedDate } from '@/utils/getFormattedDate';
 export function Payment() {
-  const theme = useTheme();
+  const { paymentStatus, status } = useSelector((state) => state.student);
 
-  // Animation to the Shimmer Placeholder
-  const [visible, setVisible] = useState(true);
   const ShimmerPlaceHolder = createShimmerPlaceholder(LinearGradient);
-  const linearGradientColors = [
-    theme.colors.gray[750],
-    theme.colors.gray[700],
-    theme.colors.gray[700],
-  ];
+
+  const isVisible = useMemo(
+    () =>
+      status === StudentStatusProps.ACTIVE ||
+      status === StudentStatusProps.INACTIVE,
+    [status],
+  );
 
   return (
-    <ShimmerPlaceHolder
-      style={{
-        borderRadius: theme.spacing[1],
-        height: '100%',
-      }}
-      shimmerColors={linearGradientColors}
-      visible={visible}
-    >
+    <ShimmerPlaceHolder style={{ height: 'auto' }} visible={isVisible}>
       <S.PaymentContainer>
         <S.IconContainer>
           <DollarSign />
@@ -35,8 +33,14 @@ export function Payment() {
         <S.StatusBox>
           <S.StatusText>STATUS</S.StatusText>
           <S.DescriptionBox>
-            <S.PaidStatusTag>PAGO</S.PaidStatusTag>
-            <S.StatusDate>Março</S.StatusDate>
+            {paymentStatus === StudentPaymentStatusProps.PAID ? (
+              <S.PaidStatusTag>PAGO</S.PaidStatusTag>
+            ) : (
+              <S.PendingStatusTag>PENDENTE</S.PendingStatusTag>
+            )}
+            <S.StatusDate>
+              {capitalizeFirstLetter(getFormattedDate({}).month)}
+            </S.StatusDate>
           </S.DescriptionBox>
         </S.StatusBox>
       </S.PaymentContainer>
