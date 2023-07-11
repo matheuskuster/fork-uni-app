@@ -4,10 +4,10 @@ import * as S from './styles';
 
 import { useSelector } from '@/app/hooks';
 import { NotificationsButton, ProfileButton } from '@/components';
-import { AppNavigatorRoutesProps } from '@/routes/app.routes';
+import { AppMainNavigatorRoutesProps } from '@/routes/app.routes';
 
 export function Header() {
-  const navigaton = useNavigation<AppNavigatorRoutesProps>();
+  const navigaton = useNavigation<AppMainNavigatorRoutesProps>();
 
   const { user } = useSelector((state) => state.auth);
 

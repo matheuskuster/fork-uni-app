@@ -51,7 +51,9 @@ function SignInStackRoute() {
 
 function SignUpStackRoute() {
   return (
-    <SignUpStack.Navigator screenOptions={{ headerShown: false }}>
+    <SignUpStack.Navigator
+      screenOptions={{ headerShown: false, animation: 'slide_from_right' }}
+    >
       <SignUpStack.Screen name="phoneNumber" component={PhoneNumber} />
       <SignUpStack.Screen name="personalData" component={PersonalData} />
       <SignUpStack.Screen

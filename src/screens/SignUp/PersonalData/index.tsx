@@ -1,7 +1,7 @@
 import { useNavigation } from '@react-navigation/native';
 import { useState, useRef } from 'react';
 import { Controller, useForm } from 'react-hook-form';
-import { TextInput } from 'react-native';
+import { TextInput, Alert } from 'react-native';
 import { useTheme } from 'styled-components';
 
 import * as S from './styles';
@@ -56,7 +56,10 @@ export function PersonalData() {
   function onSubmit(data: PersonalDataForm) {
     const { name, email, birth, cpf } = data;
 
-    if (!gender) return;
+    if (!gender) {
+      Alert.alert('Erro ao prosseguir', 'É necessário escolher um gênero');
+      return;
+    }
 
     name.trimEnd();
     dispatch(addPersonalData({ name, email, gender, birth, cpf }));
@@ -137,15 +140,13 @@ export function PersonalData() {
 
           <Space size={theme.spacing[2]} />
 
-          <S.PickerContainer>
-            <Select
-              value={gender}
-              items={genders}
-              setValue={setGender}
-              setItems={setGenders}
-              placeholder="Gênero"
-            />
-          </S.PickerContainer>
+          <Select
+            value={gender}
+            items={genders}
+            setValue={setGender}
+            setItems={setGenders}
+            placeholder="Gênero"
+          />
 
           <Space size={theme.spacing[2]} />
 

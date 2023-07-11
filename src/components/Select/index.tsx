@@ -3,7 +3,7 @@ import { useState } from 'react';
 import { View } from 'react-native';
 import DropdownPicker from 'react-native-dropdown-picker';
 
-import { styles } from './styles';
+import * as S from './styles';
 
 DropdownPicker.setLanguage('PT');
 
@@ -49,30 +49,34 @@ export function Select({
   );
 
   return (
-    <DropdownPicker
-      open={open}
-      value={value}
-      items={items}
-      setOpen={setOpen}
-      setValue={setValue}
-      setItems={setItems}
-      placeholder={placeholder}
-      ArrowDownIconComponent={ArrowDown}
-      ArrowUpIconComponent={ArrowUp}
-      TickIconComponent={Check}
-      placeholderStyle={styles.placeholder}
-      style={styles.container}
-      labelStyle={styles.label}
-      itemSeparatorStyle={styles.itemSeparator}
-      textStyle={styles.text}
-      zIndex={1000}
-      dropDownDirection="BOTTOM"
-      maxHeight={1000}
-      listMode="SCROLLVIEW"
-      itemProps={{
-        style: styles.item,
-      }}
-      itemSeparator
-    />
+    <>
+      <S.PickerContainer>
+        <DropdownPicker
+          open={open}
+          value={value}
+          items={items}
+          setOpen={setOpen}
+          setValue={setValue}
+          setItems={setItems}
+          placeholder={placeholder}
+          ArrowDownIconComponent={ArrowDown}
+          ArrowUpIconComponent={ArrowUp}
+          TickIconComponent={Check}
+          placeholderStyle={S.styles.placeholder}
+          style={S.styles.container}
+          labelStyle={S.styles.label}
+          itemSeparatorStyle={S.styles.itemSeparator}
+          textStyle={S.styles.text}
+          zIndex={1000}
+          dropDownDirection="BOTTOM"
+          maxHeight={1000}
+          listMode="SCROLLVIEW"
+          itemProps={{
+            style: S.styles.item,
+          }}
+          itemSeparator
+        />
+      </S.PickerContainer>
+    </>
   );
 }

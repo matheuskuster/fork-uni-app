@@ -96,6 +96,10 @@ export function Institution() {
           value: institution.id,
         })),
       );
+    } else {
+      setInstitutions([
+        { label: 'Nenhuma instituição encontrada', value: 'no-data' },
+      ]);
     }
   }, [data]);
 
@@ -135,15 +139,13 @@ export function Institution() {
       </S.Header>
 
       <S.Content>
-        <S.PickerContainer>
-          <Select
-            value={institution}
-            items={institutions}
-            setValue={setInstitution}
-            setItems={setInstitutions}
-            placeholder="Instituição"
-          />
-        </S.PickerContainer>
+        <Select
+          value={institution}
+          items={institutions}
+          setValue={setInstitution}
+          setItems={setInstitutions}
+          placeholder="Instituição"
+        />
 
         <Space size={theme.spacing[2]} />
 

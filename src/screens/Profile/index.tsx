@@ -8,6 +8,7 @@ import * as S from './styles';
 import { useDispatch, useSelector } from '@/app/hooks';
 import { BackButton } from '@/components';
 import { signOut } from '@/features/auth/authSlice';
+import { signOutStudent } from '@/features/student/studentSlice';
 import { ChatIcon } from '@/icons/ChatIcon';
 import { GearIcon } from '@/icons/GearIcon';
 import { NotePencilIcon } from '@/icons/NotePencilIcon';
@@ -90,6 +91,7 @@ export function Profile() {
           title="Sair"
           description="Voltar para a tela de entrada"
           onPress={() => {
+            dispatch(signOutStudent());
             dispatch(signOut());
           }}
         />

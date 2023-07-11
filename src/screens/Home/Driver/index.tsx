@@ -9,6 +9,7 @@ import { getDriverById } from '@/features/driver/driverActions';
 import { getRouteById } from '@/features/route/routeActions';
 import { StudentStatusProps } from '@/features/student/studentSlice';
 import { DollarSign } from '@/icons/DollarSign';
+import { UniLogo } from '@/icons/UniIcon';
 import { VanIcon } from '@/icons/VanIcon';
 import { AppNavigatorRoutesProps } from '@/routes/app.routes';
 
@@ -87,7 +88,9 @@ export function Driver() {
     default:
       return (
         <S.DriverContainer>
-          <S.ImageContainer />
+          <S.ImageContainer>
+            <UniLogo />
+          </S.ImageContainer>
           <S.DriverTextContainer>
             <S.DriverNameText>{name}</S.DriverNameText>
             <S.DriverDescriptionText>

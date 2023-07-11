@@ -7,7 +7,7 @@ import { useTheme } from 'styled-components';
 import * as S from './styles';
 
 import { useDispatch, useSelector } from '@/app/hooks';
-import { BackButton, Input, NextButton, Title } from '@/components';
+import { BackButton, Input, NextButton, Space, Title } from '@/components';
 import { getMe } from '@/features/auth/authActions';
 import { createStudent } from '@/features/student/studentActions';
 import { EnrollmentNavigatorRoutesProps } from '@/routes/enrollment.routes';
@@ -29,7 +29,11 @@ export function Address() {
   const dispatch = useDispatch();
   const navigaton = useNavigation<EnrollmentNavigatorRoutesProps>();
 
-  const { handleSubmit, control } = useForm<AddressFormData>({
+  const {
+    handleSubmit,
+    control,
+    formState: { errors },
+  } = useForm<AddressFormData>({
     defaultValues: {
       streetName: zipcodeAddress?.street,
     },
@@ -81,30 +85,42 @@ export function Address() {
       <S.Body>
         <S.Content>
           <Input placeholder={zipcodeAddress?.zipcode} disabled />
+          <Space size={theme.spacing[2]} />
           <Controller
             control={control}
             name="streetName"
+            rules={{ required: 'É necessário o nome da rua' }}
             render={({ field: { value, onChange } }) => (
               <Input
                 autoComplete="street-address"
+                placeholder="Nome da Rua"
                 value={value}
                 onChangeText={onChange}
+                hasError={!!errors.streetName?.message}
+                errorMessage={errors.streetName?.message}
               />
             )}
           />
 
+          <Space size={theme.spacing[2]} />
+
           <Controller
             control={control}
             name="number"
+            rules={{ required: 'É necessário o número' }}
             render={({ field: { value, onChange } }) => (
               <Input
                 placeholder="Número"
                 inputMode="numeric"
                 value={value}
                 onChangeText={onChange}
+                hasError={!!errors.number?.message}
+                errorMessage={errors.number?.message}
               />
             )}
           />
+
+          <Space size={theme.spacing[2]} />
 
           <Controller
             control={control}
@@ -118,8 +134,12 @@ export function Address() {
             )}
           />
 
+          <Space size={theme.spacing[2]} />
+
           <Input placeholder={zipcodeAddress?.state} disabled />
+          <Space size={theme.spacing[2]} />
           <Input placeholder={zipcodeAddress?.city} disabled />
+          <Space size={theme.spacing[2]} />
           <Input placeholder={quotation?.neighborhood.name} disabled />
         </S.Content>
       </S.Body>

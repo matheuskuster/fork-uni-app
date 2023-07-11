@@ -1,4 +1,5 @@
 import { StyleSheet } from 'react-native';
+import styled from 'styled-components/native';
 
 import { theme } from '@/theme';
 
@@ -39,3 +40,7 @@ export const styles = StyleSheet.create({
     backgroundColor: theme.colors.gray[800],
   },
 });
+
+export const PickerContainer = styled.View`
+  z-index: 5;
+`;

@@ -74,7 +74,24 @@ const initialState: StudentState = {
 export const studentSlice = createSlice({
   name: 'student',
   initialState,
-  reducers: {},
+  reducers: {
+    signOutStudent: (state) => {
+      state.id = null;
+      state.name = null;
+      state.shift = null;
+      state.registration = null;
+      state.home = null;
+      state.university = null;
+      state.status = null;
+      state.paymentStatus = null;
+      state.routeId = null;
+      state.noBoardingId = null;
+      state.isBoarding = true;
+      state.isLoadingBoarding = false;
+      state.isCreating = false;
+      state.error = null;
+    },
+  },
   extraReducers: (builder) => {
     builder.addCase(createStudent.pending, (state) => {
       state.isCreating = true;
@@ -160,3 +177,5 @@ export const studentSlice = createSlice({
     });
   },
 });
+
+export const { signOutStudent } = studentSlice.actions;

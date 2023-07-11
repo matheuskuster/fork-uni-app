@@ -58,10 +58,6 @@ export const Content = styled.View`
   padding-right: ${(props) => props.theme.spacing[4]}px;
 `;
 
-export const PickerContainer = styled.View`
-  z-index: 5;
-`;
-
 export const Footer = styled.View`
   margin-top: auto;
 

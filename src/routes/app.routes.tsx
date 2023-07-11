@@ -22,14 +22,16 @@ type AppRoutesProps = {
 
 export type AppNavigatorRoutesProps = NativeStackNavigationProp<AppRoutesProps>;
 export type AppMainNavigatorRoutesProps =
-  NativeStackNavigationProp<AppRoutesProps>;
+  NativeStackNavigationProp<AppMainRoutesProps>;
 
 const AppMainStack = createNativeStackNavigator<AppMainRoutesProps>();
 const AppStack = createNativeStackNavigator<AppRoutesProps>();
 
 export function AppStackRoute() {
   return (
-    <AppMainStack.Navigator screenOptions={{ headerShown: false }}>
+    <AppMainStack.Navigator
+      screenOptions={{ headerShown: false, animation: 'slide_from_right' }}
+    >
       <AppMainStack.Screen name="home" component={Home} />
       <AppMainStack.Screen name="notifications" component={Notifications} />
       <AppMainStack.Screen name="profile" component={Profile} />
