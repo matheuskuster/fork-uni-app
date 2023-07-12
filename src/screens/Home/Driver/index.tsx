@@ -1,5 +1,7 @@
 import { useNavigation } from '@react-navigation/native';
+import { LinearGradient } from 'expo-linear-gradient';
 import { useEffect, useState } from 'react';
+import { createShimmerPlaceholder } from 'react-native-shimmer-placeholder';
 import { useTheme } from 'styled-components';
 
 import * as S from './styles';
@@ -19,10 +21,18 @@ export function Driver() {
   const navigation = useNavigation<AppNavigatorRoutesProps>();
 
   const { status, routeId } = useSelector((state) => state.student);
-  const { driverId } = useSelector((state) => state.route);
-  const { name } = useSelector((state) => state.driver);
+  const { driverId, isSearchingRoute } = useSelector((state) => state.route);
+  const { name, isSearchingDriver } = useSelector((state) => state.driver);
 
   const [isModalVisible, setIsModalVisible] = useState(false);
+
+  const linearGradientColors = [
+    theme.colors.green[600],
+    theme.colors.green[400],
+    theme.colors.green[400],
+  ];
+
+  const ShimmerPlaceHolder = createShimmerPlaceholder(LinearGradient);
 
   useEffect(() => {
     if (routeId) {
@@ -35,6 +45,43 @@ export function Driver() {
       dispatch(getDriverById({ id: driverId }));
     }
   }, [driverId]);
+
+  if (isSearchingDriver || isSearchingRoute) {
+    return (
+      <S.DriverContainer>
+        <ShimmerPlaceHolder
+          style={{
+            borderRadius: 35,
+            width: 70,
+            height: 70,
+          }}
+          shimmerColors={linearGradientColors}
+          visible={!isSearchingDriver}
+        />
+        <S.DriverTextContainer>
+          <ShimmerPlaceHolder
+            style={{
+              borderRadius: theme.spacing[2],
+              width: theme.spacing[40],
+              marginBottom: theme.spacing[1],
+              height: theme.spacing[6],
+            }}
+            shimmerColors={linearGradientColors}
+            visible={!isSearchingDriver}
+          />
+          <ShimmerPlaceHolder
+            style={{
+              borderRadius: theme.spacing[2],
+              width: theme.spacing[32],
+              height: theme.spacing[3],
+            }}
+            shimmerColors={linearGradientColors}
+            visible={!isSearchingDriver}
+          />
+        </S.DriverTextContainer>
+      </S.DriverContainer>
+    );
+  }
 
   switch (status) {
     case StudentStatusProps.PENDING_ROUTE_ASSIGNMENT:

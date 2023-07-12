@@ -11,7 +11,7 @@ interface DriverState {
   cnh: string | null;
   superiorId: string | null;
   userId: string | null;
-  isLoading: boolean;
+  isSearchingDriver: boolean;
   error: string | null;
 }
 
@@ -24,7 +24,7 @@ const initialState: DriverState = {
   cnh: null,
   superiorId: null,
   userId: null,
-  isLoading: false,
+  isSearchingDriver: false,
   error: null,
 };
 
@@ -34,7 +34,7 @@ export const driverSlice = createSlice({
   reducers: {},
   extraReducers: (builder) => {
     builder.addCase(getDriverById.pending, (state) => {
-      state.isLoading = true;
+      state.isSearchingDriver = true;
     });
     builder.addCase(getDriverById.fulfilled, (state, action) => {
       const { driver } = action.payload;
@@ -46,10 +46,10 @@ export const driverSlice = createSlice({
       state.cnh = driver.cnh;
       state.superiorId = driver.superiorId;
       state.userId = driver.userId;
-      state.isLoading = false;
+      state.isSearchingDriver = false;
     });
     builder.addCase(getDriverById.rejected, (state, action) => {
-      state.isLoading = false;
+      state.isSearchingDriver = false;
       state.error = action.payload as string;
     });
   },

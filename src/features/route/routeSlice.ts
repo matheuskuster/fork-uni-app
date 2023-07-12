@@ -26,7 +26,7 @@ interface RouteState {
     nextFormatted: string;
   } | null;
   type: string | null;
-  isLoading: boolean | null;
+  isSearchingRoute: boolean | null;
   error: string | null;
 }
 
@@ -40,7 +40,7 @@ const initialState: RouteState = {
   returningHour: null,
   recurrence: null,
   type: null,
-  isLoading: null,
+  isSearchingRoute: null,
   error: null,
 };
 
@@ -50,7 +50,7 @@ export const routeSlice = createSlice({
   reducers: {},
   extraReducers: (builder) => {
     builder.addCase(getRouteById.pending, (state) => {
-      state.isLoading = true;
+      state.isSearchingRoute = true;
     });
     builder.addCase(getRouteById.fulfilled, (state, action) => {
       const { route } = action.payload;
@@ -63,10 +63,10 @@ export const routeSlice = createSlice({
       state.returningHour = route.returningHour;
       state.recurrence = route.recurrence;
       state.type = route.type;
-      state.isLoading = false;
+      state.isSearchingRoute = false;
     });
     builder.addCase(getRouteById.rejected, (state, action) => {
-      state.isLoading = false;
+      state.isSearchingRoute = false;
       state.error = action.payload as string;
     });
   },

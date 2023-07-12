@@ -61,8 +61,8 @@ export const StatusDate = styled.Text`
 `;
 
 export const IconContainer = styled.View`
-  height: 48px;
-  width: 48px;
+  height: ${(props) => props.theme.spacing['12']}px;
+  width: ${(props) => props.theme.spacing['12']}px;
 
   justify-content: center;
   align-items: center;
