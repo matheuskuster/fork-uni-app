@@ -13,12 +13,9 @@ import { StudentStatusProps } from '@/features/student/studentSlice';
 export function Boarding() {
   const theme = useTheme();
   const [isModalVisible, setIsModalVisible] = useState(false);
-  const [isVisible, setIsVisible] = useState(false);
 
   const dispatch = useDispatch();
-  const { noBoardingId, isLoadingBoarding, status, isCreating } = useSelector(
-    (state) => state.student,
-  );
+  const { noBoardingId, status } = useSelector((state) => state.student);
 
   const isConfirmed = useMemo(() => !noBoardingId, [noBoardingId]);
 
@@ -30,15 +27,12 @@ export function Boarding() {
 
   const ShimmerPlaceHolder = createShimmerPlaceholder(LinearGradient);
 
-  useEffect(() => {
-    if (
-      status === StudentStatusProps.INACTIVE ||
+  const isVisible = useMemo(
+    () =>
       status === StudentStatusProps.ACTIVE ||
-      isLoadingBoarding === false
-    ) {
-      setIsVisible(true);
-    }
-  }, [isCreating, isLoadingBoarding]);
+      status === StudentStatusProps.INACTIVE,
+    [status],
+  );
 
   useEffect(() => {
     dispatch(getNoBoarding());
