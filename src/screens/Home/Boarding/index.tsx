@@ -1,21 +1,24 @@
 import { LinearGradient } from 'expo-linear-gradient';
-import { useEffect, useMemo, useState } from 'react';
+import { useMemo, useState } from 'react';
 import { createShimmerPlaceholder } from 'react-native-shimmer-placeholder';
 import { useTheme } from 'styled-components';
 
 import * as S from './styles';
 import { ConfirmationModal } from '../ConfirmationModal';
 
-import { useDispatch, useSelector } from '@/app/hooks';
-import { getNoBoarding } from '@/features/student/studentActions';
+import { useSelector } from '@/app/hooks';
 import { StudentStatusProps } from '@/features/student/studentSlice';
+import { getFormattedNextBoardingDate } from '@/utils/getFormattedNextBoardingDate';
 
 export function Boarding() {
   const theme = useTheme();
   const [isModalVisible, setIsModalVisible] = useState(false);
 
-  const dispatch = useDispatch();
-  const { noBoardingId, status } = useSelector((state) => state.student);
+  const { noBoardingId, isLoadingBoarding, status } = useSelector(
+    (state) => state.student,
+  );
+  const { isSearchingRoute, recurrence } = useSelector((state) => state.route);
+  const { isSearchingDriver } = useSelector((state) => state.driver);
 
   const isConfirmed = useMemo(() => !noBoardingId, [noBoardingId]);
 
@@ -29,14 +32,19 @@ export function Boarding() {
 
   const isVisible = useMemo(
     () =>
-      status === StudentStatusProps.ACTIVE ||
-      status === StudentStatusProps.INACTIVE,
-    [status],
+      (status === StudentStatusProps.ACTIVE ||
+        status === StudentStatusProps.INACTIVE) &&
+      !isSearchingDriver &&
+      !isSearchingRoute &&
+      !isLoadingBoarding,
+    [status, isSearchingDriver, isSearchingRoute, isLoadingBoarding],
   );
 
-  useEffect(() => {
-    dispatch(getNoBoarding());
-  }, [status]);
+  const formattedDate = useMemo(() => {
+    if (recurrence) {
+      return getFormattedNextBoardingDate(recurrence.next);
+    }
+  }, [recurrence]);
 
   if (!isVisible) {
     return (
@@ -88,8 +96,8 @@ export function Boarding() {
       )}
 
       <S.DateContainer>
-        <S.WeekText>TERÇA-FEIRA</S.WeekText>
-        <S.DateText>15 de Julho</S.DateText>
+        <S.WeekText>{formattedDate?.nextWeekDay}</S.WeekText>
+        <S.DateText>{formattedDate?.nextDateFormatted}</S.DateText>
       </S.DateContainer>
 
       <S.ButtonBox
