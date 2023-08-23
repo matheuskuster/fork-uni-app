@@ -18,11 +18,11 @@ export function Home() {
 
   useEffect(() => {
     if (!status) {
-      handleStudentState();
+      handleStudentStates();
     }
   }, []);
 
-  async function handleStudentState() {
+  async function handleStudentStates() {
     try {
       await dispatch(getStudent());
     } catch (error) {

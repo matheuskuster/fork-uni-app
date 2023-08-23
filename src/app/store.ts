@@ -3,6 +3,7 @@ import { configureStore } from '@reduxjs/toolkit';
 import { persistStore, persistReducer } from 'redux-persist';
 
 import { authSlice } from '@/features/auth/authSlice';
+import { creditCardSlice } from '@/features/billing/creditCardSlice';
 import { driverSlice } from '@/features/driver/driverSlice';
 import { otpSlice } from '@/features/otp/otpSlice';
 import { quotationSlice } from '@/features/quotation/quotationSlice';
@@ -30,6 +31,7 @@ export const store = configureStore({
     otp: otpSlice.reducer,
     driver: driverSlice.reducer,
     route: routeSlice.reducer,
+    creditCard: creditCardSlice.reducer,
   },
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware({ serializableCheck: false }),

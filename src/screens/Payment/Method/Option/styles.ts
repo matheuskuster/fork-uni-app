@@ -1,8 +1,12 @@
 import styled from 'styled-components/native';
 
+interface ContainerProps {
+  isSelected?: boolean;
+}
+
 export const Container = styled.TouchableOpacity.attrs({
-  activeOpacity: 1,
-})`
+  activeOpacity: 0.7,
+})<ContainerProps>`
   width: 100%;
   height: 60px;
   background-color: ${(props) => props.theme.colors.gray[750]};
@@ -11,7 +15,10 @@ export const Container = styled.TouchableOpacity.attrs({
   align-items: center;
 
   padding: ${(props) => props.theme.spacing[4]}px;
+  margin-bottom: ${(props) => props.theme.spacing[1]}px;
 
+  border-width: ${(props) => (props.isSelected ? 1 : 0)}px;
+  border-color: ${(props) => props.theme.colors.white};
   border-radius: ${(props) => props.theme.radii.lg};
 `;
 

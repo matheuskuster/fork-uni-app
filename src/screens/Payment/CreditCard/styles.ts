@@ -41,7 +41,7 @@ export const ContentContainer = styled.ScrollView`
 `;
 
 export const Description = styled.Text`
-  margin-bottom: ${(props) => props.theme.spacing[4]}px;
+  margin-bottom: ${(props) => props.theme.spacing[6]}px;
   text-align: center;
 
   padding: ${(props) => props.theme.spacing[0]}px
@@ -54,31 +54,11 @@ export const Description = styled.Text`
   color: ${(props) => props.theme.colors.gray[200]};
 `;
 
-export const IconContainer = styled.View`
-  height: 26px;
-  width: 42px;
-
-  justify-content: center;
-  align-items: center;
-
-  background-color: 'trasparent';
-`;
-
 export const ButtonContainer = styled.View`
   padding-top: ${(props) => props.theme.spacing[4]}px;
   padding-bottom: ${(props) => props.theme.spacing[5]}px;
 `;
 
-export const ShimmerContainer = styled.View`
-  width: 100%;
-  height: 60px;
-  background-color: ${(props) => props.theme.colors.gray[750]};
-
-  flex-direction: row;
-  align-items: center;
-
-  padding: ${(props) => props.theme.spacing[4]}px;
-  margin-bottom: ${(props) => props.theme.spacing[1]}px;
-
-  border-radius: ${(props) => props.theme.radii.lg};
-`;
+export const ApplyButton = styled.TouchableOpacity.attrs({
+  activeOpacity: 0.7,
+})``;

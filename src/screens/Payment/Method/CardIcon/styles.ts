@@ -21,3 +21,7 @@ export const MastercardContainer = styled(CardContainer)`
 export const EloContainer = styled(CardContainer)`
   background-color: ${'#222222'};
 `;
+
+export const AmexContainer = styled(CardContainer)`
+  background-color: ${'#006FCF'};
+`;

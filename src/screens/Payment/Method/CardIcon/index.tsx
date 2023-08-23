@@ -1,32 +1,40 @@
 import * as S from './styles';
 
+import { CreditCardBrand } from '@/features/billing/creditCardSlice';
+import { AmexIcon } from '@/icons/AmexIcon';
 import { EloIcon } from '@/icons/EloIcon';
 import { MastercardIcon } from '@/icons/MastercardIcon';
 import { VisaIcon } from '@/icons/VisaIcon';
 
 interface CardIconProps {
-  flag: 'elo' | 'visa' | 'master';
+  flag: CreditCardBrand;
 }
 
 export function CardIcon({ flag }: CardIconProps) {
   switch (flag) {
-    case 'elo':
+    case CreditCardBrand.ELO:
       return (
         <S.EloContainer>
           <EloIcon />
         </S.EloContainer>
       );
-    case 'visa':
+    case CreditCardBrand.VISA:
       return (
         <S.VisaContainer>
           <VisaIcon />
         </S.VisaContainer>
       );
-    case 'master':
+    case CreditCardBrand.MASTERCARD:
       return (
         <S.MastercardContainer>
           <MastercardIcon />
         </S.MastercardContainer>
+      );
+    case CreditCardBrand.AMEX:
+      return (
+        <S.AmexContainer>
+          <AmexIcon />
+        </S.AmexContainer>
       );
   }
 }

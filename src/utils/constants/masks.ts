@@ -1,7 +1,7 @@
+/* eslint-disable prettier/prettier */
 const zipCodeMask = [/\d/, /\d/, /\d/, /\d/, /\d/, '-', /\d/, /\d/, /\d/];
 
 const phoneMask = [
-  // eslint-disable-next-line prettier/prettier
   '+',
   '5',
   '5',
@@ -26,7 +26,6 @@ const phoneMask = [
 const dateMask = [/\d/, /\d/, '/', /\d/, /\d/, '/', /\d/, /\d/, /\d/, /\d/];
 
 const cpfMask = [
-  // eslint-disable-next-line prettier/prettier
   /\d/,
   /\d/,
   /\d/,
@@ -43,9 +42,36 @@ const cpfMask = [
   /\d/,
 ];
 
+const cardMask = {
+  expiryDate: [/\d/, /\d/, '/', /\d/, /\d/, /\d/, /\d/],
+  number: [
+    /\d/,
+    /\d/,
+    /\d/,
+    /\d/,
+    ' ',
+    /\d/,
+    /\d/,
+    /\d/,
+    /\d/,
+    ' ',
+    /\d/,
+    /\d/,
+    /\d/,
+    /\d/,
+    ' ',
+    /\d/,
+    /\d/,
+    /\d/,
+    /\d/,
+  ],
+  cvv: [/\d/, /\d/, /\d/],
+};
+
 export const mask = {
   cpf: cpfMask,
   phone: phoneMask,
   date: dateMask,
   zipCode: zipCodeMask,
+  card: cardMask,
 };
