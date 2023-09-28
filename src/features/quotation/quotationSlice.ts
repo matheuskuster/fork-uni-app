@@ -75,7 +75,7 @@ export const quotationSlice = createSlice({
 
       if (zipcode) {
         state.zipcodeAddress = {
-          zipcode: zipcode.cep,
+          zipcode: zipcode.zipcode,
           state: zipcode.state,
           city: zipcode.city,
           neighborhood: zipcode.neighborhood,

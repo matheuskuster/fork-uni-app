@@ -39,7 +39,7 @@ interface Quotation {
 interface QuotationResponse {
   quotations: Quotation[];
   zipcode: {
-    cep: string;
+    zipcode: string;
     state: string;
     city: string;
     neighborhood: string;
