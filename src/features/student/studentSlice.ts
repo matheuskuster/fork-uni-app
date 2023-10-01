@@ -45,12 +45,15 @@ interface StudentState {
   } | null;
   home: Address | null;
   status: StudentStatusProps | null;
+  quotationId: string | null;
+  quotationCost: number | null;
   paymentStatus: StudentPaymentStatusProps | null;
   routeId: string | null;
   noBoardingId: string | null;
   isBoarding: boolean;
   isLoadingBoarding: boolean;
   isCreating: boolean;
+  isFetching: boolean;
   error: string | null;
 }
 
@@ -62,12 +65,15 @@ const initialState: StudentState = {
   home: null,
   university: null,
   status: null,
+  quotationCost: null,
+  quotationId: null,
   paymentStatus: null,
   routeId: null,
   noBoardingId: null,
   isBoarding: true,
   isLoadingBoarding: false,
   isCreating: false,
+  isFetching: false,
   error: null,
 };
 
@@ -83,6 +89,8 @@ export const studentSlice = createSlice({
       state.home = null;
       state.university = null;
       state.status = null;
+      state.quotationCost = null;
+      state.quotationId = null;
       state.paymentStatus = null;
       state.routeId = null;
       state.noBoardingId = null;
@@ -105,6 +113,8 @@ export const studentSlice = createSlice({
       state.shift = student.shift;
       state.university = student.university;
       state.status = student.status;
+      state.quotationCost = student.quotationCost;
+      state.quotationId = student.quotationId;
       state.paymentStatus = student.paymentStatus;
 
       state.isCreating = false;
@@ -114,7 +124,7 @@ export const studentSlice = createSlice({
       state.error = action.payload as string;
     });
     builder.addCase(getStudent.pending, (state) => {
-      state.isCreating = true;
+      state.isFetching = true;
     });
     builder.addCase(getStudent.fulfilled, (state, action) => {
       const { student } = action.payload;
@@ -125,13 +135,15 @@ export const studentSlice = createSlice({
       state.shift = student.shift;
       state.university = student.university;
       state.status = student.status;
+      state.quotationCost = student.quotationCost;
+      state.quotationId = student.quotationId;
       state.paymentStatus = student.paymentStatus;
       state.routeId = student.routeId;
 
-      state.isCreating = false;
+      state.isFetching = false;
     });
     builder.addCase(getStudent.rejected, (state, action) => {
-      state.isCreating = false;
+      state.isFetching = false;
       state.error = action.payload as string;
     });
 

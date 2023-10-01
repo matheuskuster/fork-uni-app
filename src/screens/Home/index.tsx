@@ -26,7 +26,7 @@ export function Home() {
     try {
       await dispatch(getStudent());
     } catch (error) {
-      Alert.alert('Não conseguimos confirmar', `${error}`);
+      Alert.alert('Erro ao buscar estudante', `${error}`);
     }
   }
 

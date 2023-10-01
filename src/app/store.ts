@@ -10,6 +10,7 @@ import { quotationSlice } from '@/features/quotation/quotationSlice';
 import { routeSlice } from '@/features/route/routeSlice';
 import { signupSlice } from '@/features/signup/signupSlice';
 import { studentSlice } from '@/features/student/studentSlice';
+import { subscriptionSlice } from '@/features/subscription/subscriptionSlice';
 
 const authPersistConfig = {
   key: '@voudevanuni:token',
@@ -32,6 +33,7 @@ export const store = configureStore({
     driver: driverSlice.reducer,
     route: routeSlice.reducer,
     creditCard: creditCardSlice.reducer,
+    subscription: subscriptionSlice.reducer,
   },
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware({ serializableCheck: false }),

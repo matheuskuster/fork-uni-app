@@ -4,17 +4,18 @@ import { Alert, FlatList } from 'react-native';
 import { VStack } from 'react-native-stacks';
 import { useTheme } from 'styled-components';
 
-import { CardIcon } from './CardIcon';
 import { Option } from './Option';
 import * as S from './styles';
 
 import { useDispatch, useSelector } from '@/app/hooks';
-import { BackButton, Button } from '@/components';
+import { BackButton, Button, CardIcon } from '@/components';
 import { myCreditCards } from '@/features/billing/creditCardActions';
 import { creditCardsSelectors } from '@/features/billing/creditCardSlice';
-import { BarcodeIcon } from '@/icons/BarcodeIcon';
+import {
+  selectPaymentMethod,
+  SubscriptionMethod,
+} from '@/features/subscription/subscriptionSlice';
 import { CardAddIcon } from '@/icons/CardAddIcon';
-import { PixIcon } from '@/icons/PixIcon';
 import { PaymentNavigatorRoutesProps } from '@/routes/payment.routes';
 import { capitalizeFirstLetter } from '@/utils/capitalizeFirstLetter';
 
@@ -22,10 +23,11 @@ export function Method() {
   const theme = useTheme();
   const dispatch = useDispatch();
   const navigation = useNavigation<PaymentNavigatorRoutesProps>();
-  const [selectedId, setSelectedId] = useState('');
+  const [selectCardId, setSelectCardId] = useState<string | null>(null);
 
   const myCards = useSelector(creditCardsSelectors.selectAll);
   const { isLoadingCreditCards } = useSelector((state) => state.creditCard);
+  const { creditCard } = useSelector((state) => state.subscription);
 
   useEffect(() => {
     try {
@@ -34,6 +36,29 @@ export function Method() {
       Alert.alert('Erro ao buscar cartões', `${error}`);
     }
   }, []);
+
+  useEffect(() => {
+    if (creditCard) {
+      const currentCard = myCards.find((card) => card.id === creditCard.id);
+
+      setSelectCardId(currentCard?.id ?? null);
+    }
+  }, []);
+
+  function handleSelectCard() {
+    if (selectCardId) {
+      const card = myCards.find((card) => card.id === selectCardId);
+
+      dispatch(
+        selectPaymentMethod({
+          creditCard: card,
+          method: SubscriptionMethod.CREDIT_CARD,
+        }),
+      );
+    }
+
+    navigation.goBack();
+  }
 
   return (
     <S.Container>
@@ -77,7 +102,7 @@ export function Method() {
                 data={myCards}
                 keyExtractor={(item) => item.id}
                 renderItem={({ item }) => {
-                  const isSelected = item.id === selectedId;
+                  const isSelected = item.id === selectCardId;
                   return (
                     <Option
                       key={item.id}
@@ -89,31 +114,15 @@ export function Method() {
                           : capitalizeFirstLetter(item.brand)
                       }
                       observation={`Final ${item.lastFourDigits}`}
-                      onPress={() => setSelectedId(item.id)}
+                      onPress={() => setSelectCardId(item.id)}
                     />
                   );
                 }}
-                extraData={selectedId}
+                extraData={selectCardId}
                 scrollEnabled={false}
                 style={{ width: '100%' }}
               />
             </>
-            <Option
-              icon={
-                <S.IconContainer>
-                  <PixIcon />
-                </S.IconContainer>
-              }
-              title="Pix"
-            />
-            <Option
-              icon={
-                <S.IconContainer>
-                  <BarcodeIcon />
-                </S.IconContainer>
-              }
-              title="Boleto Bancário"
-            />
             <Option
               onPress={() => navigation.navigate('creditCard')}
               icon={
@@ -128,7 +137,9 @@ export function Method() {
       </S.ContentContainer>
 
       <S.ButtonContainer>
-        <Button>Selecionar</Button>
+        <Button disabled={!selectCardId} onPress={handleSelectCard}>
+          Selecionar
+        </Button>
       </S.ButtonContainer>
     </S.Container>
   );

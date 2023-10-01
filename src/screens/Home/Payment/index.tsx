@@ -6,13 +6,12 @@ import { useTheme } from 'styled-components';
 import * as S from './styles';
 
 import { useSelector } from '@/app/hooks';
-import {
-  StudentPaymentStatusProps,
-  StudentStatusProps,
-} from '@/features/student/studentSlice';
+import { PaymentStatusTag } from '@/components';
+import { StudentStatusProps } from '@/features/student/studentSlice';
 import { DollarSign } from '@/icons/DollarSign';
 import { capitalizeFirstLetter } from '@/utils/capitalizeFirstLetter';
 import { getFormattedDate } from '@/utils/getFormattedDate';
+
 export function Payment() {
   const theme = useTheme();
   const { paymentStatus, status } = useSelector((state) => state.student);
@@ -66,11 +65,7 @@ export function Payment() {
       <S.StatusBox>
         <S.StatusText>STATUS</S.StatusText>
         <S.DescriptionBox>
-          {paymentStatus === StudentPaymentStatusProps.PAID ? (
-            <S.PaidStatusTag>PAGO</S.PaidStatusTag>
-          ) : (
-            <S.PendingStatusTag>PENDENTE</S.PendingStatusTag>
-          )}
+          <PaymentStatusTag paymentStatus={paymentStatus} />
           <S.StatusDate>
             {capitalizeFirstLetter(getFormattedDate({}).month)}
           </S.StatusDate>

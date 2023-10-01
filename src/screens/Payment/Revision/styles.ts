@@ -81,7 +81,9 @@ export const ApplyButtonText = styled.Text`
 `;
 
 // Payment styles
-export const PaymentMethodButton = styled.TouchableOpacity`
+export const PaymentMethodButton = styled.TouchableOpacity.attrs({
+  activeOpacity: 1,
+})`
   width: 100%;
   height: 60px;
   background-color: transparent;
@@ -104,6 +106,45 @@ export const PaymentMethodText = styled.Text`
   font-family: ${(props) => props.theme.fonts.medium};
   font-size: ${(props) => props.theme.fontSizes.md};
   color: ${(props) => props.theme.colors.white};
+`;
+
+export const PaymentMethodChosenButton = styled(PaymentMethodButton)`
+  background-color: ${(props) => props.theme.colors.gray[750]};
+  padding: ${(props) => props.theme.spacing[4]}px;
+  border-width: 0px;
+`;
+
+export const PaymentInfoContainer = styled.View`
+  flex-direction: row;
+  align-items: center;
+`;
+
+export const PaymentTextContainer = styled.View`
+  margin-left: ${(props) => props.theme.spacing[4]}px;
+`;
+
+export const PaymentTitle = styled.Text`
+  font-family: ${(props) => props.theme.fonts.regular};
+  font-size: ${(props) => props.theme.fontSizes.md};
+  color: ${(props) => props.theme.colors.white};
+`;
+
+export const PaymentDescription = styled.Text`
+  font-family: ${(props) => props.theme.fonts.regular};
+  font-size: ${(props) => props.theme.fontSizes['2xs']};
+  color: ${(props) => props.theme.colors.gray[400]};
+`;
+
+export const ChangeButton = styled.TouchableOpacity.attrs({
+  activeOpacity: 0.5,
+})`
+  width: ${(props) => props.theme.spacing['8']}px;
+  height: ${(props) => props.theme.spacing['8']}px;
+  border-radius: ${(props) => props.theme.radii.sm};
+
+  justify-content: center;
+  align-items: center;
+  background-color: ${(props) => props.theme.colors.gray['750']};
 `;
 
 // Balance styles

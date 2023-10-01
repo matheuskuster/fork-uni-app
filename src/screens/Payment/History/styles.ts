@@ -46,22 +46,6 @@ export const StatusContainer = styled.View`
   margin-left: ${(props) => props.theme.spacing['8']}px;
 `;
 
-export const StatusTag = styled.Text`
-  text-align: center;
-  margin-right: auto;
-  padding: ${(props) => props.theme.spacing[1]}px
-    ${(props) => props.theme.spacing[2]}px
-    ${(props) => props.theme.spacing[1]}px
-    ${(props) => props.theme.spacing[2]}px;
-
-  border-radius: ${(props) => props.theme.radii.sm};
-  background-color: ${(props) => props.theme.colors.green['650']};
-
-  font-size: ${(props) => props.theme.fontSizes['2xs']};
-  font-family: ${(props) => props.theme.fonts.bold};
-  color: ${(props) => props.theme.colors.gray['800']};
-`;
-
 export const DateText = styled.Text`
   color: ${(props) => props.theme.colors.gray['50']};
   font-family: ${(props) => props.theme.fonts.regular};

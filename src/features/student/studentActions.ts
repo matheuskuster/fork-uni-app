@@ -12,6 +12,7 @@ interface CreateStudentRequest {
   name: string;
   institutionId: string;
   shift: string;
+  quotationId: string;
   home: {
     city: string;
     complement?: string;
@@ -37,9 +38,16 @@ interface CreateStudentResponse {
     registration: string | null;
     home: Address;
     status: StudentStatusProps;
+    quotationCost: null;
+    quotationId: string;
     paymentStatus: StudentPaymentStatusProps;
     routeId: string | null;
   };
+}
+
+interface GetStudentResponse extends CreateStudentResponse {
+  quotationCost: number;
+  quotationId: string;
 }
 
 interface CreateNoBoardingRequest {
@@ -85,7 +93,7 @@ export const getStudent = createAsyncThunk(
     try {
       const response = await uniService.get('/v1/students/me');
 
-      return response.data as CreateStudentResponse;
+      return response.data as GetStudentResponse;
     } catch (error) {
       const typedError = error as UniServiceError;
 

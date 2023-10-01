@@ -1,15 +1,23 @@
-import { useMemo, useState } from 'react';
+import { useNavigation } from '@react-navigation/native';
+import { useEffect, useMemo, useState } from 'react';
 import { FlatList } from 'react-native';
 import { useTheme } from 'styled-components';
 
+import { BrandIcon } from './BrandIcon';
+import { HistoryShimmer } from './HistoryShimmer';
 import { Method } from './Method';
 import { Payments } from './Payments';
 import * as S from './styles';
 
-import { BackButton } from '@/components';
+import { useDispatch, useSelector } from '@/app/hooks';
+import { BackButton, PaymentStatusTag } from '@/components';
+import { mySubscription } from '@/features/subscription/subscriptionActions';
 import { CalendarIcon } from '@/icons/CalendarIcon';
 import { DollarSign } from '@/icons/DollarSign';
-import { MastercardIcon } from '@/icons/MastercardIcon';
+import { AppNavigatorRoutesProps } from '@/routes/app.routes';
+import { capitalizeFirstLetter } from '@/utils/capitalizeFirstLetter';
+import { formatPrice } from '@/utils/formatPrice';
+import { getFormattedDate } from '@/utils/getFormattedDate';
 
 // just for testing
 const paymentsTest = [
@@ -42,6 +50,21 @@ const paymentsTest = [
 
 export function History() {
   const theme = useTheme();
+  const navigation = useNavigation<AppNavigatorRoutesProps>();
+
+  const dispatch = useDispatch();
+
+  const { id, creditCard, value, nextDueDate, isFetching } = useSelector(
+    (state) => state.subscription,
+  );
+  const { paymentStatus } = useSelector((state) => state.student);
+
+  useEffect(() => {
+    if (!id) {
+      dispatch(mySubscription());
+    }
+  }, [id]);
+
   const [payments, setPayments] = useState(paymentsTest);
 
   const sortByDate = () => {
@@ -60,6 +83,31 @@ export function History() {
 
   const paymentsSorted = useMemo(sortByDate, [payments]);
 
+  const formattedNextDueDate = useMemo(() => {
+    if (nextDueDate) {
+      const previousMonthDate = new Date(
+        nextDueDate.setMonth(nextDueDate.getMonth() - 1),
+      );
+
+      return {
+        dayDueDate: getFormattedDate({ date: nextDueDate }).day,
+        previousMonth: getFormattedDate({ date: previousMonthDate }).month,
+      };
+    }
+  }, [nextDueDate]);
+
+  const formattedValue = useMemo(() => {
+    if (value) {
+      return formatPrice(value, { showCurrency: true });
+    } else {
+      return 'R$ 0,00';
+    }
+  }, [value]);
+
+  if (isFetching) {
+    return <HistoryShimmer isVisible={!isFetching} />;
+  }
+
   return (
     <S.Container>
       <S.HeaderContainer>
@@ -70,6 +118,7 @@ export function History() {
             left: theme.spacing[4],
             top: theme.spacing[4],
           }}
+          onPress={() => navigation.navigate('AppRoute')}
         />
         <S.HeaderTitle>Pagamento</S.HeaderTitle>
 
@@ -78,23 +127,31 @@ export function History() {
             <DollarSign size={24} />
           </S.IconContainer>
           <S.StatusContainer>
-            <S.StatusTag>PAGO</S.StatusTag>
-            <S.DateText>Março</S.DateText>
+            <PaymentStatusTag paymentStatus={paymentStatus} />
+            <S.DateText>
+              {capitalizeFirstLetter(formattedNextDueDate!.previousMonth)}
+            </S.DateText>
           </S.StatusContainer>
         </S.PaymentContainer>
       </S.HeaderContainer>
 
       <S.ContentContainer>
         <Method
-          icon={<MastercardIcon size={32} />}
-          description="Cartão final 0000"
+          icon={<BrandIcon brand={creditCard?.brand ?? null} size={32} />}
+          description={
+            creditCard?.name
+              ? `${creditCard!.name} (final ${creditCard!.lastFourDigits})`
+              : `Cartão final ${creditCard?.lastFourDigits}`
+          }
         />
 
         <S.CategoryContainer>
           <S.Title>VENCIMENTO</S.Title>
           <S.DescriptionContainer>
             <CalendarIcon />
-            <S.DescriptionText>Todo dia 09</S.DescriptionText>
+            <S.DescriptionText>
+              Todo dia {formattedNextDueDate?.dayDueDate ?? '5'}
+            </S.DescriptionText>
           </S.DescriptionContainer>
         </S.CategoryContainer>
 
@@ -102,7 +159,7 @@ export function History() {
           <S.Title>VALOR</S.Title>
           <S.DescriptionContainer>
             <CalendarIcon />
-            <S.DescriptionText>R$ 140,00</S.DescriptionText>
+            <S.DescriptionText>{formattedValue}</S.DescriptionText>
           </S.DescriptionContainer>
         </S.CategoryContainer>
 
