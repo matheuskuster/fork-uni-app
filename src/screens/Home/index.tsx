@@ -41,9 +41,9 @@ export function Home() {
         <Payment />
       </S.ScrollContainer>
 
-      <ChatButton
+      {/* <ChatButton
         containerStyle={{ position: 'absolute', right: 16, bottom: 16 }}
-      />
+      /> */}
     </S.Container>
   );
 }
