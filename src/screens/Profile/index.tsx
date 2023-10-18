@@ -10,9 +10,7 @@ import { BackButton } from '@/components';
 import { signOut } from '@/features/auth/authSlice';
 import { signOutStudent } from '@/features/student/studentSlice';
 import { ChatIcon } from '@/icons/ChatIcon';
-import { GearIcon } from '@/icons/GearIcon';
 import { NotePencilIcon } from '@/icons/NotePencilIcon';
-import { QuestionIcon } from '@/icons/QuestionIcon';
 import { ProfileNavigatorRoutesProps } from '@/routes/profile.routes';
 import { theme } from '@/theme';
 import { whatsAppLink } from '@/utils/constants/whatsAppLink';
@@ -61,12 +59,13 @@ export function ProfileList() {
         />
         <S.Separator />
 
-        <MenuOption
+        {/* <MenuOption
           icon={<QuestionIcon />}
           title="Dúvidas Frequentes"
           description="Tire suas dúvidas"
         />
-        <S.Separator />
+
+        <S.Separator /> */}
 
         <MenuOption
           icon={<ChatIcon size={28} color={theme.colors.green[500]} />}
@@ -79,13 +78,13 @@ export function ProfileList() {
 
         <S.Separator />
 
-        <MenuOption
+        {/* <MenuOption
           icon={<GearIcon />}
           title="Configurações"
           description="Definições do aplicativo"
         />
 
-        <S.Separator />
+        <S.Separator /> */}
 
         <MenuOption
           icon={

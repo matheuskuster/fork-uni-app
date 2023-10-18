@@ -15,7 +15,8 @@ export function MyPersonalData() {
   const { home } = useSelector((state) => state.student);
 
   if (!user || !home) {
-    return navigation.goBack();
+    navigation.goBack();
+    return null;
   }
 
   return (
