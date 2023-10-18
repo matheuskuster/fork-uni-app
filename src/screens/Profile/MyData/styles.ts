@@ -3,20 +3,21 @@ import styled from 'styled-components/native';
 
 export const Container = styled(SafeAreaView)`
   flex: 1;
+
   padding-bottom: ${(props) => props.theme.spacing[12]}px;
+
   background-color: ${(props) => props.theme.colors.background};
 `;
 
-// Header styles
 export const HeaderContainer = styled.View`
-  flex-direction: row;
-  justify-content: center;
-  align-items: center;
-
   padding: ${(props) => props.theme.spacing[10]}px
     ${(props) => props.theme.spacing[4]}px
     ${(props) => props.theme.spacing[8]}px
     ${(props) => props.theme.spacing[4]}px;
+
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
 
   background-color: ${(props) => props.theme.colors.background};
 `;
@@ -27,8 +28,7 @@ export const HeaderTitle = styled.Text`
   color: ${(props) => props.theme.colors.white};
 `;
 
-// Content
-export const ContentContainer = styled.View`
+export const Content = styled.ScrollView`
   flex: 1;
   padding: ${(props) => props.theme.spacing[0]}px
     ${(props) => props.theme.spacing[4]}px
@@ -36,8 +36,20 @@ export const ContentContainer = styled.View`
     ${(props) => props.theme.spacing[4]}px;
 `;
 
-export const NoNotificationsText = styled.Text`
-  color: ${(props) => props.theme.colors.white};
-  margin: auto;
-  font-family: ${(props) => props.theme.fonts.bold};
+export const Section = styled.View`
+  margin-top: ${(props) => props.theme.spacing[8]}px;
 `;
+
+export const SectionTitle = styled.Text`
+  font-family: ${(props) => props.theme.fonts.regular};
+  font-size: ${(props) => props.theme.fontSizes.sm};
+  color: ${(props) => props.theme.colors.gray[300]};
+`;
+
+export const Separator = styled.View`
+  height: ${(props) => props.theme.spacing.px};
+  width: 100%;
+  background-color: ${(props) => props.theme.colors.gray[750]};
+`;
+
+export const DeleteAccountButton = styled.TouchableOpacity``;

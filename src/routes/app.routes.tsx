@@ -4,10 +4,10 @@ import {
 } from '@react-navigation/native-stack';
 
 import { PaymentStackRoute } from './payment.routes';
+import { ProfileRoutes } from './profile.routes';
 
 import { Home } from '@/screens/Home';
 import { Notifications } from '@/screens/Notifications';
-import { Profile } from '@/screens/Profile';
 
 type AppMainRoutesProps = {
   home: undefined;
@@ -34,7 +34,7 @@ export function AppStackRoute() {
     >
       <AppMainStack.Screen name="home" component={Home} />
       <AppMainStack.Screen name="notifications" component={Notifications} />
-      <AppMainStack.Screen name="profile" component={Profile} />
+      <AppMainStack.Screen name="profile" component={ProfileRoutes} />
     </AppMainStack.Navigator>
   );
 }

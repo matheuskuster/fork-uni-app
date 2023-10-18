@@ -23,6 +23,8 @@
     "expo-linear-gradient": "~12.1.2",
     "expo-splash-screen": "~0.18.2",
     "expo-status-bar": "~1.4.4",
+    "expo-updates": "~0.16.4",
+    "libphonenumber-js": "^1.10.48",
     "react": "18.2.0",
     "react-hook-form": "^7.43.9",
     "react-native": "0.71.13",
@@ -40,8 +42,7 @@
     "redux-persist": "^6.0.0",
     "styled-components": "^5.3.9",
     "typescript": "^4.9.4",
-    "usehooks-ts": "^2.9.1",
-    "expo-updates": "~0.16.4"
+    "usehooks-ts": "^2.9.1"
   },
   "devDependencies": {
     "@babel/core": "^7.20.0",

@@ -1,93 +1,34 @@
 import { useNavigation } from '@react-navigation/native';
-import { useState, useMemo } from 'react';
-import { FlatList } from 'react-native';
+// import { useState, useMemo } from 'react';
+// import { FlatList } from 'react-native';
 import { useTheme } from 'styled-components';
 
-import { Notification } from './Notification';
+// import { Notification } from './Notification';
 import * as S from './styles';
 
 import { BackButton } from '@/components';
 import { AppNavigatorRoutesProps } from '@/routes/app.routes';
 
-const notificationsTest = [
-  {
-    id: '1',
-    title: 'Bem vindo!',
-    date: new Date('2023-04-01T03:24:00'),
-    description: 'Sua conta foi criada com sucesso!',
-    isRead: true,
-  },
-  {
-    id: '2',
-    title: 'Procurando sua van!',
-    date: new Date('2023-04-02T03:24:00'),
-    description: 'Recebemos seu pedido e estamos procurando sua van.',
-    isRead: true,
-  },
-  {
-    id: '3',
-    title: 'Encontramos uma van!',
-    date: new Date('2023-04-02T03:25:00'),
-    description: 'Prossiga para o pagamento para poder embarcar.',
-    isRead: true,
-  },
-  {
-    id: '4',
-    title: 'Pagamento aprovado',
-    date: new Date('2023-04-02T03:26:00'),
-    description: 'Seja bem vindo abordo, conheça seu motorista',
-    isRead: false,
-  },
-  {
-    id: '5',
-    title: 'Encontramos uma van!',
-    date: new Date('2023-04-03T03:24:00'),
-    description: 'Prossiga para o pagamento para poder embarcar.',
-    isRead: false,
-  },
-  {
-    id: '6',
-    title: 'Encontramos uma van!',
-    date: new Date('2023-04-04T03:24:00'),
-    description: 'Prossiga para o pagamento para poder embarcar.',
-    isRead: false,
-  },
-  {
-    id: '7',
-    title: 'Encontramos uma van!',
-    date: new Date('2023-04-04T03:24:00'),
-    description: 'Prossiga para o pagamento para poder embarcar.',
-    isRead: false,
-  },
-  {
-    id: '8',
-    title: 'Encontramos uma van!',
-    date: new Date('2023-04-04T03:24:00'),
-    description: 'Prossiga para o pagamento para poder embarcar.',
-    isRead: false,
-  },
-];
-
 export function Notifications() {
   const navigation = useNavigation<AppNavigatorRoutesProps>();
   const theme = useTheme();
-  const [notifications, setNotifications] = useState(notificationsTest);
+  // const [notifications, setNotifications] = useState(notificationsTest);
 
-  const sortByDate = () => {
-    const sortedArray = notifications.sort((a, b) => {
-      if (a.date > b.date) {
-        return -1;
-      }
-      if (a.date < b.date) {
-        return 1;
-      }
-      return 0;
-    });
+  // const sortByDate = () => {
+  //   const sortedArray = notifications.sort((a, b) => {
+  //     if (a.date > b.date) {
+  //       return -1;
+  //     }
+  //     if (a.date < b.date) {
+  //       return 1;
+  //     }
+  //     return 0;
+  //   });
 
-    return sortedArray;
-  };
+  //   return sortedArray;
+  // };
 
-  const notificationsSorted = useMemo(sortByDate, [notifications]);
+  // const notificationsSorted = useMemo(sortByDate, [notifications]);
 
   return (
     <S.Container>
@@ -104,8 +45,8 @@ export function Notifications() {
         <S.HeaderTitle>Notificações</S.HeaderTitle>
       </S.HeaderContainer>
       <S.ContentContainer>
-        <FlatList
-          data={notificationsSorted}
+        {/* <FlatList
+          data={[]}
           keyExtractor={(item) => `${item.id}`}
           renderItem={({ item }) => (
             <Notification
@@ -115,7 +56,10 @@ export function Notifications() {
               isRead={item.isRead}
             />
           )}
-        />
+        /> */}
+        <S.NoNotificationsText>
+          Você não possui notificações
+        </S.NoNotificationsText>
       </S.ContentContainer>
     </S.Container>
   );

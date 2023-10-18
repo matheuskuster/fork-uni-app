@@ -30,6 +30,7 @@ export interface Address {
   state: string;
   street: string;
   zipcode: string;
+  formatted?: string;
 }
 
 interface StudentState {
