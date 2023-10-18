@@ -9,7 +9,6 @@ import { Payment } from './Payment';
 import * as S from './styles';
 
 import { useDispatch, useSelector } from '@/app/hooks';
-import { ChatButton } from '@/components';
 import { getStudent } from '@/features/student/studentActions';
 
 export function Home() {
