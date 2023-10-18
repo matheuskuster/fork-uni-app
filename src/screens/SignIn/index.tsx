@@ -7,7 +7,7 @@ import { VStack, Spacer } from 'react-native-stacks';
 import * as S from './styles';
 
 import { useDispatch, useSelector } from '@/app/hooks';
-import { Input, Button, SecretInput, GoogleButton } from '@/components';
+import { Input, Button, SecretInput } from '@/components';
 import { signInUser } from '@/features/auth/authActions';
 import { AuthNavigatorRoutesProps } from '@/routes/auth.routes';
 
@@ -102,10 +102,10 @@ export function SignIn() {
           <Button isLoading={isLoading} onPress={handleSubmit(onSubmit)}>
             Entrar
           </Button>
-          <Spacer />
+          {/* <Spacer />
           <S.TextCotinueWithGoogle>continuar com:</S.TextCotinueWithGoogle>
           <Spacer />
-          <GoogleButton>Google</GoogleButton>
+          <GoogleButton>Google</GoogleButton> */}
         </VStack>
       </S.Content>
 

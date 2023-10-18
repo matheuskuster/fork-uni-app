@@ -1,6 +1,5 @@
 import { useNavigation } from '@react-navigation/native';
 import { Controller, useForm } from 'react-hook-form';
-import { ZStack, VStack, Spacer } from 'react-native-stacks';
 import { useTheme } from 'styled-components';
 
 import * as S from './styles';
@@ -9,7 +8,6 @@ import { useDispatch } from '@/app/hooks';
 import {
   BackButton,
   Description,
-  GoogleButton,
   Input,
   NextButton,
   Subtitle,
@@ -87,7 +85,7 @@ export function PhoneNumber() {
               />
             )}
           />
-          <ZStack style={{ width: '100%', marginTop: theme.spacing[2] }}>
+          {/* <ZStack style={{ width: '100%', marginTop: theme.spacing[2] }}>
             <S.DivisionLine />
             <S.DivisionTextContainer>
               <S.DivisionText>ou</S.DivisionText>
@@ -96,7 +94,7 @@ export function PhoneNumber() {
           <VStack spacing={4}>
             <Spacer />
             <GoogleButton>Cadastre-se com o Google</GoogleButton>
-          </VStack>
+          </VStack> */}
         </S.Body>
 
         <S.Footer>
