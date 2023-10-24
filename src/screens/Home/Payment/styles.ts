@@ -1,7 +1,7 @@
 import styled from 'styled-components/native';
 
 export const PaymentContainer = styled.TouchableOpacity.attrs({
-  opacity: 1,
+  activeOpacity: 0.6,
 })`
   align-items: center;
   flex-direction: row;

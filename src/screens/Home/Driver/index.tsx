@@ -120,7 +120,7 @@ export function Driver() {
       );
     case StudentStatusProps.PENDING_ROUTE_ACCEPTANCE:
       return (
-        <S.DriverContainer onPress={() => navigation.navigate('PaymentRoute')}>
+        <S.DriverContainer onPress={() => navigation.navigate('paymentRoute')}>
           <S.ImageContainer>
             <DollarSign />
           </S.ImageContainer>

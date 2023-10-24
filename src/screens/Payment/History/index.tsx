@@ -63,7 +63,7 @@ export function History() {
     if (!id) {
       dispatch(mySubscription());
     }
-  }, [id]);
+  }, [id, creditCard]);
 
   const [payments, setPayments] = useState(paymentsTest);
 
@@ -93,6 +93,11 @@ export function History() {
         dayDueDate: getFormattedDate({ date: nextDueDate }).day,
         previousMonth: getFormattedDate({ date: previousMonthDate }).month,
       };
+    } else {
+      return {
+        dayDueDate: getFormattedDate({}).day,
+        previousMonth: getFormattedDate({}).month,
+      };
     }
   }, [nextDueDate]);
 
@@ -118,7 +123,7 @@ export function History() {
             left: theme.spacing[4],
             top: theme.spacing[4],
           }}
-          onPress={() => navigation.navigate('AppRoute')}
+          onPress={() => navigation.navigate('home')}
         />
         <S.HeaderTitle>Pagamento</S.HeaderTitle>
 

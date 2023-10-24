@@ -1,3 +1,4 @@
+import { useNavigation } from '@react-navigation/native';
 import { LinearGradient } from 'expo-linear-gradient';
 import { useMemo } from 'react';
 import { createShimmerPlaceholder } from 'react-native-shimmer-placeholder';
@@ -9,10 +10,13 @@ import { useSelector } from '@/app/hooks';
 import { PaymentStatusTag } from '@/components';
 import { StudentStatusProps } from '@/features/student/studentSlice';
 import { DollarSign } from '@/icons/DollarSign';
+import { AppNavigatorRoutesProps } from '@/routes/app.routes';
 import { capitalizeFirstLetter } from '@/utils/capitalizeFirstLetter';
 import { getFormattedDate } from '@/utils/getFormattedDate';
 
 export function Payment() {
+  const navigation = useNavigation<AppNavigatorRoutesProps>();
+
   const theme = useTheme();
   const { paymentStatus, status } = useSelector((state) => state.student);
 
@@ -58,7 +62,9 @@ export function Payment() {
   }
 
   return (
-    <S.PaymentContainer>
+    <S.PaymentContainer
+      onPress={() => navigation.navigate('paymentRoute', { screen: 'history' })}
+    >
       <S.IconContainer>
         <DollarSign />
       </S.IconContainer>

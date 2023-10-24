@@ -48,7 +48,7 @@ export function OtpValidation() {
       setCounter(60 * 5);
       if (!lastSentAt || hasPassed5Min) {
         dispatch(sendOtp());
-      } 
+      }
     }
   }
 

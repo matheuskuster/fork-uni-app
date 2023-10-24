@@ -3,6 +3,7 @@ import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import {
   createCreditCardSubscription,
   mySubscription,
+  changeCard,
 } from './subscriptionActions';
 
 export enum SubscriptionMethod {
@@ -10,7 +11,7 @@ export enum SubscriptionMethod {
   PIX = 'PIX',
 }
 
-interface CreditCard {
+export interface CreditCard {
   id: string;
   name?: string;
   lastFourDigits: string;
@@ -78,6 +79,7 @@ export const subscriptionSlice = createSlice({
     });
     builder.addCase(mySubscription.fulfilled, (state, action) => {
       const { subscription } = action.payload;
+      state.id = subscription.id;
       state.method = subscription.method;
       state.value = subscription.value;
       state.nextDueDate = new Date(subscription.nextDueDate);
@@ -88,6 +90,19 @@ export const subscriptionSlice = createSlice({
     builder.addCase(mySubscription.rejected, (state, action) => {
       state.error = action.payload as string;
       state.isFetching = false;
+    });
+    builder.addCase(changeCard.pending, (state) => {
+      state.isCreating = true;
+    });
+    builder.addCase(changeCard.fulfilled, (state, action) => {
+      const { subscriptionCardChange } = action.payload;
+      state.creditCard = subscriptionCardChange.creditCard;
+
+      state.isCreating = false;
+    });
+    builder.addCase(changeCard.rejected, (state, action) => {
+      state.error = action.payload as string;
+      state.isCreating = false;
     });
   },
 });

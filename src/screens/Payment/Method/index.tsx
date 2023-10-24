@@ -4,6 +4,7 @@ import { Alert, FlatList } from 'react-native';
 import { VStack } from 'react-native-stacks';
 import { useTheme } from 'styled-components';
 
+import { CardChangeModal } from './CardChangeModal';
 import { Option } from './Option';
 import * as S from './styles';
 
@@ -23,11 +24,13 @@ export function Method() {
   const theme = useTheme();
   const dispatch = useDispatch();
   const navigation = useNavigation<PaymentNavigatorRoutesProps>();
+
+  const [isModalVisible, setIsModalVisible] = useState(false);
   const [selectCardId, setSelectCardId] = useState<string | null>(null);
 
   const myCards = useSelector(creditCardsSelectors.selectAll);
   const { isLoadingCreditCards } = useSelector((state) => state.creditCard);
-  const { creditCard } = useSelector((state) => state.subscription);
+  const { id, creditCard } = useSelector((state) => state.subscription);
 
   useEffect(() => {
     try {
@@ -49,19 +52,29 @@ export function Method() {
     if (selectCardId) {
       const card = myCards.find((card) => card.id === selectCardId);
 
-      dispatch(
-        selectPaymentMethod({
-          creditCard: card,
-          method: SubscriptionMethod.CREDIT_CARD,
-        }),
-      );
-    }
+      if (id) {
+        setIsModalVisible(true);
+      } else {
+        dispatch(
+          selectPaymentMethod({
+            creditCard: card,
+            method: SubscriptionMethod.CREDIT_CARD,
+          }),
+        );
 
-    navigation.goBack();
+        navigation.goBack();
+      }
+    }
   }
 
   return (
     <S.Container>
+      <CardChangeModal
+        cardId={selectCardId}
+        visible={isModalVisible}
+        setVisible={setIsModalVisible}
+      />
+
       <S.HeaderContainer>
         <BackButton
           containerStyle={{

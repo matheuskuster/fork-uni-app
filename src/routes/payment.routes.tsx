@@ -20,7 +20,7 @@ export type PaymentNavigatorRoutesProps =
 
 const PaymentStack = createNativeStackNavigator<PaymentRoutesProps>();
 
-export function PaymentStackRoute() {
+export function PaymentRoutes() {
   return (
     <PaymentStack.Navigator
       screenOptions={{ headerShown: false, animation: 'slide_from_right' }}

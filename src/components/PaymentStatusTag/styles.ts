@@ -5,6 +5,8 @@ interface ContainerProps {
 }
 
 export const Container = styled.Text<ContainerProps>`
+  margin-right: auto;
+
   padding: ${(props) => props.theme.spacing['1']}px
     ${(props) => props.theme.spacing['2']}px
     ${(props) => props.theme.spacing['1']}px
