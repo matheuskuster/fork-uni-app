@@ -1,16 +1,18 @@
-import { Feather, FontAwesome5, Ionicons, Octicons } from '@expo/vector-icons';
 import { useNavigation } from '@react-navigation/native';
 
 import * as S from './styles';
 import { MenuOption } from '../MenuOption';
 
 import { useSelector } from '@/app/hooks';
-import { BackButton } from '@/components';
+import { BackButton, Button } from '@/components';
+import { AlertIcon } from '@/icons/AlertIcon';
+import { ProfileIcons } from '@/icons/ProfileIcons';
+import { ProfileNavigatorRoutesProps } from '@/routes/profile.routes';
 import { theme } from '@/theme';
 import { formatPhoneNumber } from '@/utils/formatPhoneNumber';
 
 export function MyPersonalData() {
-  const navigation = useNavigation();
+  const navigation = useNavigation<ProfileNavigatorRoutesProps>();
   const { user } = useSelector((state) => state.auth);
   const { home } = useSelector((state) => state.student);
 
@@ -40,13 +42,7 @@ export function MyPersonalData() {
           <MenuOption
             title="Meu email"
             description={user.email}
-            icon={
-              <Ionicons
-                name="paper-plane-outline"
-                size={24}
-                color={theme.colors.primary}
-              />
-            }
+            icon={<ProfileIcons.Email />}
           />
 
           <S.Separator />
@@ -54,9 +50,7 @@ export function MyPersonalData() {
           <MenuOption
             title="Senha de acesso"
             description="********"
-            icon={
-              <Octicons name="lock" size={24} color={theme.colors.primary} />
-            }
+            icon={<ProfileIcons.Password />}
           />
 
           <S.Separator />
@@ -67,13 +61,7 @@ export function MyPersonalData() {
           <MenuOption
             title="Nome"
             description={user.name}
-            icon={
-              <Ionicons
-                name="md-person-outline"
-                size={24}
-                color={theme.colors.primary}
-              />
-            }
+            icon={<ProfileIcons.User />}
           />
 
           <S.Separator />
@@ -81,13 +69,7 @@ export function MyPersonalData() {
           <MenuOption
             title="Número de celular"
             description={formatPhoneNumber(user.phone)}
-            icon={
-              <Ionicons
-                name="md-phone-portrait-outline"
-                size={24}
-                color={theme.colors.primary}
-              />
-            }
+            icon={<ProfileIcons.Smartphone />}
           />
 
           <S.Separator />
@@ -95,25 +77,33 @@ export function MyPersonalData() {
           <MenuOption
             title="CPF"
             description={user.cpf}
-            icon={
-              <FontAwesome5
-                name="id-badge"
-                size={24}
-                color={theme.colors.primary}
-              />
-            }
+            icon={<ProfileIcons.User />}
           />
 
           <S.Separator />
           <MenuOption
             title="Endereço"
             description={home.formatted ?? home.street}
-            icon={
-              <Feather name="map-pin" size={24} color={theme.colors.primary} />
-            }
+            icon={<ProfileIcons.Address />}
           />
 
           <S.Separator />
+        </S.Section>
+
+        <S.Section>
+          <S.SectionTitle color={theme.colors.red[500]}>
+            Excluir minha conta
+          </S.SectionTitle>
+
+          <S.DeleteAccountButtonContainer>
+            <Button
+              onPress={() => navigation.push('deleteAccount')}
+              rightIcon={<AlertIcon />}
+              variant="danger"
+            >
+              Excluir minha conta
+            </Button>
+          </S.DeleteAccountButtonContainer>
         </S.Section>
       </S.Content>
     </S.Container>

@@ -53,7 +53,7 @@ export function ProfileList() {
 
         <MenuOption
           icon={<NotePencilIcon />}
-          title="Meus Dados"
+          title="Conta"
           description="Seus dados pessoais"
           onPress={() => navigation.push('myData')}
         />
@@ -69,7 +69,7 @@ export function ProfileList() {
 
         <MenuOption
           icon={<ChatIcon size={28} color={theme.colors.green[500]} />}
-          title="Fale conosco"
+          title="Suporte"
           description="Estamos aqui para te ajudar"
           onPress={() => {
             Linking.openURL(whatsAppLink.url);

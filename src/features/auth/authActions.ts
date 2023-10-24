@@ -63,3 +63,22 @@ export const getMe = createAsyncThunk(
     }
   },
 );
+
+export const deleteAccount = createAsyncThunk(
+  'auth/delete',
+  async (_, { rejectWithValue }) => {
+    try {
+      await authService.delete('/v1/users');
+
+      return true;
+    } catch (error) {
+      const typedError = error as AuthServiceError;
+
+      if (typedError?.response?.data?.message) {
+        return rejectWithValue(typedError.response.data.message);
+      } else {
+        return rejectWithValue(typedError.message);
+      }
+    }
+  },
+);

@@ -3,9 +3,7 @@ import styled from 'styled-components/native';
 
 export const Container = styled(SafeAreaView)`
   flex: 1;
-
-  padding-bottom: ${(props) => props.theme.spacing[12]}px;
-
+  padding-bottom: -${(props) => props.theme.spacing[8]}px;
   background-color: ${(props) => props.theme.colors.background};
 `;
 
@@ -40,10 +38,14 @@ export const Section = styled.View`
   margin-top: ${(props) => props.theme.spacing[8]}px;
 `;
 
-export const SectionTitle = styled.Text`
+type SectionTitleProps = {
+  color?: string;
+};
+
+export const SectionTitle = styled.Text<SectionTitleProps>`
   font-family: ${(props) => props.theme.fonts.regular};
   font-size: ${(props) => props.theme.fontSizes.sm};
-  color: ${(props) => props.theme.colors.gray[300]};
+  color: ${(props) => props.color ?? props.theme.colors.gray[300]};
 `;
 
 export const Separator = styled.View`
@@ -52,4 +54,6 @@ export const Separator = styled.View`
   background-color: ${(props) => props.theme.colors.gray[750]};
 `;
 
-export const DeleteAccountButton = styled.TouchableOpacity``;
+export const DeleteAccountButtonContainer = styled.View`
+  margin-top: 12px;
+`;

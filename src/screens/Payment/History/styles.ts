@@ -9,7 +9,7 @@ export const Container = styled(SafeAreaView)`
 
 // Header styles
 export const HeaderContainer = styled.View`
-  height: 27%
+  height: 27%;
 
   align-items: center;
 

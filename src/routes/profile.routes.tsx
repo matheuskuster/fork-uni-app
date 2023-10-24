@@ -4,6 +4,7 @@ import {
 } from '@react-navigation/native-stack';
 
 import { ProfileList } from '@/screens/Profile';
+import { DeleteAccount } from '@/screens/Profile/DeleteAccount';
 import { MyPersonalData } from '@/screens/Profile/MyData';
 
 type ProfileRoutesProps = {
@@ -11,6 +12,7 @@ type ProfileRoutesProps = {
   myData: undefined;
   faq: undefined;
   config: undefined;
+  deleteAccount: undefined;
 };
 
 export type ProfileNavigatorRoutesProps =
@@ -26,6 +28,7 @@ export function ProfileRoutes() {
     >
       <ProfileStack.Screen name="list" component={ProfileList} />
       <ProfileStack.Screen name="myData" component={MyPersonalData} />
+      <ProfileStack.Screen name="deleteAccount" component={DeleteAccount} />
       {/* <ProfileStack.Screen name="faq" component={() => {}} /> */}
       {/* <ProfileStack.Screen name="config" component={() => {}} /> */}
     </ProfileStack.Navigator>

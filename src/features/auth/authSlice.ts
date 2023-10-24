@@ -1,6 +1,6 @@
 import { createSlice } from '@reduxjs/toolkit';
 
-import { getMe, signInUser } from './authActions';
+import { deleteAccount, getMe, signInUser } from './authActions';
 
 import { applyBearerToken } from '@/services/middlewares';
 
@@ -77,6 +77,20 @@ export const authSlice = createSlice({
       state.isAuthenticated = true;
     });
     builder.addCase(getMe.rejected, (state, action) => {
+      state.error = action.error.message as string;
+      state.isLoading = false;
+    });
+    builder.addCase(deleteAccount.pending, (state) => {
+      state.isLoading = true;
+    });
+    builder.addCase(deleteAccount.fulfilled, (state) => {
+      state.user = null;
+      state.token = null;
+      state.error = null;
+      state.isLoading = false;
+      state.isAuthenticated = false;
+    });
+    builder.addCase(deleteAccount.rejected, (state, action) => {
       state.error = action.error.message as string;
       state.isLoading = false;
     });
