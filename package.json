@@ -35,7 +35,7 @@
     "react-native-screens": "~3.20.0",
     "react-native-shimmer-placeholder": "^2.0.9",
     "react-native-stacks": "^1.0.1",
-    "react-native-svg": "13.4.0",
+    "react-native-svg": "13.9.0",
     "react-redux": "^8.0.5",
     "redux-devtools-extension": "^2.13.9",
     "redux-logger": "^3.0.6",
