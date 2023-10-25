@@ -57,6 +57,7 @@ export function History() {
   const { id, creditCard, value, nextDueDate, isFetching } = useSelector(
     (state) => state.subscription,
   );
+
   const { paymentStatus } = useSelector((state) => state.student);
 
   useEffect(() => {
@@ -65,7 +66,7 @@ export function History() {
     }
   }, [id, creditCard]);
 
-  const [payments, setPayments] = useState(paymentsTest);
+  const [payments, _] = useState(paymentsTest);
 
   const sortByDate = () => {
     const sortedArray = payments.sort((a, b) => {
@@ -85,9 +86,8 @@ export function History() {
 
   const formattedNextDueDate = useMemo(() => {
     if (nextDueDate) {
-      const previousMonthDate = new Date(
-        nextDueDate.setMonth(nextDueDate.getMonth() - 1),
-      );
+      const previousMonthDate = new Date(nextDueDate);
+      previousMonthDate.setMonth(previousMonthDate.getMonth() - 1);
 
       return {
         dayDueDate: getFormattedDate({ date: nextDueDate }).day,
@@ -109,81 +109,83 @@ export function History() {
     }
   }, [value]);
 
-  if (isFetching) {
-    return <HistoryShimmer isVisible={!isFetching} />;
+  if (isFetching || !id) {
+    return <HistoryShimmer isVisible />;
   }
 
   return (
-    <S.Container>
-      <S.HeaderContainer>
-        <BackButton
-          containerStyle={{
-            backgroundColor: `${theme.colors.gray[750]}`,
-            position: 'absolute',
-            left: theme.spacing[4],
-            top: theme.spacing[4],
-          }}
-          onPress={() => navigation.navigate('home')}
-        />
-        <S.HeaderTitle>Pagamento</S.HeaderTitle>
-
-        <S.PaymentContainer>
-          <S.IconContainer>
-            <DollarSign size={24} />
-          </S.IconContainer>
-          <S.StatusContainer>
-            <PaymentStatusTag paymentStatus={paymentStatus} />
-            <S.DateText>
-              {capitalizeFirstLetter(formattedNextDueDate!.previousMonth)}
-            </S.DateText>
-          </S.StatusContainer>
-        </S.PaymentContainer>
-      </S.HeaderContainer>
-
-      <S.ContentContainer>
-        <Method
-          icon={<BrandIcon brand={creditCard?.brand ?? null} size={32} />}
-          description={
-            creditCard?.name
-              ? `${creditCard!.name} (final ${creditCard!.lastFourDigits})`
-              : `Cartão final ${creditCard?.lastFourDigits}`
-          }
-        />
-
-        <S.CategoryContainer>
-          <S.Title>VENCIMENTO</S.Title>
-          <S.DescriptionContainer>
-            <CalendarIcon />
-            <S.DescriptionText>
-              Todo dia {formattedNextDueDate?.dayDueDate ?? '5'}
-            </S.DescriptionText>
-          </S.DescriptionContainer>
-        </S.CategoryContainer>
-
-        <S.CategoryContainer>
-          <S.Title>VALOR</S.Title>
-          <S.DescriptionContainer>
-            <CalendarIcon />
-            <S.DescriptionText>{formattedValue}</S.DescriptionText>
-          </S.DescriptionContainer>
-        </S.CategoryContainer>
-
-        <S.HistoryContainer>
-          <S.Title>HISTÓRICO</S.Title>
-          <FlatList
-            data={paymentsSorted}
-            keyExtractor={(item) => `${item.date}`}
-            renderItem={({ item }) => (
-              <Payments
-                title={item.status}
-                description={item.description}
-                date={item.date}
-              />
-            )}
-            scrollEnabled={false}
+    <S.SafeArea>
+      <S.Container>
+        <S.HeaderContainer>
+          <BackButton
+            containerStyle={{
+              backgroundColor: `${theme.colors.gray[750]}`,
+              position: 'absolute',
+              left: theme.spacing[4],
+              top: theme.spacing[4],
+            }}
+            onPress={() => navigation.navigate('home')}
           />
-        </S.HistoryContainer>
-      </S.ContentContainer>
-    </S.Container>
+          <S.HeaderTitle>Pagamento</S.HeaderTitle>
+
+          <S.PaymentContainer>
+            <S.IconContainer>
+              <DollarSign size={24} />
+            </S.IconContainer>
+            <S.StatusContainer>
+              <PaymentStatusTag paymentStatus={paymentStatus} />
+              <S.DateText>
+                {capitalizeFirstLetter(formattedNextDueDate!.previousMonth)}
+              </S.DateText>
+            </S.StatusContainer>
+          </S.PaymentContainer>
+        </S.HeaderContainer>
+
+        <S.Content>
+          <Method
+            icon={<BrandIcon brand={creditCard?.brand ?? null} size={32} />}
+            description={
+              creditCard?.name
+                ? `${creditCard!.name} (final ${creditCard!.lastFourDigits})`
+                : `Cartão final ${creditCard?.lastFourDigits}`
+            }
+          />
+
+          <S.CategoryContainer>
+            <S.Title>VENCIMENTO</S.Title>
+            <S.DescriptionContainer>
+              <CalendarIcon />
+              <S.DescriptionText>
+                Todo dia {formattedNextDueDate?.dayDueDate ?? '5'}
+              </S.DescriptionText>
+            </S.DescriptionContainer>
+          </S.CategoryContainer>
+
+          <S.CategoryContainer>
+            <S.Title>VALOR</S.Title>
+            <S.DescriptionContainer>
+              <CalendarIcon />
+              <S.DescriptionText>{formattedValue}</S.DescriptionText>
+            </S.DescriptionContainer>
+          </S.CategoryContainer>
+
+          <S.HistoryContainer>
+            <S.Title>HISTÓRICO</S.Title>
+            <FlatList
+              data={paymentsSorted}
+              keyExtractor={(item) => `${item.date}`}
+              renderItem={({ item }) => (
+                <Payments
+                  title={item.status}
+                  description={item.description}
+                  date={item.date}
+                />
+              )}
+              scrollEnabled={false}
+            />
+          </S.HistoryContainer>
+        </S.Content>
+      </S.Container>
+    </S.SafeArea>
   );
 }

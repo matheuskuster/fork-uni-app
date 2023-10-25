@@ -13,7 +13,7 @@ type AppRoutesProps = {
   home: undefined;
   notifications: undefined;
   profile: undefined;
-  paymentRoute:
+  payment:
     | { screen: 'history' | 'method' | 'revision' | 'creditCard' }
     | undefined;
 };
@@ -30,7 +30,7 @@ export function AppRoutes() {
       <AppStack.Screen name="home" component={Home} />
       <AppStack.Screen name="notifications" component={Notifications} />
       <AppStack.Screen name="profile" component={ProfileRoutes} />
-      <AppStack.Screen name="paymentRoute" component={PaymentRoutes} />
+      <AppStack.Screen name="payment" component={PaymentRoutes} />
     </AppStack.Navigator>
   );
 }

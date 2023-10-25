@@ -1,3 +1,4 @@
+import { useNavigation } from '@react-navigation/native';
 import { useMemo, useState } from 'react';
 import { Alert, Linking } from 'react-native';
 
@@ -8,12 +9,14 @@ import { BackButton, Button, Input } from '@/components';
 import { deleteAccount } from '@/features/auth/authActions';
 import { signOut } from '@/features/auth/authSlice';
 import { ChatIcon } from '@/icons/ChatIcon';
+import { ProfileNavigatorRoutesProps } from '@/routes/profile.routes';
 import { theme } from '@/theme';
 import { whatsAppLink } from '@/utils/constants/whatsAppLink';
 
 const securityMessage = 'Excluir conta Vou de Van';
 
 export function DeleteAccount() {
+  const navigation = useNavigation<ProfileNavigatorRoutesProps>();
   const dispatch = useDispatch();
   const { isLoading } = useSelector((state) => state.auth);
   const [writtenPhrase, setWrittenPhrase] = useState('');
@@ -44,6 +47,7 @@ export function DeleteAccount() {
       <S.Container>
         <S.HeaderContainer>
           <BackButton
+            onPress={() => navigation.goBack()}
             containerStyle={{
               backgroundColor: `${theme.colors.gray[750]}`,
               position: 'absolute',

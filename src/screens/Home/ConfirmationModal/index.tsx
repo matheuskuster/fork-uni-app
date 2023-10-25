@@ -60,13 +60,11 @@ export function ConfirmationModal({
         <S.Description>
           Você está confirmando sua presença no{' '}
           <S.HighLight>dia {recurrence?.nextFormatted}</S.HighLight>. Caso mude
-          de ideia poderá alterar até XX horas antes do início da rota.
+          de ideia poderá alterar até 23:59 do dia anterior a rota.
         </S.Description>
         <S.ButtonOptionsContainer>
-          <S.BackButton>
-            <S.BackButtonText onPress={() => setVisible(false)}>
-              Voltar
-            </S.BackButtonText>
+          <S.BackButton onPress={() => setVisible(false)}>
+            <S.BackButtonText>Voltar</S.BackButtonText>
           </S.BackButton>
           <S.ConfirmButton onPress={confirmBoarding}>
             {isLoadingBoarding ? (
@@ -88,14 +86,11 @@ export function ConfirmationModal({
           <S.HighLight>
             você sairá da rota do dia {recurrence?.nextFormatted}
           </S.HighLight>
-          . Caso mude de ideia poderá alterar até XX horas antes do início da
-          rota.
+          . Caso mude de ideia poderá alterar até 23:59 do dia anterior a rota.
         </S.Description>
         <S.ButtonOptionsContainer>
-          <S.BackButton>
-            <S.BackButtonText onPress={() => setVisible(false)}>
-              Voltar
-            </S.BackButtonText>
+          <S.BackButton onPress={() => setVisible(false)}>
+            <S.BackButtonText>Voltar</S.BackButtonText>
           </S.BackButton>
           <S.ConfirmButton onPress={notBoarding}>
             {isLoadingBoarding ? (

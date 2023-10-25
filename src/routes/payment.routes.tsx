@@ -24,6 +24,7 @@ export function PaymentRoutes() {
   return (
     <PaymentStack.Navigator
       screenOptions={{ headerShown: false, animation: 'slide_from_right' }}
+      initialRouteName="history"
     >
       <PaymentStack.Screen name="revision" component={Revision} />
       <PaymentStack.Screen name="method" component={Method} />

@@ -1,9 +1,14 @@
 import { SafeAreaView } from 'react-native-safe-area-context';
 import styled from 'styled-components/native';
 
-export const Container = styled(SafeAreaView)`
+export const SafeArea = styled(SafeAreaView)`
   flex: 1;
-  padding-bottom: ${(props) => props.theme.spacing[4]}px;
+  background-color: ${(props) => props.theme.colors.gray[800]};
+  padding-bottom: -${(props) => props.theme.spacing[12]}px;
+`;
+
+export const Container = styled.View`
+  flex: 1;
   background-color: ${(props) => props.theme.colors.background};
 `;
 
@@ -64,10 +69,10 @@ export const IconContainer = styled.View`
 `;
 
 // Content styles
-export const ContentContainer = styled.ScrollView`
+export const Content = styled.ScrollView`
   flex: 1;
-
-  padding: ${(props) => props.theme.spacing[0]}px
+  background-color: ${(props) => props.theme.colors.background};
+  padding: ${(props) => props.theme.spacing[4]}px
     ${(props) => props.theme.spacing[4]}px
     ${(props) => props.theme.spacing[0]}px
     ${(props) => props.theme.spacing[4]}px;

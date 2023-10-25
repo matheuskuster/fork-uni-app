@@ -56,7 +56,7 @@ export const HeaderAlertText = styled.Text`
 `;
 
 export const Content = styled.ScrollView`
-  flex: 1%;
+  flex: 1;
   background-color: ${(props) => props.theme.colors.background};
   padding: ${(props) => props.theme.spacing[4]}px
     ${(props) => props.theme.spacing[4]}px

@@ -1,25 +1,18 @@
-import { weekDays } from './constants/weekDays';
-import { getFormattedDate } from './getFormattedDate';
+import dayjs from 'dayjs';
+import utc from 'dayjs/plugin/utc';
+
+import 'dayjs/locale/pt-br';
+import { capitalizeFirstLetter } from './capitalizeFirstLetter';
+
+dayjs.extend(utc);
 
 export function getFormattedNextBoardingDate(date: Date) {
-  const nextDate = new Date(date);
-  const nextDateFormatted = `${
-    getFormattedDate({
-      date: nextDate,
-    }).day
-  } de ${
-    getFormattedDate({
-      date: nextDate,
-    })
-      .month.charAt(0)
-      .toUpperCase() +
-    getFormattedDate({
-      date: nextDate,
-    }).month.slice(1)
-  }`;
+  const utcDate = dayjs(date).locale('pt-br').utc();
+
+  const month = capitalizeFirstLetter(utcDate.format('MMMM'));
 
   return {
-    nextDateFormatted,
-    nextWeekDay: weekDays[nextDate.getDay()],
+    nextDateFormatted: utcDate.format(`DD [de] ${month}`),
+    nextWeekDay: utcDate.format('dddd').toUpperCase(),
   };
 }

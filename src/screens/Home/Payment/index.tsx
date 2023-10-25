@@ -62,9 +62,7 @@ export function Payment() {
   }
 
   return (
-    <S.PaymentContainer
-      onPress={() => navigation.navigate('paymentRoute', { screen: 'history' })}
-    >
+    <S.PaymentContainer onPress={() => navigation.navigate('payment')}>
       <S.IconContainer>
         <DollarSign />
       </S.IconContainer>
