@@ -2,7 +2,7 @@
   "expo": {
     "name": "uni-app",
     "slug": "vou-de-van-uni",
-    "version": "1.0.3",
+    "version": "1.0.4",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
     "userInterfaceStyle": "light",
