@@ -102,7 +102,7 @@ export function HistoryShimmer({ isVisible }: HistoryShimmerProps) {
         </S.PaymentContainer>
       </S.HeaderContainer>
 
-      <S.ContentContainer>
+      <S.Content>
         <S.CategoryContainer>
           <ShimmerPlaceHolder
             style={styles.categoryTitleShimmer}
@@ -169,7 +169,7 @@ export function HistoryShimmer({ isVisible }: HistoryShimmerProps) {
             visible={isVisible}
           />
         </S.HistoryContainer>
-      </S.ContentContainer>
+      </S.Content>
     </S.Container>
   );
 }

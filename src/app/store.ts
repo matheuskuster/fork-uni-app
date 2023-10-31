@@ -4,6 +4,7 @@ import { persistStore, persistReducer } from 'redux-persist';
 
 import { authSlice } from '@/features/auth/authSlice';
 import { creditCardSlice } from '@/features/billing/creditCardSlice';
+import { chargeSlice } from '@/features/charge/chargeSlice';
 import { driverSlice } from '@/features/driver/driverSlice';
 import { otpSlice } from '@/features/otp/otpSlice';
 import { quotationSlice } from '@/features/quotation/quotationSlice';
@@ -34,6 +35,7 @@ export const store = configureStore({
     route: routeSlice.reducer,
     creditCard: creditCardSlice.reducer,
     subscription: subscriptionSlice.reducer,
+    charge: chargeSlice.reducer,
   },
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware({ serializableCheck: false }),

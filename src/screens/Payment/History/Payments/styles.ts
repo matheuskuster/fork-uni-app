@@ -27,6 +27,12 @@ export const Title = styled(TextStyle)`
 
 export const DateText = styled(TextStyle)``;
 
+export const DescriptionContainer = styled.View`
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+`;
+
 export const Description = styled(TextStyle)`
   color: ${(props) => props.theme.colors.gray['200']};
 `;

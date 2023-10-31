@@ -1,6 +1,6 @@
 import { useNavigation } from '@react-navigation/native';
-import { useEffect, useMemo, useState } from 'react';
-import { FlatList } from 'react-native';
+import { useEffect, useMemo } from 'react';
+import { Alert, FlatList } from 'react-native';
 import { useTheme } from 'styled-components';
 
 import { BrandIcon } from './BrandIcon';
@@ -10,7 +10,12 @@ import { Payments } from './Payments';
 import * as S from './styles';
 
 import { useDispatch, useSelector } from '@/app/hooks';
+import { store } from '@/app/store';
 import { BackButton, PaymentStatusTag } from '@/components';
+import { myCreditCards } from '@/features/billing/creditCardActions';
+import { creditCardsSelectors } from '@/features/billing/creditCardSlice';
+import { myCharges } from '@/features/charge/chargeActions';
+import { chargesSelectors } from '@/features/charge/chargeSlice';
 import { mySubscription } from '@/features/subscription/subscriptionActions';
 import { CalendarIcon } from '@/icons/CalendarIcon';
 import { DollarSign } from '@/icons/DollarSign';
@@ -18,35 +23,6 @@ import { AppNavigatorRoutesProps } from '@/routes/app.routes';
 import { capitalizeFirstLetter } from '@/utils/capitalizeFirstLetter';
 import { formatPrice } from '@/utils/formatPrice';
 import { getFormattedDate } from '@/utils/getFormattedDate';
-
-// just for testing
-const paymentsTest = [
-  {
-    status: 'Pagamento concluído',
-    description: 'Crédito final 0000',
-    date: new Date('2023-03-09T03:25:00'),
-  },
-  {
-    status: 'Pagamento concluído',
-    description: 'Crédito final 0000',
-    date: new Date('2023-02-09T03:24:00'),
-  },
-  {
-    status: 'Pagamento concluído',
-    description: 'Crédito final 0000',
-    date: new Date('2023-04-09T03:24:00'),
-  },
-  {
-    status: 'Pagamento concluído',
-    description: 'Crédito final 0000',
-    date: new Date('2022-10-09T03:24:00'),
-  },
-  {
-    status: 'Pagamento concluído',
-    description: 'Crédito final 0000',
-    date: new Date('2022-11-09T03:24:00'),
-  },
-];
 
 export function History() {
   const theme = useTheme();
@@ -57,30 +33,62 @@ export function History() {
   const { id, creditCard, value, nextDueDate, isFetching } = useSelector(
     (state) => state.subscription,
   );
-
+  const { isLoadingCreditCards } = useSelector((state) => state.creditCard);
+  const { isLoadingCharges } = useSelector((state) => state.charge);
   const { paymentStatus } = useSelector((state) => state.student);
+
+  const payments = useSelector(chargesSelectors.selectAll);
 
   useEffect(() => {
     if (!id) {
-      dispatch(mySubscription());
+      try {
+        dispatch(mySubscription());
+      } catch (error) {
+        Alert.alert('Erro ao buscar assinatura', `${error}`);
+      }
     }
   }, [id, creditCard]);
 
-  const [payments, _] = useState(paymentsTest);
+  useEffect(() => {
+    try {
+      handleHistory();
+    } catch (error) {
+      Alert.alert('Erro ao buscar histórico', `${error}`);
+    }
+  }, []);
 
-  const sortByDate = () => {
-    const sortedArray = payments.sort((a, b) => {
-      if (a.date > b.date) {
-        return -1;
-      }
-      if (a.date < b.date) {
-        return 1;
-      }
-      return 0;
-    });
+  async function handleHistory() {
+    await dispatch(myCreditCards());
+    await dispatch(myCharges());
+  }
 
-    return sortedArray;
-  };
+  function getCardName(id: string) {
+    const card = creditCardsSelectors.selectById(store.getState(), id);
+
+    if (card) {
+      return card.name ? card.name : `Cartão final ${card.lastFourDigits}`;
+    } else {
+      return 'Cartão removido';
+    }
+  }
+
+  function sortByDate() {
+    const paidPayments = payments.filter((payment) => payment.paidAt !== null);
+
+    if (paidPayments.length > 0) {
+      const sortedArray = paidPayments.sort((a, b) => {
+        if (a.paidAt! > b.paidAt!) {
+          return -1;
+        }
+        if (a.paidAt! < b.paidAt!) {
+          return 1;
+        }
+        return 0;
+      });
+
+      return sortedArray;
+    }
+  }
 
   const paymentsSorted = useMemo(sortByDate, [payments]);
 
@@ -109,7 +117,7 @@ export function History() {
     }
   }, [value]);
 
-  if (isFetching || !id) {
+  if (isFetching || isLoadingCharges || isLoadingCreditCards || !id) {
     return <HistoryShimmer isVisible />;
   }
 
@@ -173,12 +181,12 @@ export function History() {
             <S.Title>HISTÓRICO</S.Title>
             <FlatList
               data={paymentsSorted}
-              keyExtractor={(item) => `${item.date}`}
+              keyExtractor={(item) => item.id}
               renderItem={({ item }) => (
                 <Payments
-                  title={item.status}
-                  description={item.description}
-                  date={item.date}
+                  description={getCardName(item.creditCardId)}
+                  amount={item.amount}
+                  date={item.paidAt ?? new Date()}
                 />
               )}
               scrollEnabled={false}
