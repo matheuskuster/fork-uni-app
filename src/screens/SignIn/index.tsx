@@ -94,7 +94,7 @@ export function SignIn() {
           />
         </VStack>
 
-        <S.RegisterButton>
+        <S.RegisterButton onPress={() => navigation.navigate('forgotPassword')}>
           <S.TextForgotPassword>Esqueci minha senha</S.TextForgotPassword>
         </S.RegisterButton>
         <VStack spacing={4}>

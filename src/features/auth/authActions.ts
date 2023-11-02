@@ -26,6 +26,10 @@ interface GetMeResponse {
   user: SignInResponse['user'];
 }
 
+interface ForgotPasswordRequest {
+  email: string;
+}
+
 export const signInUser = createAsyncThunk(
   'auth/signIn',
   async (credentials: SignInCredentials, { rejectWithValue }) => {
@@ -69,6 +73,25 @@ export const deleteAccount = createAsyncThunk(
   async (_, { rejectWithValue }) => {
     try {
       await authService.delete('/v1/users');
+
+      return true;
+    } catch (error) {
+      const typedError = error as AuthServiceError;
+
+      if (typedError?.response?.data?.message) {
+        return rejectWithValue(typedError.response.data.message);
+      } else {
+        return rejectWithValue(typedError.message);
+      }
+    }
+  },
+);
+
+export const forgotPassword = createAsyncThunk(
+  'auth/forgotPassword',
+  async (data: ForgotPasswordRequest, { rejectWithValue }) => {
+    try {
+      await authService.post('/v1/forgot-password', data);
 
       return true;
     } catch (error) {

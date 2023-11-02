@@ -1,6 +1,11 @@
 import { createSlice } from '@reduxjs/toolkit';
 
-import { deleteAccount, getMe, signInUser } from './authActions';
+import {
+  deleteAccount,
+  forgotPassword,
+  getMe,
+  signInUser,
+} from './authActions';
 
 import { applyBearerToken } from '@/services/middlewares';
 
@@ -91,6 +96,16 @@ export const authSlice = createSlice({
       state.isAuthenticated = false;
     });
     builder.addCase(deleteAccount.rejected, (state, action) => {
+      state.error = action.error.message as string;
+      state.isLoading = false;
+    });
+    builder.addCase(forgotPassword.pending, (state) => {
+      state.isLoading = true;
+    });
+    builder.addCase(forgotPassword.fulfilled, (state) => {
+      state.isLoading = false;
+    });
+    builder.addCase(forgotPassword.rejected, (state, action) => {
       state.error = action.error.message as string;
       state.isLoading = false;
     });

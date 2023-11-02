@@ -3,6 +3,7 @@ import {
   NativeStackNavigationProp,
 } from '@react-navigation/native-stack';
 
+import { ForgotPassword } from '@/screens/ForgotPassword';
 import { OnboardingScreen } from '@/screens/Onboarding';
 import { SignIn } from '@/screens/SignIn';
 import { PersonalData } from '@/screens/SignUp/PersonalData';
@@ -13,6 +14,7 @@ import { Terms } from '@/screens/SignUp/Terms';
 type AuthRoutesProps = {
   signInRoute: undefined;
   signUpRoute: undefined;
+  forgotPassword: undefined;
 };
 
 type SignInRoutesProps = {
@@ -70,6 +72,7 @@ export function AuthRoutes() {
     <AuthStack.Navigator screenOptions={{ headerShown: false }}>
       <AuthStack.Screen name="signInRoute" component={SignInStackRoute} />
       <AuthStack.Screen name="signUpRoute" component={SignUpStackRoute} />
+      <AuthStack.Screen name="forgotPassword" component={ForgotPassword} />
     </AuthStack.Navigator>
   );
 }
