@@ -19,11 +19,11 @@ export function Home() {
     if (!status) {
       handleStudentStates();
     }
-  }, []);
+  }, [status]);
 
   async function handleStudentStates() {
     try {
-      await dispatch(getStudent());
+      await dispatch(getStudent()).unwrap();
     } catch (error) {
       Alert.alert('Erro ao buscar estudante', `${error}`);
     }

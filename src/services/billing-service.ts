@@ -1,9 +1,9 @@
 import axios, { AxiosError } from 'axios';
 
-import { getDevelopmentURL } from './url';
+import { getURL } from './url';
 
 export const billingService = axios.create({
-  baseURL: `${getDevelopmentURL()}/billing`,
+  baseURL: `${getURL()}/billing`,
 });
 
 export type BillingServiceError = AxiosError<{

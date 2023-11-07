@@ -42,7 +42,7 @@ export const DescriptionText = styled.Text`
   color: ${(props) => props.theme.colors.gray[200]};
 `;
 
-export const DescriptionIsRead = styled.View`
+export const NotificationUnread = styled.View`
   width: 8px;
   height: 8px;
   border-radius: 4px;

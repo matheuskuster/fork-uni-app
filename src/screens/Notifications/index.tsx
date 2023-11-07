@@ -1,34 +1,32 @@
-import { useNavigation } from '@react-navigation/native';
-// import { useState, useMemo } from 'react';
-// import { FlatList } from 'react-native';
+import { useIsFocused, useNavigation } from '@react-navigation/native';
+import { useEffect } from 'react';
+import { FlatList } from 'react-native';
 import { useTheme } from 'styled-components';
 
-// import { Notification } from './Notification';
+import { Notification } from './Notification';
 import * as S from './styles';
 
+import { useDispatch, useSelector } from '@/app/hooks';
 import { BackButton } from '@/components';
+import { getUnreadNotifications } from '@/features/notifications/notificationsActions';
+import { notificationsSelectors } from '@/features/notifications/notificationsSlice';
 import { AppNavigatorRoutesProps } from '@/routes/app.routes';
 
 export function Notifications() {
+  const isFocused = useIsFocused();
+  const dispatch = useDispatch();
   const navigation = useNavigation<AppNavigatorRoutesProps>();
   const theme = useTheme();
-  // const [notifications, setNotifications] = useState(notificationsTest);
 
-  // const sortByDate = () => {
-  //   const sortedArray = notifications.sort((a, b) => {
-  //     if (a.date > b.date) {
-  //       return -1;
-  //     }
-  //     if (a.date < b.date) {
-  //       return 1;
-  //     }
-  //     return 0;
-  //   });
+  const notifications = useSelector((state) =>
+    notificationsSelectors.selectAll(state.notifications),
+  );
 
-  //   return sortedArray;
-  // };
-
-  // const notificationsSorted = useMemo(sortByDate, [notifications]);
+  useEffect(() => {
+    if (isFocused) {
+      dispatch(getUnreadNotifications());
+    }
+  }, [isFocused]);
 
   return (
     <S.Container>
@@ -45,21 +43,25 @@ export function Notifications() {
         <S.HeaderTitle>Notificações</S.HeaderTitle>
       </S.HeaderContainer>
       <S.ContentContainer>
-        {/* <FlatList
-          data={[]}
-          keyExtractor={(item) => `${item.id}`}
-          renderItem={({ item }) => (
-            <Notification
-              title={item.title}
-              date={item.date}
-              description={item.description}
-              isRead={item.isRead}
-            />
-          )}
-        /> */}
-        <S.NoNotificationsText>
-          Você não possui notificações
-        </S.NoNotificationsText>
+        {notifications.length > 0 ? (
+          <FlatList
+            data={notifications}
+            keyExtractor={(item) => item?.id}
+            renderItem={({ item }) => (
+              <Notification
+                id={item.id}
+                title={item.message.title}
+                date={new Date(item.createdAt)}
+                description={item.message.description}
+                isRead={item.seenAt !== null}
+              />
+            )}
+          />
+        ) : (
+          <S.NoNotificationsText>
+            Você não possui novas notificações
+          </S.NoNotificationsText>
+        )}
       </S.ContentContainer>
     </S.Container>
   );

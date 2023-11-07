@@ -1,9 +1,9 @@
 import axios, { AxiosError } from 'axios';
 
-import { getDevelopmentURL } from './url';
+import { getURL } from './url';
 
 export const uniService = axios.create({
-  baseURL: `${getDevelopmentURL()}/uni`,
+  baseURL: `${getURL()}/uni`,
 });
 
 export type UniServiceError = AxiosError<{

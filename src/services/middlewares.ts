@@ -2,6 +2,7 @@ import { applyAuthServiceToken } from './auth-service';
 import { applyBillingServiceToken } from './billing-service';
 import { applyDriverServiceToken } from './driver-service';
 import { applyInstitutionServiceToken } from './institutions-service';
+import { applyNotificationsServiceToken } from './notifications-service';
 import { applyUniServiceToken } from './uni-service';
 
 export function applyBearerToken(token: string) {
@@ -10,4 +11,5 @@ export function applyBearerToken(token: string) {
   applyUniServiceToken(token);
   applyDriverServiceToken(token);
   applyBillingServiceToken(token);
+  applyNotificationsServiceToken(token);
 }

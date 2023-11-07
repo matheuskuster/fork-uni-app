@@ -92,7 +92,6 @@ export const getStudent = createAsyncThunk(
   async (_, { rejectWithValue }) => {
     try {
       const response = await uniService.get('/v1/students/me');
-
       return response.data as GetStudentResponse;
     } catch (error) {
       const typedError = error as UniServiceError;

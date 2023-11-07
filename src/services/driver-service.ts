@@ -1,9 +1,9 @@
 import axios, { AxiosError } from 'axios';
 
-import { getDevelopmentURL } from './url';
+import { getURL } from './url';
 
 export const driverService = axios.create({
-  baseURL: `${getDevelopmentURL()}/drivers`,
+  baseURL: `${getURL()}/drivers`,
 });
 
 export type DriverServiceError = AxiosError<{

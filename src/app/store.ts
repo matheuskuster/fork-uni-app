@@ -6,6 +6,7 @@ import { authSlice } from '@/features/auth/authSlice';
 import { creditCardSlice } from '@/features/billing/creditCardSlice';
 import { chargeSlice } from '@/features/charge/chargeSlice';
 import { driverSlice } from '@/features/driver/driverSlice';
+import { notificationsSlice } from '@/features/notifications/notificationsSlice';
 import { otpSlice } from '@/features/otp/otpSlice';
 import { quotationSlice } from '@/features/quotation/quotationSlice';
 import { routeSlice } from '@/features/route/routeSlice';
@@ -36,6 +37,7 @@ export const store = configureStore({
     creditCard: creditCardSlice.reducer,
     subscription: subscriptionSlice.reducer,
     charge: chargeSlice.reducer,
+    notifications: notificationsSlice.reducer,
   },
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware({ serializableCheck: false }),

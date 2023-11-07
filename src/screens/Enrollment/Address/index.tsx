@@ -59,9 +59,8 @@ export function Address() {
         }),
       ).unwrap();
 
-      dispatch(getMe());
+      await dispatch(getMe()).unwrap();
     } catch (error) {
-      console.log(error);
       Alert.alert('Erro ao finalizar inscrição', `${error}`);
     }
   }
