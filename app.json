@@ -34,6 +34,14 @@
     },
     "updates": {
       "url": "https://u.expo.dev/00afb4d0-2c9a-4573-878d-29c86db1ee13"
-    }
+    },
+    "plugins": [
+      [
+        "expo-updates",
+        {
+          "username": "voudevan"
+        }
+      ]
+    ]
   }
 }
