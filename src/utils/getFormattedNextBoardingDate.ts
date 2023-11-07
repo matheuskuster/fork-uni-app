@@ -12,7 +12,7 @@ export function getFormattedNextBoardingDate(date: Date) {
   const month = capitalizeFirstLetter(utcDate.format('MMMM'));
 
   return {
-    nextDateFormatted: utcDate.format(`DD [de] ${month}`),
+    nextDateFormatted: utcDate.format(`DD [de] [${month}]`),
     nextWeekDay: utcDate.format('dddd').toUpperCase(),
   };
 }
