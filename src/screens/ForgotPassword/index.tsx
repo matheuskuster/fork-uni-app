@@ -9,6 +9,7 @@ import { BackButton, Button, Input } from '@/components';
 import { forgotPassword } from '@/features/auth/authActions';
 import { AuthNavigatorRoutesProps } from '@/routes/auth.routes';
 import { theme } from '@/theme';
+import { regexPatterns } from '@/utils/constants/regexPatterns';
 
 interface ForgotPasswordFormData {
   email: string;
@@ -69,7 +70,7 @@ export function ForgotPassword() {
             rules={{
               required: 'Insira seu email',
               pattern: {
-                value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i,
+                value: regexPatterns.email,
                 message: 'Insira um e-mail válido',
               },
             }}

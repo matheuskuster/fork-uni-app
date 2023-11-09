@@ -11,6 +11,7 @@ import { BackButton, Input, NextButton, Space, Title } from '@/components';
 import { getMe } from '@/features/auth/authActions';
 import { createStudent } from '@/features/student/studentActions';
 import { EnrollmentNavigatorRoutesProps } from '@/routes/enrollment.routes';
+import { regexPatterns } from '@/utils/constants/regexPatterns';
 
 interface AddressFormData {
   streetName: string;
@@ -89,7 +90,13 @@ export function Address() {
           <Controller
             control={control}
             name="streetName"
-            rules={{ required: 'É necessário o nome da rua' }}
+            rules={{
+              required: 'É necessário o nome da rua',
+              pattern: {
+                value: regexPatterns.address,
+                message: 'Insira um endereço válido',
+              },
+            }}
             render={({ field: { value, onChange } }) => (
               <Input
                 autoComplete="street-address"

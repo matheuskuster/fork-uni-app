@@ -24,6 +24,7 @@ import { useInstitutions } from '@/hooks/useInstitutions';
 import { PathIcon } from '@/icons/PathIcon';
 import { EnrollmentNavigatorRoutesProps } from '@/routes/enrollment.routes';
 import { mask } from '@/utils/constants/masks';
+import { regexPatterns } from '@/utils/constants/regexPatterns';
 
 interface GetQuotationFormData {
   institutionId: string;
@@ -155,7 +156,7 @@ export function Institution() {
           rules={{
             required: 'Insira seu CEP',
             pattern: {
-              value: /^\d{5}-?\d{3}$/,
+              value: regexPatterns.cep,
               message: 'Insira um CEP válido',
             },
           }}

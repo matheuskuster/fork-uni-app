@@ -16,6 +16,7 @@ import {
 import { addPhoneNumber } from '@/features/signup/signupSlice';
 import { SignUpNavigatorRoutesProps } from '@/routes/auth.routes';
 import { mask } from '@/utils/constants/masks';
+import { regexPatterns } from '@/utils/constants/regexPatterns';
 
 interface PhoneDataForm {
   phone: string;
@@ -67,8 +68,7 @@ export function PhoneNumber() {
             rules={{
               required: 'Insira seu número de celular',
               pattern: {
-                value:
-                  /^\+55\s?\(?([1-9]{2})\)?\s?(?:9[1-9]|[2-9][0-9])\d{3}-?\d{4}$/i,
+                value: regexPatterns.internationalPhone,
                 message: 'Insira um número de celular válido',
               },
             }}

@@ -22,6 +22,7 @@ import { addPersonalData } from '@/features/signup/signupSlice';
 import { SignUpNavigatorRoutesProps } from '@/routes/auth.routes';
 import { gendersList } from '@/utils/constants/gendersList';
 import { mask } from '@/utils/constants/masks';
+import { regexPatterns } from '@/utils/constants/regexPatterns';
 
 interface PersonalDataForm {
   name: string;
@@ -91,7 +92,7 @@ export function PersonalData() {
             rules={{
               required: 'Insira seu nome completo',
               pattern: {
-                value: /^[A-Z][a-z]+(?: [A-Z][a-z]+)*\s*$/i,
+                value: regexPatterns.personalFullName,
                 message: 'Insira um nome válido',
               },
             }}
@@ -119,7 +120,7 @@ export function PersonalData() {
             rules={{
               required: 'Insira seu email',
               pattern: {
-                value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i,
+                value: regexPatterns.email,
                 message: 'Insira um e-mail válido',
               },
             }}
@@ -158,7 +159,7 @@ export function PersonalData() {
                 rules={{
                   required: 'Informe seu gênero',
                   pattern: {
-                    value: /^[A-Z][a-z]+(?: [A-Z][a-z]+)+$/i,
+                    value: regexPatterns.generalName,
                     message: 'Insira um nome válido',
                   },
                 }}
@@ -186,7 +187,7 @@ export function PersonalData() {
             rules={{
               required: 'Insira sua data de nascimento',
               pattern: {
-                value: /^\d{2}\/\d{2}\/\d{4}$/,
+                value: regexPatterns.birthDate,
                 message: 'Insira uma data válida',
               },
             }}
@@ -216,7 +217,7 @@ export function PersonalData() {
             rules={{
               required: 'Insira o seu CPF',
               pattern: {
-                value: /^\d{3}\.\d{3}\.\d{3}-\d{2}$/,
+                value: regexPatterns.cpf,
                 message: 'Insira uma CPF válido',
               },
             }}

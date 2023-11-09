@@ -10,6 +10,7 @@ import { useDispatch, useSelector } from '@/app/hooks';
 import { Input, Button, SecretInput } from '@/components';
 import { signInUser } from '@/features/auth/authActions';
 import { AuthNavigatorRoutesProps } from '@/routes/auth.routes';
+import { regexPatterns } from '@/utils/constants/regexPatterns';
 
 interface SignInFormData {
   email: string;
@@ -52,7 +53,7 @@ export function SignIn() {
             rules={{
               required: 'Insira seu email',
               pattern: {
-                value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i,
+                value: regexPatterns.email,
                 message: 'Insira um e-mail válido',
               },
             }}

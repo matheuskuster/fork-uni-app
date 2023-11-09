@@ -13,6 +13,7 @@ import { BackButton, Button, Input, Space } from '@/components';
 import { addCreditCard } from '@/features/billing/creditCardActions';
 import { PaymentNavigatorRoutesProps } from '@/routes/payment.routes';
 import { mask } from '@/utils/constants/masks';
+import { regexPatterns } from '@/utils/constants/regexPatterns';
 import { validateExpiryDate } from '@/utils/validateExpiryDate';
 
 interface CreditCardFormData {
@@ -233,7 +234,7 @@ export function CreditCard() {
           rules={{
             required: 'Insira o nome do titular',
             pattern: {
-              value: /^[A-Z][a-z]+(?: [A-Z][a-z]+)*\s*$/i,
+              value: regexPatterns.personalFullName,
               message: 'Insira um nome válido',
             },
           }}
@@ -293,7 +294,7 @@ export function CreditCard() {
           rules={{
             required: false,
             pattern: {
-              value: /^[a-zA-Z0-9\s]+$/,
+              value: regexPatterns.generalName,
               message: 'Não é permitido caracteres especiais',
             },
           }}
