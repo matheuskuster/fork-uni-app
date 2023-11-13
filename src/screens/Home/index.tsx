@@ -9,25 +9,31 @@ import { Payment } from './Payment';
 import * as S from './styles';
 
 import { useDispatch, useSelector } from '@/app/hooks';
+import { savePushToken } from '@/features/notifications/notificationsActions';
 import { getStudent } from '@/features/student/studentActions';
+import { usePushNotifications } from '@/hooks/usePushNotifications';
 
 export function Home() {
   const dispatch = useDispatch();
-  const { status } = useSelector((state) => state.student);
+
+  const { expoPushToken } = usePushNotifications();
+  const { isFetched, status } = useSelector((state) => state.student);
 
   useEffect(() => {
-    if (!status) {
-      handleStudentStates();
+    if (!isFetched || !status) {
+      try {
+        dispatch(getStudent()).unwrap();
+      } catch (error) {
+        Alert.alert('Erro ao buscar dados do estudante', `${error}`);
+      }
     }
-  }, [status]);
+  }, [isFetched, status]);
 
-  async function handleStudentStates() {
-    try {
-      await dispatch(getStudent()).unwrap();
-    } catch (error) {
-      Alert.alert('Erro ao buscar estudante', `${error}`);
+  useEffect(() => {
+    if (expoPushToken) {
+      dispatch(savePushToken({ token: expoPushToken.data }));
     }
-  }
+  }, [expoPushToken]);
 
   return (
     <S.Container>

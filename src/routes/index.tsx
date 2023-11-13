@@ -8,6 +8,7 @@ import { EnrollmentRoutes } from './enrollment.routes';
 
 import { useDispatch, useSelector } from '@/app/hooks';
 import { getMe } from '@/features/auth/authActions';
+import { FullscreenLoading } from '@/screens/Loading';
 import { OtpValidation } from '@/screens/OtpValidation';
 import { theme } from '@/theme';
 
@@ -69,5 +70,5 @@ export function Routes() {
     );
   }
 
-  return null;
+  return <FullscreenLoading />;
 }

@@ -56,6 +56,7 @@ interface StudentState {
   isCreating: boolean;
   isFetching: boolean;
   error: string | null;
+  isFetched: boolean;
 }
 
 const initialState: StudentState = {
@@ -76,6 +77,7 @@ const initialState: StudentState = {
   isCreating: false,
   isFetching: false,
   error: null,
+  isFetched: false,
 };
 
 export const studentSlice = createSlice({
@@ -99,6 +101,7 @@ export const studentSlice = createSlice({
       state.isLoadingBoarding = false;
       state.isCreating = false;
       state.error = null;
+      state.isFetched = false;
     },
   },
   extraReducers: (builder) => {
@@ -119,6 +122,7 @@ export const studentSlice = createSlice({
       state.paymentStatus = student.paymentStatus;
 
       state.isCreating = false;
+      state.isFetched = true;
     });
     builder.addCase(createStudent.rejected, (state, action) => {
       state.isCreating = false;
@@ -142,6 +146,7 @@ export const studentSlice = createSlice({
       state.routeId = student.routeId;
 
       state.isFetching = false;
+      state.isFetched = true;
     });
     builder.addCase(getStudent.rejected, (state, action) => {
       state.isFetching = false;

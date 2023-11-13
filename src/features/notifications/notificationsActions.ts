@@ -9,6 +9,11 @@ import {
 
 type GetUnreadNotificationsResponse = Notification[];
 
+type SavePushTokenResponse = {
+  token: string;
+  userId: string;
+};
+
 export const getUnreadNotifications = createAsyncThunk(
   'notifications/getUnreadNotifications',
   async (_, { rejectWithValue }) => {
@@ -36,6 +41,29 @@ export const readNotification = createAsyncThunk(
       );
 
       return response.data as Notification;
+    } catch (error) {
+      const typedError = error as NotificationsServiceError;
+
+      if (typedError?.response?.data?.message) {
+        return rejectWithValue(typedError.response.data.message);
+      } else {
+        return rejectWithValue(typedError.message);
+      }
+    }
+  },
+);
+
+export const savePushToken = createAsyncThunk(
+  'notifications/savePushToken',
+  async (params: { token: string }, { rejectWithValue }) => {
+    try {
+      const response = await notificationsService.post('/v1/tokens', {
+        token: params.token,
+        application: 'uni-app',
+        provider: 'expo',
+      });
+
+      return response.data as SavePushTokenResponse;
     } catch (error) {
       const typedError = error as NotificationsServiceError;
 

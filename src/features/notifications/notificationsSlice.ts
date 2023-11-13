@@ -3,6 +3,7 @@ import { createEntityAdapter, createSlice } from '@reduxjs/toolkit';
 import {
   getUnreadNotifications,
   readNotification,
+  savePushToken,
 } from './notificationsActions';
 
 type Message = {
@@ -22,6 +23,7 @@ type NotificationsState = {
   isFetching: boolean;
   error: string | null;
   count: number;
+  token?: string;
 };
 
 const notificationAdapter = createEntityAdapter<Notification>({
@@ -67,6 +69,13 @@ export const notificationsSlice = createSlice({
       if (state.count < 0) {
         state.count = 0;
       }
+    });
+    builder.addCase(savePushToken.fulfilled, (state, action) => {
+      state.token = action.payload.token;
+    });
+    builder.addCase(savePushToken.rejected, (state, action) => {
+      state.token = undefined;
+      state.error = action.payload as string;
     });
   },
 });
