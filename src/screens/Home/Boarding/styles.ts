@@ -1,7 +1,6 @@
 import styled from 'styled-components/native';
 
 export const BoardingContainer = styled.View`
-  height: 224px;
   justify-content: space-between;
   border-radius: ${(props) => props.theme.radii.lg};
 
@@ -49,6 +48,12 @@ export const DateContainer = styled.View`
 
 export const WeekText = styled.Text`
   color: ${(props) => props.theme.colors.green['500']};
+  font-family: ${(props) => props.theme.fonts.light};
+  font-size: ${(props) => props.theme.fontSizes.lg};
+`;
+
+export const HourText = styled.Text`
+  color: ${(props) => props.theme.colors.gray['50']};
   font-family: ${(props) => props.theme.fonts.light};
   font-size: ${(props) => props.theme.fontSizes.lg};
 `;

@@ -7,6 +7,7 @@ import * as S from './styles';
 import { ConfirmationModal } from '../ConfirmationModal';
 
 import { useSelector } from '@/app/hooks';
+import { Space } from '@/components';
 import { StudentStatusProps } from '@/features/student/studentSlice';
 import { getFormattedNextBoardingDate } from '@/utils/getFormattedNextBoardingDate';
 
@@ -17,7 +18,8 @@ export function Boarding() {
   const { noBoardingId, isLoadingBoarding, status } = useSelector(
     (state) => state.student,
   );
-  const { isSearchingRoute, recurrence } = useSelector((state) => state.route);
+  const { isSearchingRoute, recurrence, goingHour, returningHour } =
+    useSelector((state) => state.route);
   const { isSearchingDriver } = useSelector((state) => state.driver);
 
   const isConfirmed = useMemo(() => !noBoardingId, [noBoardingId]);
@@ -95,10 +97,17 @@ export function Boarding() {
         <S.Unconfirmed>FORA DA ROTA</S.Unconfirmed>
       )}
 
+      <Space size={theme.spacing[1.5]} />
+
       <S.DateContainer>
         <S.WeekText>{formattedDate?.nextWeekDay}</S.WeekText>
         <S.DateText>{formattedDate?.nextDateFormatted}</S.DateText>
+        <S.HourText>
+          {goingHour?.start} - {returningHour?.end}
+        </S.HourText>
       </S.DateContainer>
+
+      <Space size={theme.spacing[2]} />
 
       <S.ButtonBox
         isConfirmed={isConfirmed}
