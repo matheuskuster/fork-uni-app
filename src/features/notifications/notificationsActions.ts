@@ -59,7 +59,7 @@ export const savePushToken = createAsyncThunk(
     try {
       const response = await notificationsService.post('/v1/tokens', {
         token: params.token,
-        application: 'uni-app',
+        application: 'uni',
         provider: 'expo',
       });
 
