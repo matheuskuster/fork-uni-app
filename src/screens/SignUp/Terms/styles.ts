@@ -37,21 +37,41 @@ export const HeaderContent = styled.View`
 export const Body = styled.ScrollView`
   padding-top: ${(props) => props.theme.spacing[6]}px;
 
+  margin-bottom: ${(props) => props.theme.spacing[8]}px;
   padding-left: ${(props) => props.theme.spacing[4]}px;
   padding-right: ${(props) => props.theme.spacing[4]}px;
 `;
 
 export const Content = styled.Text`
-  padding-bottom: ${(props) => props.theme.spacing[12]}px;
+  padding-bottom: ${(props) => props.theme.spacing[3]}px;
 
   color: ${(props) => props.theme.colors.gray[500]};
   font-size: ${(props) => props.theme.fontSizes.sm};
   font-family: ${(props) => props.theme.fonts.regular};
 `;
 
+export const TitleContent = styled(Content)`
+  font-family: ${(props) => props.theme.fonts.bold};
+`;
+
+export const SubContent = styled(Content)`
+  padding-left: ${(props) => props.theme.spacing[4]}px;
+`;
+
+export const SubSubContent = styled(Content)`
+  padding-left: ${(props) => props.theme.spacing[8]}px;
+`;
+
+export const AttContent = styled(Content)`
+  text-align: right;
+`;
+
+export const ContentContainer = styled.View`
+  padding-bottom: ${(props) => props.theme.spacing[4]}px;
+`;
+
 export const Footer = styled.View`
-  padding-top: ${(props) => props.theme.spacing[4]}px;
-  padding-bottom: ${(props) => props.theme.spacing[12]}px;
+  padding-bottom: ${(props) => props.theme.spacing[8]}px;
   padding-left: ${(props) => props.theme.spacing[4]}px;
   padding-right: ${(props) => props.theme.spacing[4]}px;
 `;
