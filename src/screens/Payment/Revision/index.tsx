@@ -37,7 +37,7 @@ export function Revision() {
 
       await dispatch(getStudent());
 
-      navigation.navigate('history');
+      navigation.navigate('confirmation');
     } catch (error) {
       Alert.alert('Erro ao criar assinatura', `${error}`);
     }
