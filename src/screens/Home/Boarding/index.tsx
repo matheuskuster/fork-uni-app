@@ -1,5 +1,9 @@
+import 'dayjs/locale/pt-br';
+import 'dayjs/plugin/isToday';
+
+import dayjs from 'dayjs';
 import { LinearGradient } from 'expo-linear-gradient';
-import { useMemo, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import { createShimmerPlaceholder } from 'react-native-shimmer-placeholder';
 import { useTheme } from 'styled-components';
 
@@ -14,15 +18,16 @@ import { getFormattedNextBoardingDate } from '@/utils/getFormattedNextBoardingDa
 export function Boarding() {
   const theme = useTheme();
   const [isModalVisible, setIsModalVisible] = useState(false);
+  const [isAllowedChangeBoard, setIsAllowedChangeBoard] = useState(false);
+  const [isTripStarted, setisTripStarted] = useState(false);
 
   const { noBoardingId, isLoadingBoarding, status } = useSelector(
     (state) => state.student,
   );
-  const { isSearchingRoute, recurrence, goingHour, returningHour } =
-    useSelector((state) => state.route);
+  const { isSearchingRoute, next, goingHour, returningHour } = useSelector(
+    (state) => state.route,
+  );
   const { isSearchingDriver } = useSelector((state) => state.driver);
-
-  const isConfirmed = useMemo(() => !noBoardingId, [noBoardingId]);
 
   const linearGradientColors = [
     theme.colors.gray[750],
@@ -31,6 +36,23 @@ export function Boarding() {
   ];
 
   const ShimmerPlaceHolder = createShimmerPlaceholder(LinearGradient);
+
+  const isConfirmed = useMemo(() => !noBoardingId, [noBoardingId]);
+
+  const goingDateTime = useMemo(() => {
+    if (goingHour) {
+      const goingHourStart = Number(goingHour.start.split(':')[0]);
+      const goingMinutesStart = Number(goingHour.start.split(':')[1]);
+
+      const goingTime = dayjs(next)
+        .hour(goingHourStart)
+        .minute(goingMinutesStart);
+
+      return goingTime;
+    }
+
+    return null;
+  }, [goingHour, next]);
 
   const isVisible = useMemo(
     () =>
@@ -42,11 +64,42 @@ export function Boarding() {
     [status, isSearchingDriver, isSearchingRoute, isLoadingBoarding],
   );
 
-  const formattedDate = useMemo(() => {
-    if (recurrence) {
-      return getFormattedNextBoardingDate(recurrence.next);
+  const boardingText = useMemo(() => {
+    if (isTripStarted) {
+      return 'VIAGEM EM ANDAMENTO';
     }
-  }, [recurrence]);
+
+    if (isConfirmed) {
+      return 'NÃO VOU EMBARCAR';
+    }
+
+    return 'CONFIRMAR EMBARQUE';
+  }, [isTripStarted, isConfirmed]);
+
+  const formattedDate = useMemo(() => {
+    if (next) {
+      return getFormattedNextBoardingDate(next);
+    }
+  }, [next]);
+
+  useEffect(() => {
+    if (goingDateTime) {
+      // TODO: change dayjs to use UTC-3 and remove the subtract 3 below
+      const now = dayjs().subtract(3, 'hour');
+
+      if (now.isAfter(goingDateTime.subtract(8, 'hour'))) {
+        setIsAllowedChangeBoard(false);
+      } else {
+        setIsAllowedChangeBoard(true);
+      }
+
+      if (now.isAfter(goingDateTime)) {
+        setisTripStarted(true);
+      } else {
+        setisTripStarted(false);
+      }
+    }
+  }, [goingDateTime]);
 
   if (!isVisible) {
     return (
@@ -88,6 +141,8 @@ export function Boarding() {
     <S.BoardingContainer>
       <ConfirmationModal
         visible={isModalVisible}
+        nextFormatted={formattedDate?.nextDateFormatted}
+        goingDateTime={goingDateTime}
         setVisible={setIsModalVisible}
       />
 
@@ -111,11 +166,10 @@ export function Boarding() {
 
       <S.ButtonBox
         isConfirmed={isConfirmed}
+        disabled={!isAllowedChangeBoard}
         onPress={() => setIsModalVisible(true)}
       >
-        <S.ButtonText isConfirmed={isConfirmed}>
-          {isConfirmed ? 'NÃO VOU EMBARCAR' : 'CONFIRMAR EMBARQUE'}
-        </S.ButtonText>
+        <S.ButtonText isConfirmed={isConfirmed}>{boardingText}</S.ButtonText>
       </S.ButtonBox>
     </S.BoardingContainer>
   );

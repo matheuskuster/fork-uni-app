@@ -23,12 +23,12 @@ interface GetRouteByIdResponse {
       start: string;
       end: string;
     } | null;
+    next: Date;
+    nextFormatted: string;
     recurrence: {
       type: string;
       days: string[];
       months: string[];
-      next: Date;
-      nextFormatted: string;
     } | null;
     type: string | null;
   };

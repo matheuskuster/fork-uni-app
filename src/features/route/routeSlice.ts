@@ -18,12 +18,12 @@ interface RouteState {
     start: string;
     end: string;
   } | null;
+  next: Date | null;
+  nextFormatted: string | null;
   recurrence: {
     type: string;
     days: string[];
     months: string[];
-    next: Date;
-    nextFormatted: string;
   } | null;
   type: string | null;
   isSearchingRoute: boolean | null;
@@ -38,6 +38,8 @@ const initialState: RouteState = {
   studentsIds: [],
   goingHour: null,
   returningHour: null,
+  next: null,
+  nextFormatted: null,
   recurrence: null,
   type: null,
   isSearchingRoute: null,
@@ -61,8 +63,11 @@ export const routeSlice = createSlice({
       state.studentsIds = route.studentsIds;
       state.goingHour = route.goingHour;
       state.returningHour = route.returningHour;
+      state.next = route.next;
+      state.nextFormatted = route.nextFormatted;
       state.recurrence = route.recurrence;
       state.type = route.type;
+
       state.isSearchingRoute = false;
     });
     builder.addCase(getRouteById.rejected, (state, action) => {

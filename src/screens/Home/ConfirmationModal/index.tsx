@@ -1,3 +1,5 @@
+import 'dayjs/locale/pt-br';
+import dayjs from 'dayjs';
 import { useMemo } from 'react';
 import { ActivityIndicator, Alert } from 'react-native';
 
@@ -13,18 +15,33 @@ import { WarningCircleIcon } from '@/icons/WarningCircleIcon';
 
 interface ConfirmationModalProps {
   visible: boolean;
+  nextFormatted: string | undefined;
+  goingDateTime: dayjs.Dayjs | null;
   setVisible: (visible: boolean) => void;
 }
 
 export function ConfirmationModal({
   visible,
+  nextFormatted,
+  goingDateTime,
   setVisible,
 }: ConfirmationModalProps) {
   const dispatch = useDispatch();
   const { id, isBoarding, noBoardingId, isLoadingBoarding } = useSelector(
     (state) => state.student,
   );
-  const { recurrence } = useSelector((state) => state.route);
+
+  const confirmationTimeLimit = useMemo(() => {
+    if (goingDateTime) {
+      const dateTimeLimit = goingDateTime.subtract(8, 'hour');
+
+      return `${dateTimeLimit.format('HH:mm')} do dia ${dateTimeLimit.format(
+        'DD/MM',
+      )}`;
+    }
+
+    return null;
+  }, [goingDateTime]);
 
   const isConfirmed = useMemo(() => isBoarding, [isBoarding]);
 
@@ -59,8 +76,8 @@ export function ConfirmationModal({
         <S.Title>Pronto para embarcar?</S.Title>
         <S.Description>
           Você está confirmando sua presença no{' '}
-          <S.HighLight>dia {recurrence?.nextFormatted}</S.HighLight>. Caso mude
-          de ideia poderá alterar até 23:59 do dia anterior a rota.
+          <S.HighLight>dia {nextFormatted}</S.HighLight>. Caso mude de ideia
+          poderá alterar até às {confirmationTimeLimit}.
         </S.Description>
         <S.ButtonOptionsContainer>
           <S.BackButton onPress={() => setVisible(false)}>
@@ -82,11 +99,9 @@ export function ConfirmationModal({
         <WarningCircleIcon />
         <S.Title>Tem certeza?</S.Title>
         <S.Description>
-          Ao fazer isso{' '}
-          <S.HighLight>
-            você sairá da rota do dia {recurrence?.nextFormatted}
-          </S.HighLight>
-          . Caso mude de ideia poderá alterar até 23:59 do dia anterior a rota.
+          Ao fazer isso você <S.HighLight>sairá da rota do </S.HighLight>
+          <S.HighLight>dia {nextFormatted}</S.HighLight>. Caso mude de ideia
+          poderá alterar até às {confirmationTimeLimit}.
         </S.Description>
         <S.ButtonOptionsContainer>
           <S.BackButton onPress={() => setVisible(false)}>

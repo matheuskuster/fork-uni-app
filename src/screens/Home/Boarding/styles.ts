@@ -66,6 +66,7 @@ export const DateText = styled.Text`
 
 interface ButtonConfimationProps {
   isConfirmed: boolean;
+  disabled?: boolean;
 }
 
 export const ButtonBox = styled.TouchableOpacity.attrs({
@@ -78,6 +79,8 @@ export const ButtonBox = styled.TouchableOpacity.attrs({
 
   justify-content: center;
   align-items: center;
+
+  opacity: ${(props) => (props.disabled ? 0.7 : 1)};
 
   border-radius: ${(props) => props.theme.radii.sm};
   background-color: ${(props) =>
