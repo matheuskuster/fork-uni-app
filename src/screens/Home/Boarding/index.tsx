@@ -45,6 +45,7 @@ export function Boarding() {
       const goingMinutesStart = Number(goingHour.start.split(':')[1]);
 
       const goingTime = dayjs(next)
+        .utc()
         .hour(goingHourStart)
         .minute(goingMinutesStart);
 
