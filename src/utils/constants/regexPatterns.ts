@@ -1,7 +1,8 @@
 export const regexPatterns = {
   cpf: /^\d{3}\.\d{3}\.\d{3}-\d{2}$/,
   email: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i,
-  personalFullName: /^[A-ZÀ-Úa-zà-ú~]{3,30}(?: [A-ZÀ-Úa-zà-ú~]{2,30})+$/iu,
+  personalFullName:
+    /^[A-ZÀ-Úa-zà-ú\p{L}]{3,30}(?: [A-ZÀ-Úa-zà-ú\p{L}]{1,30})*?(?: [A-ZÀ-Úa-zà-ú\p{L}]{2,30})+$/iu,
   generalName: /^[A-Z][a-z]+(?: [A-Z][a-z]+)*$/i,
   address: /^[A-ZÀ-Úa-zà-ú~0-9\s,.-]{2,}$/iu,
   birthDate: /^\d{2}\/\d{2}\/\d{4}$/,
