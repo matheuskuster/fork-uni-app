@@ -118,7 +118,7 @@ export function History() {
   }, [value]);
 
   if (isFetching || isLoadingCharges || isLoadingCreditCards || !id) {
-    return <HistoryShimmer isVisible />;
+    return <HistoryShimmer isVisible={false} />;
   }
 
   return (

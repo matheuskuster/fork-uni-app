@@ -1,4 +1,5 @@
 import { useNavigation } from '@react-navigation/native';
+import { useState } from 'react';
 
 import * as S from './styles';
 
@@ -8,6 +9,10 @@ import { PaymentNavigatorRoutesProps } from '@/routes/payment.routes';
 
 export function PaymentConfirmation() {
   const navigation = useNavigation<PaymentNavigatorRoutesProps>();
+
+  const handleSubmit = () => {
+    navigation.navigate('history');
+  };
 
   return (
     <>
@@ -21,7 +26,7 @@ export function PaymentConfirmation() {
       </S.Container>
 
       <S.Footer>
-        <Button onPress={() => navigation.navigate('history')}>Embarcar</Button>
+        <Button onPress={handleSubmit}>Embarcar</Button>
       </S.Footer>
     </>
   );
