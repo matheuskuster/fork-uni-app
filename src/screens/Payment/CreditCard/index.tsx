@@ -75,7 +75,10 @@ export function CreditCard() {
         addCreditCard({
           cvv,
           expirationMonth,
-          expirationYear,
+          expirationYear:
+            expirationYear.length === 2
+              ? `20${expirationYear}`
+              : expirationYear,
           holderName,
           number: numberCard,
           cardName,
