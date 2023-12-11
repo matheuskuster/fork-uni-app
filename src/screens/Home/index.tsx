@@ -10,7 +10,7 @@ import * as S from './styles';
 
 import { useDispatch, useSelector } from '@/app/hooks';
 import { savePushToken } from '@/features/notifications/notificationsActions';
-import { getStudent } from '@/features/student/studentActions';
+import { getNoBoarding, getStudent } from '@/features/student/studentActions';
 import { usePushNotifications } from '@/hooks/usePushNotifications';
 
 export function Home() {
@@ -23,6 +23,7 @@ export function Home() {
     if (!isFetched || !status) {
       try {
         dispatch(getStudent()).unwrap();
+        dispatch(getNoBoarding()).unwrap();
       } catch (error) {
         Alert.alert('Erro ao buscar dados do estudante', `${error}`);
       }
