@@ -118,6 +118,7 @@ export function Driver() {
           </S.DriverTextContainer>
         </S.DriverContainer>
       );
+
     case StudentStatusProps.PENDING_ROUTE_ACCEPTANCE:
       return (
         <S.DriverContainer
@@ -134,6 +135,7 @@ export function Driver() {
           </S.DriverTextContainer>
         </S.DriverContainer>
       );
+
     default:
       return (
         <S.DriverContainer>

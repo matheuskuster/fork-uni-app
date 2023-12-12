@@ -1,3 +1,4 @@
+import { useIsFocused } from '@react-navigation/native';
 import { useEffect } from 'react';
 import { Alert } from 'react-native';
 
@@ -14,21 +15,22 @@ import { getNoBoarding, getStudent } from '@/features/student/studentActions';
 import { usePushNotifications } from '@/hooks/usePushNotifications';
 
 export function Home() {
+  const isFocused = useIsFocused();
   const dispatch = useDispatch();
 
   const { expoPushToken } = usePushNotifications();
   const { isFetched, status } = useSelector((state) => state.student);
 
   useEffect(() => {
-    if (!isFetched || !status) {
+    if (!isFetched || !status || isFocused) {
       try {
-        dispatch(getStudent()).unwrap();
-        dispatch(getNoBoarding()).unwrap();
+        dispatch(getStudent());
+        dispatch(getNoBoarding());
       } catch (error) {
         Alert.alert('Erro ao buscar dados do estudante', `${error}`);
       }
     }
-  }, [isFetched, status]);
+  }, [isFetched, status, isFocused]);
 
   useEffect(() => {
     if (expoPushToken) {
